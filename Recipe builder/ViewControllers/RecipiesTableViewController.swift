@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecipiesTableViewController: UITableViewController {
     
@@ -14,15 +15,11 @@ class RecipiesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-//         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
         
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return foodType?.hits.count ?? 0
     }
     
@@ -42,14 +39,15 @@ class RecipiesTableViewController: UITableViewController {
         cell.describeRecipieLabel.text = foodTypeOne.recipe.source
         cell.caloriesRecipeLabel.text = String(format: "calories: %.0f", foodTypeOne.recipe.calories)
         cell.totalWeightRecipeLabel.text = String(format: "weight: %.0f", foodTypeOne.recipe.totalWeight)
-        cell.recipieImageView.imageFetch(from: foodTypeOne.recipe.image)
-        cell.recipieImageView.layer.cornerRadius = cell.recipieImageView.frame.width / 2
+        
+        DispatchQueue.main.async {
+            let url = URL(string: foodTypeOne.recipe.image)
+            cell.recipieImageView.kf.setImage(with: url)
+            cell.recipieImageView.layer.cornerRadius = cell.recipieImageView.frame.width / 2
+        }
+        //        cell.recipieImageView.imageFetch(from: foodTypeOne.recipe.image)
                 
             }
-//        }
-//    }
-    
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipies", for: indexPath) as! RecipiesViewCell
