@@ -13,10 +13,17 @@ class RecipiesTableViewController: UITableViewController {
     private var foodType: FoodType!
     private let recipiesURL = "https://edamam-recipe-search.p.rapidapi.com/search?q=chicken"
     
+    var indicator = UIActivityIndicatorView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
         
+        activityIndicator()
+        indicator.startAnimating()
+        indicator.hidesWhenStopped = true
+        
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -28,11 +35,22 @@ class RecipiesTableViewController: UITableViewController {
             self.foodType = foodType
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.indicator.stopAnimating()
+                self.tableView.separatorStyle = .singleLine
             }
         }
     }
     
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.style = UIActivityIndicatorView.Style.gray
+        indicator.center = self.view.center
+        tableView.separatorStyle = .none
+        self.view.addSubview(indicator)
+    }
+    
     private func configureCell(cell: RecipiesViewCell, indexPath: IndexPath) {
+        
         
         let foodTypeOne = foodType.hits[indexPath.row]
         cell.nameRecipieLabel.text = foodTypeOne.recipe.label
@@ -42,14 +60,14 @@ class RecipiesTableViewController: UITableViewController {
         
         DispatchQueue.global().async {
             let url = URL(string: foodTypeOne.recipe.image)
-        
-        DispatchQueue.main.async {
-            cell.recipieImageView.kf.setImage(with: url)
-            cell.recipieImageView.layer.cornerRadius = cell.recipieImageView.frame.width / 2
-        }
-        }
-                
+            
+            DispatchQueue.main.async {
+                cell.recipieImageView.kf.setImage(with: url)
+                cell.recipieImageView.layer.cornerRadius = cell.recipieImageView.frame.width / 2
             }
+        }
+        
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipies", for: indexPath) as! RecipiesViewCell
