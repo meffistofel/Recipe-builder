@@ -9,21 +9,24 @@ import UIKit
 import Kingfisher
 
 class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     var recipies: Hit!
     
-    @IBOutlet var pictureRecipeImageView: ImageView!
+    @IBOutlet var pictureRecipeImageView: UIImageView!
     @IBOutlet var nameRecipeLabel: UILabel!
     @IBOutlet var tableView: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "detailRecipies")
         nameRecipeLabel.text = recipies.recipe.label
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             let url = URL(string: self.recipies.recipe.image)
-            self.pictureRecipeImageView.kf.setImage(with: url)
+            
+            DispatchQueue.main.async {
+                self.pictureRecipeImageView.kf.setImage(with: url)
+            }
         }
     }
     

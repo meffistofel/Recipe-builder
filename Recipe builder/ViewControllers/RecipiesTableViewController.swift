@@ -40,12 +40,14 @@ class RecipiesTableViewController: UITableViewController {
         cell.caloriesRecipeLabel.text = String(format: "calories: %.0f", foodTypeOne.recipe.calories)
         cell.totalWeightRecipeLabel.text = String(format: "weight: %.0f", foodTypeOne.recipe.totalWeight)
         
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             let url = URL(string: foodTypeOne.recipe.image)
+        
+        DispatchQueue.main.async {
             cell.recipieImageView.kf.setImage(with: url)
             cell.recipieImageView.layer.cornerRadius = cell.recipieImageView.frame.width / 2
         }
-        //        cell.recipieImageView.imageFetch(from: foodTypeOne.recipe.image)
+        }
                 
             }
     

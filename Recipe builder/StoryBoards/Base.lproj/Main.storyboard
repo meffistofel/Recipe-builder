@@ -483,7 +483,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gbt-Yc-g6q" customClass="ImageView" customModule="Recipe_builder" customModuleProvider="target">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gbt-Yc-g6q">
                                             <rect key="frame" x="5" y="5" width="80" height="80"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="80" id="3KU-zg-wWl"/>
@@ -566,39 +566,53 @@
             </objects>
             <point key="canvasLocation" x="4022" y="-602"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Types of recipes-->
         <scene sceneID="yPD-Ig-7uv">
             <objects>
-                <collectionViewController id="Hdy-NA-MpZ" sceneMemberID="viewController">
+                <collectionViewController id="Hdy-NA-MpZ" customClass="TypeRecipiesViewController" customModule="Recipe_builder" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Ihk-7g-dIq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hKF-Hb-Bkz">
-                            <size key="itemSize" width="266" height="134"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="40" id="hKF-Hb-Bkz">
+                            <size key="itemSize" width="350" height="160"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="40" minY="40" maxX="40" maxY="40"/>
+                            <inset key="sectionInset" minX="0.0" minY="40" maxX="0.0" maxY="40"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="blockRecipies" id="h0i-Hn-C7A">
-                                <rect key="frame" x="54.5" y="40" width="266" height="134"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="blockRecipies" id="h0i-Hn-C7A" customClass="TypeRecipiesViewCell" customModule="Recipe_builder" customModuleProvider="target">
+                                <rect key="frame" x="12.5" y="40" width="350" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uDU-8H-J8M">
-                                    <rect key="frame" x="0.0" y="0.0" width="266" height="134"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="350" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pGD-gQ-aOL">
-                                            <rect key="frame" x="0.0" y="0.0" width="266" height="134"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pGD-gQ-aOL">
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="122"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZh-E5-Qgz">
+                                            <rect key="frame" x="16" y="123" width="321" height="37"/>
+                                            <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="32"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="pGD-gQ-aOL" secondAttribute="trailing" id="3Kt-h6-c77"/>
+                                        <constraint firstAttribute="trailing" secondItem="SZh-E5-Qgz" secondAttribute="trailing" constant="13" id="8VA-mK-muT"/>
                                         <constraint firstItem="pGD-gQ-aOL" firstAttribute="leading" secondItem="uDU-8H-J8M" secondAttribute="leading" id="RHN-QC-iFT"/>
-                                        <constraint firstAttribute="bottom" secondItem="pGD-gQ-aOL" secondAttribute="bottom" id="TZ1-3x-WyF"/>
+                                        <constraint firstAttribute="bottom" secondItem="pGD-gQ-aOL" secondAttribute="bottom" constant="38" id="TZ1-3x-WyF"/>
                                         <constraint firstItem="pGD-gQ-aOL" firstAttribute="top" secondItem="uDU-8H-J8M" secondAttribute="top" id="iWj-eG-L9W"/>
+                                        <constraint firstItem="SZh-E5-Qgz" firstAttribute="top" secondItem="uDU-8H-J8M" secondAttribute="top" constant="123" id="lfy-LV-3nh"/>
+                                        <constraint firstAttribute="bottom" secondItem="SZh-E5-Qgz" secondAttribute="bottom" id="osI-qi-9rW"/>
+                                        <constraint firstItem="SZh-E5-Qgz" firstAttribute="leading" secondItem="uDU-8H-J8M" secondAttribute="leading" constant="16" id="tPX-jF-eR7"/>
                                     </constraints>
                                 </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="imageRecipieImageView" destination="pGD-gQ-aOL" id="lWW-v9-mPx"/>
+                                    <outlet property="nameTypeRecipe" destination="SZh-E5-Qgz" id="RT5-Cg-maF"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -606,7 +620,7 @@
                             <outlet property="delegate" destination="Hdy-NA-MpZ" id="llq-bQ-eVE"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="cq6-5v-0jP"/>
+                    <navigationItem key="navigationItem" title="Types of recipes" id="cq6-5v-0jP"/>
                     <connections>
                         <segue destination="Sl1-bv-G6Q" kind="show" identifier="goRecipies" id="GwX-Dj-6ns"/>
                     </connections>
@@ -623,7 +637,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acg-x1-gIn" customClass="ImageView" customModule="Recipe_builder" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acg-x1-gIn">
                                 <rect key="frame" x="5" y="49" width="365" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="ts1-cX-vxW"/>
@@ -861,7 +875,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bdg-7X-Opj"/>
+        <segue reference="GQb-pc-H8x"/>
         <segue reference="Ijo-yk-IDN"/>
     </inferredMetricsTieBreakers>
     <resources>

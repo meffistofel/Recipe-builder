@@ -9,7 +9,7 @@ import UIKit
 
 class RecipiesViewCell: UITableViewCell {
 
-    @IBOutlet var recipieImageView: ImageView!
+    @IBOutlet var recipieImageView: UIImageView!
     @IBOutlet var nameRecipieLabel: UILabel!
     @IBOutlet var describeRecipieLabel: UILabel!
     @IBOutlet var caloriesRecipeLabel: UILabel!

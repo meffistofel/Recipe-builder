@@ -100,12 +100,6 @@ class AuthorizationViewController: UIViewController {
         passwordTextField.text = nil
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let tabBarVC = segue.destination as! UITabBarController
-        let navigationVC = tabBarVC.viewControllers?.last as! UINavigationController
-        let recipieTableVC = navigationVC.topViewController as! RecipiesTableViewController
-        recipieTableVC.fetchRecipies()
-    }
 }
 
     // MARK: - UIText Field Delegate
@@ -120,7 +114,7 @@ extension AuthorizationViewController: UITextFieldDelegate {
         if textField == loginTextField {
             passwordTextField.becomeFirstResponder()
         } else {
-            
+          performSegue(withIdentifier: "goLogin", sender: nil)
         }
         return true
     }
