@@ -18,7 +18,7 @@ class RecipiesViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.contentView.autoresizingMask = .flexibleHeight
+//        self.contentView.autoresizingMask = .flexibleHeight
         
     }
     

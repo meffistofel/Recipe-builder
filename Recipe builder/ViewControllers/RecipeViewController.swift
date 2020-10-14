@@ -1,17 +1,18 @@
 //
-//  RecipiesTableViewController.swift
+//  RecipeViewController.swift
 //  Recipe builder
 //
-//  Created by Oleksandr Kovalov on 08.10.2020.
+//  Created by Oleksandr Kovalov on 14.10.2020.
 //
 
 import UIKit
 import Kingfisher
 
-class RecipiesTableViewController: UITableViewController {
-    
+class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
     private var foodType: FoodType!
     private let recipiesURL = "https://edamam-recipe-search.p.rapidapi.com/search?q=chicken"
+    @IBOutlet var tableView: UITableView!
     
     var indicator = UIActivityIndicatorView()
 
@@ -21,7 +22,7 @@ class RecipiesTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return foodType?.hits.count ?? 0
     }
     
@@ -53,14 +54,14 @@ class RecipiesTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipies", for: indexPath) as! RecipiesViewCell
         
         configureCell(cell: cell, indexPath: indexPath)
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let recipie = foodType.hits[indexPath.row]
         performSegue(withIdentifier: "goDetailRecipe", sender: recipie)
@@ -73,5 +74,3 @@ class RecipiesTableViewController: UITableViewController {
         }
     }
 }
-
-
