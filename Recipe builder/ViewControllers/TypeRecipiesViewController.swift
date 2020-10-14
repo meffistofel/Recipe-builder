@@ -17,20 +17,7 @@ class TypeRecipiesViewController: UICollectionViewController {
         super.viewDidLoad()
 
     }
-
     
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let recipiesTVC = segue.destination as! RecipeViewController
-        recipiesTVC.fetchRecipies()
-    }
-   
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        performSegue(withIdentifier: "goRecipies", sender: nil)
-    }
-
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -49,6 +36,16 @@ class TypeRecipiesViewController: UICollectionViewController {
         return cell
     }
 
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let recipiesTVC = segue.destination as! RecipeViewController
+        recipiesTVC.fetchRecipies()
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        performSegue(withIdentifier: "goRecipies", sender: nil)
+    }
     // MARK: UICollectionViewDelegate
 
     /*

@@ -12,12 +12,17 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
    
     private var foodType: FoodType!
     private let recipiesURL = "https://edamam-recipe-search.p.rapidapi.com/search?q=chicken"
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var recipiesTableView: UITableView!
+    @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet var loadingLabel: UILabel!
     
-    var indicator = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        recipiesTableView.isHidden = true
+        downloadingRecipiesActivityIndicator.startAnimating()
+        downloadingRecipiesActivityIndicator.hidesWhenStopped = true
+        
     }
     
     // MARK: - Table view data source
@@ -30,7 +35,11 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         AlomofireNetwork.fetchRecipies(url: recipiesURL) { (foodType) in
             self.foodType = foodType
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self.recipiesTableView.reloadData()
+                self.downloadingRecipiesActivityIndicator.stopAnimating()
+                self.loadingLabel.isHidden = true
+                self.recipiesTableView.isHidden = false
+                
             }
         }
     }

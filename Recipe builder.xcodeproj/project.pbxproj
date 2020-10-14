@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		ACB6CC01933DE317F69FA316 /* Pods_Recipe_builder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8441F4F4633ED5E47CDFDA13 /* Pods_Recipe_builder.framework */; };
-		C53EE4D6252F77D300D185E3 /* RecipiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53EE4D5252F77D300D185E3 /* RecipiesTableViewController.swift */; };
 		C53EE4DF252F79C900D185E3 /* RecipiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53EE4DE252F79C900D185E3 /* RecipiesViewCell.swift */; };
 		C544364C252F2C8B00FF08DE /* AlomofireNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C544364B252F2C8B00FF08DE /* AlomofireNetwork.swift */; };
 		C5451D6825378A9A008F7FFB /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5451D6725378A9A008F7FFB /* RecipeViewController.swift */; };
@@ -33,7 +32,6 @@
 		8441F4F4633ED5E47CDFDA13 /* Pods_Recipe_builder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipe_builder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A279E3B0339ED22F80EA58 /* Pods-Recipe builder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipe builder.debug.xcconfig"; path = "Target Support Files/Pods-Recipe builder/Pods-Recipe builder.debug.xcconfig"; sourceTree = "<group>"; };
 		9D117A982F6D59E2A72D1DAB /* Pods-Recipe builder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipe builder.release.xcconfig"; path = "Target Support Files/Pods-Recipe builder/Pods-Recipe builder.release.xcconfig"; sourceTree = "<group>"; };
-		C53EE4D5252F77D300D185E3 /* RecipiesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipiesTableViewController.swift; sourceTree = "<group>"; };
 		C53EE4DE252F79C900D185E3 /* RecipiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipiesViewCell.swift; sourceTree = "<group>"; };
 		C544364B252F2C8B00FF08DE /* AlomofireNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlomofireNetwork.swift; sourceTree = "<group>"; };
 		C5451D6725378A9A008F7FFB /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				C54A016B252E0C1D00DC80C6 /* AuthorizationViewController.swift */,
 				C5455EA5252F52F800457457 /* ProfileViewController.swift */,
 				C5455EA8252F534B00457457 /* EditProfileViewController.swift */,
-				C53EE4D5252F77D300D185E3 /* RecipiesTableViewController.swift */,
 				C5BDBF55253108DD00DB8EDB /* DetailRecipiesViewController.swift */,
 				C5B15B302536290D00982D10 /* TypeRecipiesViewController.swift */,
 				C5451D6725378A9A008F7FFB /* RecipeViewController.swift */,
@@ -298,7 +295,6 @@
 				C54A016C252E0C1D00DC80C6 /* AuthorizationViewController.swift in Sources */,
 				C544364C252F2C8B00FF08DE /* AlomofireNetwork.swift in Sources */,
 				C5B15B34253629C700982D10 /* TypeRecipiesViewCell.swift in Sources */,
-				C53EE4D6252F77D300D185E3 /* RecipiesTableViewController.swift in Sources */,
 				C53EE4DF252F79C900D185E3 /* RecipiesViewCell.swift in Sources */,
 				C5B15B3725362BA800982D10 /* TypeRecipiesModel.swift in Sources */,
 				C5455EAC252F63B100457457 /* Models.swift in Sources */,
