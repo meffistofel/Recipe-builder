@@ -140,9 +140,9 @@
 				C54A016B252E0C1D00DC80C6 /* AuthorizationViewController.swift */,
 				C5455EA5252F52F800457457 /* ProfileViewController.swift */,
 				C5455EA8252F534B00457457 /* EditProfileViewController.swift */,
-				C5BDBF55253108DD00DB8EDB /* DetailRecipiesViewController.swift */,
 				C5B15B302536290D00982D10 /* TypeRecipiesViewController.swift */,
 				C5451D6725378A9A008F7FFB /* RecipeViewController.swift */,
+				C5BDBF55253108DD00DB8EDB /* DetailRecipiesViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

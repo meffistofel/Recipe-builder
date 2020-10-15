@@ -13,7 +13,6 @@ class WelcomeViewController: UIViewController {
     @IBOutlet var goRegisterButton: UIButton!
     @IBOutlet var goLoginButton: UIButton!
     
-    
     var avPlayer: AVPlayer!
     var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
@@ -31,7 +30,6 @@ class WelcomeViewController: UIViewController {
         avPlayerLayer.videoGravity = .resizeAspectFill
         avPlayer.volume = 0
         avPlayer.actionAtItemEnd = .none
-        
         avPlayerLayer.frame = view.layer.bounds
         view.backgroundColor = .clear
         view.layer.insertSublayer(avPlayerLayer, at: 0)

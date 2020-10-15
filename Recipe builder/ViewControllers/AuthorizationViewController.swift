@@ -18,6 +18,7 @@ class AuthorizationViewController: UIViewController {
     @IBOutlet var registerStackView: UIStackView!
     
     @IBOutlet var cornerRadiusRegisterLabel: [UIButton]!
+    
     var hidenloginStackView: Bool!
     var hidenRegisterStackView: Bool!
     
@@ -47,7 +48,6 @@ class AuthorizationViewController: UIViewController {
         avPlayerLayer.frame = view.layer.bounds
         view.backgroundColor = .clear
         view.layer.insertSublayer(avPlayerLayer, at: 0)
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,
@@ -99,7 +99,6 @@ class AuthorizationViewController: UIViewController {
         loginTextField.text = nil
         passwordTextField.text = nil
     }
-    
 }
 
     // MARK: - UIText Field Delegate

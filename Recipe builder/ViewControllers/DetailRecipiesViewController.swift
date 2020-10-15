@@ -20,6 +20,16 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "detailRecipies")
+        fetchDetailRecipies()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        pictureRecipeImageView.layer.cornerRadius = 30
+    }
+    
+    func fetchDetailRecipies() {
+        
         nameRecipeLabel.text = recipies.recipe.label
         DispatchQueue.global().async {
             let url = URL(string: self.recipies.recipe.image)
@@ -27,11 +37,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
                 self.pictureRecipeImageView.kf.setImage(with: url)
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        pictureRecipeImageView.layer.cornerRadius = 30
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

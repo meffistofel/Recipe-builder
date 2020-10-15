@@ -39,7 +39,6 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.downloadingRecipiesActivityIndicator.stopAnimating()
                 self.loadingLabel.isHidden = true
                 self.recipiesTableView.isHidden = false
-                
             }
         }
     }
