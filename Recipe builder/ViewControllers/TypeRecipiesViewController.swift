@@ -28,12 +28,25 @@ class TypeRecipiesViewController: UICollectionViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let recipiesTVC = segue.destination as! RecipeViewController
-        recipiesTVC.fetchRecipies()
+        switch segue.identifier {
+        case "goRecipiesChiken": recipiesTVC.fetchRecipies()
+        case "goRecipiesMeat": recipiesTVC.fetchRecipiesMeat()
+        case "goRecipiesMilk": recipiesTVC.fetchRecipiesMilk()
+        case "goRecipiesFish": recipiesTVC.fetchRecipiesFish()
+        default: break
+        }
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        performSegue(withIdentifier: "goRecipies", sender: nil)
+        let item = typeRecipies[indexPath.item]
+        switch item.nameImageRecipies {
+        case "Chicken": performSegue(withIdentifier: "goRecipiesChiken", sender: nil)
+        case "Meat": performSegue(withIdentifier: "goRecipiesMeat", sender: nil)
+        case "Milk": performSegue(withIdentifier: "goRecipiesMilk", sender: nil)
+        case "Fish": performSegue(withIdentifier: "goRecipiesFish", sender: nil)
+        default: break
+        }
     }
     // MARK: UICollectionViewDelegate
 

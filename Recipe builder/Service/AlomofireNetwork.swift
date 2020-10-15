@@ -18,7 +18,6 @@ class AlomofireNetwork {
         ]
         
         let urlParams = [
-            "q":"meat, fish, chicken, milk",
             "from":"0",
             "to":"100"
         ]

@@ -45,6 +45,9 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailRecipies", for: indexPath)
+        
+        let ingridient = recipies.recipe.ingredients[indexPath.row]
+        cell.textLabel?.text = ingridient.text
         return cell
     }
 }
