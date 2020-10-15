@@ -11,4 +11,10 @@ class TypeRecipiesViewCell: UICollectionViewCell {
     
     @IBOutlet var imageRecipieImageView: UIImageView!
     @IBOutlet var nameTypeRecipe: UILabel!
+    
+    func configure(with recipe: TypeRecipies) {
+        nameTypeRecipe.text = recipe.nameImageRecipies
+        imageRecipieImageView.layer.cornerRadius = 15
+        imageRecipieImageView.image = UIImage(named: recipe.nameImageRecipies)
+    }
 }

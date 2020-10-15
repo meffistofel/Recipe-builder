@@ -12,14 +12,7 @@ class TypeRecipiesViewController: UICollectionViewController {
     
     var typeRecipies = TypeRecipies.getTypeRecipie()
 
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-    
     // MARK: UICollectionViewDataSource
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return typeRecipies.count
     }
@@ -28,11 +21,7 @@ class TypeRecipiesViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "blockRecipies", for: indexPath) as! TypeRecipiesViewCell
         
         let recipe = typeRecipies[indexPath.item]
-        cell.nameTypeRecipe.text = recipe.nameImageRecipies
-        cell.imageRecipieImageView.layer.cornerRadius = 15
-        cell.imageRecipieImageView.image = UIImage(named: recipe.nameImageRecipies)
-
-    
+        cell.configure(with: recipe)
         return cell
     }
 

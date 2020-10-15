@@ -12,10 +12,10 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
    
     private var foodType: FoodType!
     private let recipiesURL = "https://edamam-recipe-search.p.rapidapi.com/search?q=chicken"
+    
     @IBOutlet var recipiesTableView: UITableView!
     @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,30 +43,12 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
     }
-    
-    private func configureCell(cell: RecipiesViewCell, indexPath: IndexPath) {
-        
-        
-        let foodTypeOne = foodType.hits[indexPath.row]
-        cell.nameRecipieLabel.text = foodTypeOne.recipe.label
-        cell.describeRecipieLabel.text = foodTypeOne.recipe.source
-        cell.caloriesRecipeLabel.text = String(format: "calories: %.0f", foodTypeOne.recipe.calories)
-        cell.totalWeightRecipeLabel.text = String(format: "weight: %.0f", foodTypeOne.recipe.totalWeight)
-        
-        DispatchQueue.global().async {
-            let url = URL(string: foodTypeOne.recipe.image)
-            
-            DispatchQueue.main.async {
-                cell.recipieImageView.kf.setImage(with: url)
-                cell.recipieImageView.layer.cornerRadius = cell.recipieImageView.frame.width / 2
-            }
-        }
-    }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipies", for: indexPath) as! RecipiesViewCell
         
-        configureCell(cell: cell, indexPath: indexPath)
+        let foodTypeOne = foodType.hits[indexPath.row]
+        cell.configure(for: foodTypeOne)
         return cell
     }
     

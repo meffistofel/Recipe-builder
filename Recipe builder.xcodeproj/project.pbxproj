@@ -114,10 +114,10 @@
 		C57561B1252DC71600BAC4CE /* Recipe builder */ = {
 			isa = PBXGroup;
 			children = (
+				C57561CB252DC75300BAC4CE /* Sources */,
 				C57561CC252DC78200BAC4CE /* Support */,
 				C57561C9252DC74A00BAC4CE /* ViewControllers */,
 				C57561C8252DC73000BAC4CE /* StoryBoards */,
-				C57561CB252DC75300BAC4CE /* Sources */,
 				C5443654252F361600FF08DE /* Service */,
 				C53EE4DB252F785500D185E3 /* View */,
 			);

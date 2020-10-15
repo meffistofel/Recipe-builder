@@ -23,7 +23,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         nameRecipeLabel.text = recipies.recipe.label
         DispatchQueue.global().async {
             let url = URL(string: self.recipies.recipe.image)
-            
             DispatchQueue.main.async {
                 self.pictureRecipeImageView.kf.setImage(with: url)
             }
