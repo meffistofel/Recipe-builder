@@ -7,28 +7,13 @@
 
 import Foundation
 
-
-
 struct FoodType: Decodable {
     
-    var hits: [Hit]
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case hits
-    }
+    let hits: [Hit]
 }
-
 
 struct Hit: Decodable {
     let recipe: Recipe
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case recipe
-        
-        
-    }
 }
 
 struct Recipe: Decodable {
@@ -38,29 +23,16 @@ struct Recipe: Decodable {
     let calories: Double
     let totalWeight: Double
     let ingredients: [Ingredient]
-    
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case label
-        case image
-        case source
-        case calories
-        case totalWeight
-        case ingredients
-        
-    }
+
 }
 
 struct Ingredient: Decodable {
     let text: String
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case text
-    }
 }
 
-
+//    enum CodingKeys: String, CodingKey {
+//
+//        case text
+//    }
 
 

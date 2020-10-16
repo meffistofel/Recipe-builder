@@ -10,12 +10,11 @@ import Kingfisher
 
 class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
-    private var foodType: FoodType!
-    
     @IBOutlet var recipiesTableView: UITableView!
     @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
     
+    private var foodType: FoodType!
     private var sortFoodType: [Hit] {
         foodType.hits.sorted { ($0.recipe.label < $1.recipe.label) }
     }
@@ -28,7 +27,6 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         recipiesTableView.isHidden = true
         downloadingRecipiesActivityIndicator.startAnimating()
         downloadingRecipiesActivityIndicator.hidesWhenStopped = true
-        
     }
     
     // MARK: - Table view data source

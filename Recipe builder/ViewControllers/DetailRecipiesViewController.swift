@@ -10,16 +10,25 @@ import Kingfisher
 
 class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var recipies: Hit!
     
     @IBOutlet var pictureRecipeImageView: UIImageView!
     @IBOutlet var nameRecipeLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     
+    var recipies: Hit!
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         fetchDetailRecipies()
+        transform(for: pictureRecipeImageView,
+                  nameAnimation: "transform.scale",
+                  duration: 0.7,
+                  fromValue: 0.97,
+                  toValue: 1.00,
+                  autoreverses: true,
+                  repeatCount: Float.greatestFiniteMagnitude)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,7 +38,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func fetchDetailRecipies() {
-        
         
         nameRecipeLabel.text = recipies.recipe.label
         DispatchQueue.global().async {
@@ -49,5 +57,20 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         
         cell.configure(for: recipies, indexPath: indexPath)
         return cell
+    }
+}
+
+extension DetailRecipiesViewController {
+    
+    func transform(for view: UIView, nameAnimation: String, duration: CFTimeInterval, fromValue: Float, toValue: Float, autoreverses: Bool, repeatCount: Float) {
+        
+        let animation = CASpringAnimation(keyPath: nameAnimation)
+        
+        animation.duration = duration
+        animation.fromValue = fromValue
+        animation.toValue = toValue
+        animation.autoreverses = autoreverses
+        animation.repeatCount = repeatCount
+        view.layer.add(animation, forKey: nil)
     }
 }
