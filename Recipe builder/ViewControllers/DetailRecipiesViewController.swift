@@ -16,7 +16,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var tableView: UITableView!
     
     var recipies: Hit!
-    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
