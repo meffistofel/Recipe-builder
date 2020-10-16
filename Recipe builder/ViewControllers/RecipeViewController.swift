@@ -12,18 +12,15 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
    
     private var foodType: FoodType!
     
-    private let recipiesURLChiken = "https://edamam-recipe-search.p.rapidapi.com/search?q=chicken"
-    private let recipiesURLMeat = "https://edamam-recipe-search.p.rapidapi.com/search?q=meat"
-    private let recipiesURLMilk = "https://edamam-recipe-search.p.rapidapi.com/search?q=milk"
-    private let recipiesURLFish = "https://edamam-recipe-search.p.rapidapi.com/search?q=fish"
-    
-    
     @IBOutlet var recipiesTableView: UITableView!
     @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .black
+        downloadingRecipiesActivityIndicator.color = .white
         recipiesTableView.isHidden = true
         downloadingRecipiesActivityIndicator.startAnimating()
         downloadingRecipiesActivityIndicator.hidesWhenStopped = true
@@ -36,10 +33,20 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return foodType?.hits.count ?? 0
     }
     
+    func fetchRecipies(url: String) {
+        AlomofireNetwork.fetchRecipies(url: url) { (foodType) in
+            self.foodType = foodType
+            DispatchQueue.main.async {
+                self.recipiesTableView.reloadData()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipies", for: indexPath) as! RecipiesViewCell
         
-        let foodTypeOne = foodType.hits[indexPath.row]
+        let sorted = foodType.hits.sorted { ($0.recipe.label < $1.recipe.label) }
+        let foodTypeOne = sorted[indexPath.row]
         cell.configure(for: foodTypeOne)
         stopDownload()
         return cell
@@ -60,43 +67,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
 }
 
 extension RecipeViewController {
-    
-    func fetchRecipies() {
-        AlomofireNetwork.fetchRecipies(url: recipiesURLChiken) { (foodType) in
-            self.foodType = foodType
-            DispatchQueue.main.async {
-                self.recipiesTableView.reloadData()
-            }
-        }
-    }
-    
-    func fetchRecipiesMeat() {
-        AlomofireNetwork.fetchRecipies(url: recipiesURLMeat) { (foodType) in
-            self.foodType = foodType
-            DispatchQueue.main.async {
-                self.recipiesTableView.reloadData()
-            }
-        }
-    }
-    
-    func fetchRecipiesMilk() {
-        AlomofireNetwork.fetchRecipies(url: recipiesURLMilk) { (foodType) in
-            self.foodType = foodType
-            DispatchQueue.main.async {
-                self.recipiesTableView.reloadData()
-            }
-        }
-    }
-    
-    func fetchRecipiesFish() {
-        AlomofireNetwork.fetchRecipies(url: recipiesURLFish) { (foodType) in
-            self.foodType = foodType
-            DispatchQueue.main.async {
-                self.recipiesTableView.reloadData()
-            }
-        }
-    }
-    
+
     func stopDownload() {
         self.downloadingRecipiesActivityIndicator.stopAnimating()
         self.loadingLabel.isHidden = true
@@ -105,6 +76,5 @@ extension RecipeViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         90
-    
     }
 }

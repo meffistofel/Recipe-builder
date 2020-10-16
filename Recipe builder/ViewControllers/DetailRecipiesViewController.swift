@@ -18,17 +18,18 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "detailRecipies")
+    
         fetchDetailRecipies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         pictureRecipeImageView.layer.cornerRadius = 30
     }
     
     func fetchDetailRecipies() {
+        
         
         nameRecipeLabel.text = recipies.recipe.label
         DispatchQueue.global().async {
@@ -44,10 +45,9 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "detailRecipies", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "detailRecipies", for: indexPath) as! DetailRecipiesViewCell
         
-        let ingridient = recipies.recipe.ingredients[indexPath.row]
-        cell.textLabel?.text = ingridient.text
+        cell.configure(for: recipies, indexPath: indexPath)
         return cell
     }
 }

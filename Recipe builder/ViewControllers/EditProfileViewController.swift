@@ -26,7 +26,4 @@ class EditProfileViewController: UIViewController {
     }
     */
 
-    @IBAction func cancelEdtitingProfile(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
 }

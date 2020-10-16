@@ -11,6 +11,15 @@ import UIKit
 class TypeRecipiesViewController: UICollectionViewController {
     
     var typeRecipies = TypeRecipies.getTypeRecipie()
+    
+    private let recipiesURLChiken = "https://edamam-recipe-search.p.rapidapi.com/search?q=chicken"
+    private let recipiesURLMeat = "https://edamam-recipe-search.p.rapidapi.com/search?q=meat"
+    private let recipiesURLMilk = "https://edamam-recipe-search.p.rapidapi.com/search?q=milk"
+    private let recipiesURLFish = "https://edamam-recipe-search.p.rapidapi.com/search?q=fish"
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -29,10 +38,10 @@ class TypeRecipiesViewController: UICollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let recipiesTVC = segue.destination as! RecipeViewController
         switch segue.identifier {
-        case "goRecipiesChiken": recipiesTVC.fetchRecipies()
-        case "goRecipiesMeat": recipiesTVC.fetchRecipiesMeat()
-        case "goRecipiesMilk": recipiesTVC.fetchRecipiesMilk()
-        case "goRecipiesFish": recipiesTVC.fetchRecipiesFish()
+        case "goRecipiesChiken": recipiesTVC.fetchRecipies(url: recipiesURLChiken)
+        case "goRecipiesMeat": recipiesTVC.fetchRecipies(url: recipiesURLMeat)
+        case "goRecipiesMilk": recipiesTVC.fetchRecipies(url: recipiesURLMilk)
+        case "goRecipiesFish": recipiesTVC.fetchRecipies(url: recipiesURLFish)
         default: break
         }
         

@@ -26,6 +26,7 @@
 		C5B15B3725362BA800982D10 /* TypeRecipiesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B15B3625362BA800982D10 /* TypeRecipiesModel.swift */; };
 		C5BDBF56253108DD00DB8EDB /* DetailRecipiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BDBF55253108DD00DB8EDB /* DetailRecipiesViewController.swift */; };
 		C5C9C7F225387F540081B541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5C9C7F125387F540081B541 /* Main.storyboard */; };
+		C5C9C7F92538D2440081B541 /* DetailRecipiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9C7F82538D2440081B541 /* DetailRecipiesViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		C5B15B3625362BA800982D10 /* TypeRecipiesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeRecipiesModel.swift; sourceTree = "<group>"; };
 		C5BDBF55253108DD00DB8EDB /* DetailRecipiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipiesViewController.swift; sourceTree = "<group>"; };
 		C5C9C7F125387F540081B541 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C5C9C7F82538D2440081B541 /* DetailRecipiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipiesViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				C53EE4DE252F79C900D185E3 /* RecipiesViewCell.swift */,
 				C5B15B33253629C700982D10 /* TypeRecipiesViewCell.swift */,
+				C5C9C7F82538D2440081B541 /* DetailRecipiesViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				C54A016C252E0C1D00DC80C6 /* AuthorizationViewController.swift in Sources */,
 				C544364C252F2C8B00FF08DE /* AlomofireNetwork.swift in Sources */,
 				C5B15B34253629C700982D10 /* TypeRecipiesViewCell.swift in Sources */,
+				C5C9C7F92538D2440081B541 /* DetailRecipiesViewCell.swift in Sources */,
 				C53EE4DF252F79C900D185E3 /* RecipiesViewCell.swift in Sources */,
 				C5B15B3725362BA800982D10 /* TypeRecipiesModel.swift in Sources */,
 				C5455EAC252F63B100457457 /* Models.swift in Sources */,
