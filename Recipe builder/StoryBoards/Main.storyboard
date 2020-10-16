@@ -665,15 +665,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acg-x1-gIn">
-                                <rect key="frame" x="5" y="5" width="365" height="160"/>
+                                <rect key="frame" x="16" y="5" width="343" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="ts1-cX-vxW"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-Ys-fxa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-Ys-fxa">
                                 <rect key="frame" x="16" y="168" width="343" height="36.5"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="28"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Label">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="28" name="MarkerFelt-Wide"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            <integer key="NSUnderline" value="1"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m31-3D-0YT">
@@ -728,7 +736,7 @@
                         <constraints>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="tGg-Ys-fxa" secondAttribute="trailing" constant="16" id="3dM-LV-4NX"/>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="uMf-Ve-gZK" secondAttribute="trailing" constant="16" id="3vD-B4-2WV"/>
-                            <constraint firstItem="Acg-x1-gIn" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="5" id="ABv-Jy-zLr"/>
+                            <constraint firstItem="Acg-x1-gIn" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="16" id="ABv-Jy-zLr"/>
                             <constraint firstItem="tGg-Ys-fxa" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="16" id="AjM-Ab-YKy"/>
                             <constraint firstItem="m31-3D-0YT" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="117" id="FWk-On-Lfy"/>
                             <constraint firstItem="uMf-Ve-gZK" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="16" id="JX0-mc-c7G"/>
@@ -737,7 +745,7 @@
                             <constraint firstItem="dpd-py-VMR" firstAttribute="bottom" secondItem="uMf-Ve-gZK" secondAttribute="bottom" id="YPB-tg-FI8"/>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="m31-3D-0YT" secondAttribute="trailing" constant="118" id="fg3-SG-SW0"/>
                             <constraint firstItem="Acg-x1-gIn" firstAttribute="top" secondItem="dpd-py-VMR" secondAttribute="top" constant="5" id="m8G-UQ-e0c"/>
-                            <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="Acg-x1-gIn" secondAttribute="trailing" constant="5" id="mOM-h5-VkT"/>
+                            <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="Acg-x1-gIn" secondAttribute="trailing" constant="16" id="mOM-h5-VkT"/>
                             <constraint firstItem="uMf-Ve-gZK" firstAttribute="top" secondItem="m31-3D-0YT" secondAttribute="bottom" constant="5" id="sVr-Ei-LQ0"/>
                         </constraints>
                     </view>

@@ -15,7 +15,11 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var recipiesTableView: UITableView!
     @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
-
+    
+    private var sortFoodType: [Hit] {
+        foodType.hits.sorted { ($0.recipe.label < $1.recipe.label) }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,8 +49,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipies", for: indexPath) as! RecipiesViewCell
         
-        let sorted = foodType.hits.sorted { ($0.recipe.label < $1.recipe.label) }
-        let foodTypeOne = sorted[indexPath.row]
+        let foodTypeOne = sortFoodType[indexPath.row]
         cell.configure(for: foodTypeOne)
         stopDownload()
         return cell
@@ -54,7 +57,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let recipie = foodType.hits[indexPath.row]
+        let recipie = sortFoodType[indexPath.row]
         performSegue(withIdentifier: "goDetailRecipe", sender: recipie)
     }
     
@@ -68,7 +71,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 extension RecipeViewController {
 
-    func stopDownload() {
+    private func stopDownload() {
         self.downloadingRecipiesActivityIndicator.stopAnimating()
         self.loadingLabel.isHidden = true
         self.recipiesTableView.isHidden = false
