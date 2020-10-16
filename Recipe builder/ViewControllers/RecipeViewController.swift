@@ -28,9 +28,8 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private var isFiltering: Bool {
       return searchController.isActive && !isSearchBarEmpty
     }
-    
-    
-    var filteredRecipies: [Hit] = []
+        
+    private var filteredRecipies: [Hit] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +72,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let recipie = sortFoodType[indexPath.row]
+        let recipie = isFiltering ? filteredRecipies[indexPath.row] : sortFoodType[indexPath.row]
         performSegue(withIdentifier: "goDetailRecipe", sender: recipie)
     }
     
@@ -85,6 +84,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func filterContentForSearchText(_ searchText: String) {
+      
       filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
         return recipe.recipe.label.lowercased().contains(searchText.lowercased())
       }
