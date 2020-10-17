@@ -10,12 +10,14 @@ import Kingfisher
 
 class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
+    // MARK: - let, var & IBOutlet
     @IBOutlet var recipiesTableView: UITableView!
     @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
     
-    private var foodType: FoodType!
     let searchController = UISearchController(searchResultsController: nil)
+    
+    private var foodType: FoodType!
     
     private var sortFoodType: [Hit] {
         foodType.hits.sorted { ($0.recipe.label < $1.recipe.label) }
@@ -30,11 +32,10 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
         
     private var filteredRecipies: [Hit] = []
-    
+  
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         view.backgroundColor = .black
         downloadingRecipiesActivityIndicator.color = .white
@@ -49,15 +50,6 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return isFiltering ? filteredRecipies.count : foodType?.hits.count ?? 0
     }
     
-    func fetchRecipies(url: String) {
-        AlomofireNetwork.fetchRecipies(url: url) { (foodType) in
-            self.foodType = foodType
-            DispatchQueue.main.async {
-                self.recipiesTableView.reloadData()
-            }
-        }
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipies", for: indexPath) as! RecipiesViewCell
         
@@ -66,7 +58,6 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         stopDownloadActivityIndicator()
         placeSearchBarOnTableView()
-        
         return cell
     }
     
@@ -83,29 +74,30 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func filterContentForSearchText(_ searchText: String) {
-      
-      filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
-        return recipe.recipe.label.lowercased().contains(searchText.lowercased())
-      }
-        recipiesTableView.reloadData()
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        110
     }
 }
-
+    // MARK: - Extension Fetch Recipe
 extension RecipeViewController {
+    
+    func fetchRecipies(url: String) {
+        AlomofireNetwork.fetchRecipies(url: url) { (foodType) in
+            self.foodType = foodType
+            DispatchQueue.main.async {
+                self.recipiesTableView.reloadData()
+            }
+        }
+    }
 
     private func stopDownloadActivityIndicator() {
         self.downloadingRecipiesActivityIndicator.stopAnimating()
         self.loadingLabel.isHidden = true
         self.recipiesTableView.isHidden = false
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        110
-    }
 }
 
-// MARK: - UISearchBar
+    // MARK: - Extension UISearchBar
 extension RecipeViewController: UISearchResultsUpdating {
     
     func placeSearchBarOnTableView() {
@@ -121,5 +113,11 @@ extension RecipeViewController: UISearchResultsUpdating {
         filterContentForSearchText(searchBar.text!)
     }
     
-    
+    func filterContentForSearchText(_ searchText: String) {
+      
+      filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
+        return recipe.recipe.label.lowercased().contains(searchText.lowercased())
+      }
+        recipiesTableView.reloadData()
+    }
 }
