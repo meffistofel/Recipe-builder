@@ -37,9 +37,10 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         view.backgroundColor = .black
-        downloadingRecipiesActivityIndicator.color = .white
         recipiesTableView.isHidden = true
+        downloadingRecipiesActivityIndicator.color = .white
         downloadingRecipiesActivityIndicator.startAnimating()
         downloadingRecipiesActivityIndicator.hidesWhenStopped = true
     }
@@ -58,6 +59,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         stopDownloadActivityIndicator()
         placeSearchBarOnTableView()
+        
         return cell
     }
     
@@ -85,6 +87,7 @@ extension RecipeViewController {
         AlomofireNetwork.fetchRecipies(url: url) { (foodType) in
             self.foodType = foodType
             DispatchQueue.main.async {
+                self.animateOpacity()
                 self.recipiesTableView.reloadData()
             }
         }
@@ -119,5 +122,20 @@ extension RecipeViewController: UISearchResultsUpdating {
         return recipe.recipe.label.lowercased().contains(searchText.lowercased())
       }
         recipiesTableView.reloadData()
+    }
+}
+
+    // MARK: - Extension Opasity Cell
+
+extension RecipeViewController {
+    
+    func animateOpacity() {
+        
+        searchController.searchBar.layer.opacity = 0
+        recipiesTableView.layer.opacity = 0
+        UIView.animate(withDuration: 0.7) {
+            self.recipiesTableView.layer.opacity = 1
+            self.searchController.searchBar.layer.opacity = 1
+        }
     }
 }

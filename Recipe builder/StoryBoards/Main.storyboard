@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -499,7 +500,7 @@
                                                         <constraint firstAttribute="height" constant="90" id="N7z-rf-jHC"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzk-Sr-Haz">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gzk-Sr-Haz">
                                                     <rect key="frame" x="101" y="6" width="258" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -543,6 +544,7 @@
                                                 <constraint firstItem="kBi-pE-krv" firstAttribute="leading" secondItem="20w-as-gb7" secondAttribute="leading" constant="5" id="9fF-kg-nUP"/>
                                                 <constraint firstAttribute="trailing" secondItem="z59-0V-zej" secondAttribute="trailing" constant="16" id="BC8-iM-KWc"/>
                                                 <constraint firstItem="z59-0V-zej" firstAttribute="leading" secondItem="kBi-pE-krv" secondAttribute="trailing" constant="6" id="SGi-0A-dWd"/>
+                                                <constraint firstItem="z59-0V-zej" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Gzk-Sr-Haz" secondAttribute="bottom" constant="23" id="V3a-T0-RT0"/>
                                                 <constraint firstAttribute="trailing" secondItem="Gzk-Sr-Haz" secondAttribute="trailing" constant="16" id="fUE-9V-ygQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="edT-Sh-K1h" secondAttribute="trailing" constant="16" id="j0R-e2-iT3"/>
                                                 <constraint firstItem="Gzk-Sr-Haz" firstAttribute="top" secondItem="20w-as-gb7" secondAttribute="top" constant="6" id="nJ5-eI-zTv"/>
@@ -602,11 +604,11 @@
                             <size key="itemSize" width="350" height="160"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="40" maxX="0.0" maxY="40"/>
+                            <inset key="sectionInset" minX="0.0" minY="30" maxX="0.0" maxY="30"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="blockRecipies" id="h0i-Hn-C7A" customClass="TypeRecipiesViewCell" customModule="Recipe_builder" customModuleProvider="target">
-                                <rect key="frame" x="12.5" y="40" width="350" height="160"/>
+                                <rect key="frame" x="12.5" y="30" width="350" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uDU-8H-J8M">
                                     <rect key="frame" x="0.0" y="0.0" width="350" height="160"/>
@@ -742,16 +744,20 @@
                             <constraint firstItem="uMf-Ve-gZK" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="16" id="JX0-mc-c7G"/>
                             <constraint firstItem="m31-3D-0YT" firstAttribute="top" secondItem="tGg-Ys-fxa" secondAttribute="bottom" constant="40" id="Lyp-NO-dk4"/>
                             <constraint firstItem="tGg-Ys-fxa" firstAttribute="top" secondItem="Acg-x1-gIn" secondAttribute="bottom" constant="3" id="WwP-Ze-dCm"/>
-                            <constraint firstItem="dpd-py-VMR" firstAttribute="bottom" secondItem="uMf-Ve-gZK" secondAttribute="bottom" id="YPB-tg-FI8"/>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="m31-3D-0YT" secondAttribute="trailing" constant="118" id="fg3-SG-SW0"/>
+                            <constraint firstItem="dpd-py-VMR" firstAttribute="bottom" secondItem="uMf-Ve-gZK" secondAttribute="bottom" id="gYi-s2-4zB"/>
                             <constraint firstItem="Acg-x1-gIn" firstAttribute="top" secondItem="dpd-py-VMR" secondAttribute="top" constant="5" id="m8G-UQ-e0c"/>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="Acg-x1-gIn" secondAttribute="trailing" constant="16" id="mOM-h5-VkT"/>
                             <constraint firstItem="uMf-Ve-gZK" firstAttribute="top" secondItem="m31-3D-0YT" secondAttribute="bottom" constant="5" id="sVr-Ei-LQ0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Z3f-jl-KZz">
-                        <barButtonItem key="rightBarButtonItem" title="Add favourite" id="rGE-Cv-mpJ"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="rGE-Cv-mpJ">
+                            <imageReference key="image" image="suit.heart" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" systemColor="systemRedColor"/>
+                        </barButtonItem>
                     </navigationItem>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="nameRecipeLabel" destination="tGg-Ys-fxa" id="p23-uu-Kyh"/>
                         <outlet property="pictureRecipeImageView" destination="Acg-x1-gIn" id="iz0-ip-yyb"/>
@@ -959,7 +965,23 @@
         <image name="pencil.tip.crop.circle.badge.plus" catalog="system" width="128" height="108"/>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="suit.heart" catalog="system" width="128" height="109"/>
         <image name="Без имени" width="325" height="260"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -45,6 +45,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailRecipies", for: indexPath) as! DetailRecipiesViewCell
         
         cell.configure(for: recipies, indexPath: indexPath)
+        
         return cell
     }
 }
