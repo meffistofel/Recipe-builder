@@ -23,6 +23,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        pictureRecipeImageView.layer.cornerRadius = 20
         seeFullRecipeLabel.layer.cornerRadius = 10
         
         fetchDetailRecipies()
@@ -85,8 +86,8 @@ extension DetailRecipiesViewController {
             let url = URL(string: self.recipies.recipe.image)
             DispatchQueue.main.async {
                 self.pictureRecipeImageView.kf.setImage(with: url)
-                self.сaloriesRecipeLabel.text = String(format: "calories: %.0f", self.recipies.recipe.calories)
-                self.weightRecipeLabel.text = String(format: "calories: %.0f", self.recipies.recipe.totalWeight)
+                self.сaloriesRecipeLabel.text = String(format: "Calories: %.0f", self.recipies.recipe.calories)
+                self.weightRecipeLabel.text = String(format: "Weight: %.0f", self.recipies.recipe.totalWeight)
             }
         }
     }

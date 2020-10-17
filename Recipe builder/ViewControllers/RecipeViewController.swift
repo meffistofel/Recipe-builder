@@ -77,7 +77,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        110
+        95
     }
 }
     // MARK: - Extension Fetch Recipe

@@ -19,11 +19,17 @@ class WebViewController: UIViewController {
         
         print(urlFullRecipe!)
     
-//        let escapedString = urlFullRecipe.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
-//        print(escapedString!)
+//let http = URL(string: "http://some.com/example.html")!
+        
+        
+        
 
-        guard let url = URL(string: urlFullRecipe ?? "") else { return }
-        fullRecipeWebKit.load(URLRequest(url: url))
-        fullRecipeWebKit.allowsBackForwardNavigationGestures = false
+        guard let url = URL(string: urlFullRecipe ?? "https://www.foodnetwork.com/recipes/food-network-kitchen/american-meat-sauce-3361490") else { return }
+        var comps = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        comps.scheme = "https"
+        let https = comps.url!
+        print(https)
+        fullRecipeWebKit.load(URLRequest(url: https))
+        fullRecipeWebKit.allowsBackForwardNavigationGestures = true
     }
 }
