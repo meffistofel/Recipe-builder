@@ -13,13 +13,18 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - let, var & IBOutlet
     @IBOutlet var pictureRecipeImageView: UIImageView!
     @IBOutlet var nameRecipeLabel: UILabel!
+    @IBOutlet var seeFullRecipeLabel: UIButton!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var сaloriesRecipeLabel: UILabel!
+    @IBOutlet var weightRecipeLabel: UILabel!
     
     var recipies: Hit!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        seeFullRecipeLabel.layer.cornerRadius = 10
+        
         fetchDetailRecipies()
         transform(for: pictureRecipeImageView,
                   nameAnimation: "transform.scale",
@@ -28,12 +33,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
                   toValue: 1.00,
                   autoreverses: true,
                   repeatCount: Float.greatestFiniteMagnitude)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        pictureRecipeImageView.layer.cornerRadius = 30
     }
     
     // MARK: - Table view data source
@@ -47,6 +46,16 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         cell.configure(for: recipies, indexPath: indexPath)
         
         return cell
+    }
+    
+    @IBAction func seeFullRecipies(_ sender: UIButton) {
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let url = recipies.recipe.url
+            let webKitVC = segue.destination as! WebViewController
+            webKitVC.urlFullRecipe = url
     }
 }
 
@@ -76,7 +85,13 @@ extension DetailRecipiesViewController {
             let url = URL(string: self.recipies.recipe.image)
             DispatchQueue.main.async {
                 self.pictureRecipeImageView.kf.setImage(with: url)
+                self.сaloriesRecipeLabel.text = String(format: "calories: %.0f", self.recipies.recipe.calories)
+                self.weightRecipeLabel.text = String(format: "calories: %.0f", self.recipies.recipe.totalWeight)
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        52
     }
 }

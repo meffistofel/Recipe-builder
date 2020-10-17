@@ -21,6 +21,7 @@
 		C57561BC252DC71800BAC4CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C57561BB252DC71800BAC4CE /* Assets.xcassets */; };
 		C57561BF252DC71800BAC4CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C57561BD252DC71800BAC4CE /* LaunchScreen.storyboard */; };
 		C57561D3252DCFA100BAC4CE /* Food.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C57561D2252DCFA100BAC4CE /* Food.mp4 */; };
+		C59E78C1253B09FA0087BFDD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59E78C0253B09FA0087BFDD /* WebViewController.swift */; };
 		C5B15B312536290D00982D10 /* TypeRecipiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B15B302536290D00982D10 /* TypeRecipiesViewController.swift */; };
 		C5B15B34253629C700982D10 /* TypeRecipiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B15B33253629C700982D10 /* TypeRecipiesViewCell.swift */; };
 		C5B15B3725362BA800982D10 /* TypeRecipiesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B15B3625362BA800982D10 /* TypeRecipiesModel.swift */; };
@@ -48,6 +49,7 @@
 		C57561BE252DC71800BAC4CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C57561C0252DC71800BAC4CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C57561D2252DCFA100BAC4CE /* Food.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Food.mp4; sourceTree = "<group>"; };
+		C59E78C0253B09FA0087BFDD /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C5B15B302536290D00982D10 /* TypeRecipiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeRecipiesViewController.swift; sourceTree = "<group>"; };
 		C5B15B33253629C700982D10 /* TypeRecipiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeRecipiesViewCell.swift; sourceTree = "<group>"; };
 		C5B15B3625362BA800982D10 /* TypeRecipiesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeRecipiesModel.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				C5B15B302536290D00982D10 /* TypeRecipiesViewController.swift */,
 				C5451D6725378A9A008F7FFB /* RecipeViewController.swift */,
 				C5BDBF55253108DD00DB8EDB /* DetailRecipiesViewController.swift */,
+				C59E78C0253B09FA0087BFDD /* WebViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				C57561B5252DC71600BAC4CE /* SceneDelegate.swift in Sources */,
 				C5455EA9252F534B00457457 /* EditProfileViewController.swift in Sources */,
 				C5451D6825378A9A008F7FFB /* RecipeViewController.swift in Sources */,
+				C59E78C1253B09FA0087BFDD /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,11 +10,11 @@ import AVFoundation
 
 class WelcomeViewController: UIViewController {
     
+    var avPlayer: AVPlayer!
+    var avPlayerLayer: AVPlayerLayer!
     @IBOutlet var goRegisterButton: UIButton!
     @IBOutlet var goLoginButton: UIButton!
     
-    var avPlayer: AVPlayer!
-    var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
     
     override func viewDidLoad() {

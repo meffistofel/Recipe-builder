@@ -9,6 +9,9 @@ import UIKit
 
 class EditProfileViewController: UIViewController {
 
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var surNameTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

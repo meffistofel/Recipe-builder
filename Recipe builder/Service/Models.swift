@@ -23,16 +23,19 @@ struct Recipe: Decodable {
     let calories: Double
     let totalWeight: Double
     let ingredients: [Ingredient]
+    let url: String?
 
 }
 
 struct Ingredient: Decodable {
     let text: String
+    let image: String?
 }
 
 //    enum CodingKeys: String, CodingKey {
 //
 //        case text
+//        case image
 //    }
 
 
