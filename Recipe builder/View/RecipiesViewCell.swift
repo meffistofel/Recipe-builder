@@ -12,8 +12,6 @@ class RecipiesViewCell: UITableViewCell {
     @IBOutlet var recipieImageView: UIImageView!
     @IBOutlet var nameRecipieLabel: UILabel!
     @IBOutlet var describeRecipieLabel: UILabel!
-    @IBOutlet var caloriesRecipeLabel: UILabel!
-    @IBOutlet var totalWeightRecipeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +21,6 @@ class RecipiesViewCell: UITableViewCell {
         
         nameRecipieLabel.text = recipe.recipe.label
         describeRecipieLabel.text = recipe.recipe.source
-//        caloriesRecipeLabel.text = String(format: "calories: %.0f", recipe.recipe.calories)
-//        totalWeightRecipeLabel.text = String(format: "weight: %.0f", recipe.recipe.totalWeight)
         
         DispatchQueue.global().async {
             let url = URL(string: recipe.recipe.image)

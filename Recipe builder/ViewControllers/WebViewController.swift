@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-
+    
     @IBOutlet var fullRecipeWebKit: WKWebView!
     
     var urlFullRecipe: String!
@@ -17,15 +17,13 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(urlFullRecipe!)
+        fetchWebsiteInWebView()
+    }
     
-//let http = URL(string: "http://some.com/example.html")!
-        
-        
-        
-
+    func fetchWebsiteInWebView () {
         guard let url = URL(string: urlFullRecipe ?? "https://www.foodnetwork.com/recipes/food-network-kitchen/american-meat-sauce-3361490") else { return }
         fullRecipeWebKit.load(URLRequest(url: url))
         fullRecipeWebKit.allowsBackForwardNavigationGestures = true
     }
 }
+

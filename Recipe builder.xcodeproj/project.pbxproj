@@ -14,6 +14,7 @@
 		C5455EA6252F52F800457457 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5455EA5252F52F800457457 /* ProfileViewController.swift */; };
 		C5455EA9252F534B00457457 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5455EA8252F534B00457457 /* EditProfileViewController.swift */; };
 		C5455EAC252F63B100457457 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5455EAB252F63B100457457 /* Models.swift */; };
+		C5490658253C9C1300D0DE51 /* IngredientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5490657253C9C1300D0DE51 /* IngredientViewController.swift */; };
 		C54A016C252E0C1D00DC80C6 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54A016B252E0C1D00DC80C6 /* AuthorizationViewController.swift */; };
 		C57561B3252DC71600BAC4CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57561B2252DC71600BAC4CE /* AppDelegate.swift */; };
 		C57561B5252DC71600BAC4CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57561B4252DC71600BAC4CE /* SceneDelegate.swift */; };
@@ -40,6 +41,7 @@
 		C5455EA5252F52F800457457 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C5455EA8252F534B00457457 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		C5455EAB252F63B100457457 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C5490657253C9C1300D0DE51 /* IngredientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientViewController.swift; sourceTree = "<group>"; };
 		C54A016B252E0C1D00DC80C6 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		C57561AF252DC71600BAC4CE /* Recipe builder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recipe builder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C57561B2252DC71600BAC4CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				C5451D6725378A9A008F7FFB /* RecipeViewController.swift */,
 				C5BDBF55253108DD00DB8EDB /* DetailRecipiesViewController.swift */,
 				C59E78C0253B09FA0087BFDD /* WebViewController.swift */,
+				C5490657253C9C1300D0DE51 /* IngredientViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				C57561B7252DC71600BAC4CE /* WelcomeViewController.swift in Sources */,
 				C5B15B312536290D00982D10 /* TypeRecipiesViewController.swift in Sources */,
 				C57561B3252DC71600BAC4CE /* AppDelegate.swift in Sources */,
+				C5490658253C9C1300D0DE51 /* IngredientViewController.swift in Sources */,
 				C57561B5252DC71600BAC4CE /* SceneDelegate.swift in Sources */,
 				C5455EA9252F534B00457457 /* EditProfileViewController.swift in Sources */,
 				C5451D6825378A9A008F7FFB /* RecipeViewController.swift in Sources */,

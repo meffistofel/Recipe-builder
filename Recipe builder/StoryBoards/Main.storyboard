@@ -667,6 +667,53 @@
             </objects>
             <point key="canvasLocation" x="3233" y="-602"/>
         </scene>
+        <!--Ingredient-->
+        <scene sceneID="qVY-bR-Cug">
+            <objects>
+                <viewController id="ALL-Vd-6Tt" customClass="IngredientViewController" customModule="Recipe_builder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ssx-j1-jMN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="v0P-At-hfP">
+                                <rect key="frame" x="52.5" y="139.5" width="270" height="295.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D1Q-sU-oJu">
+                                        <rect key="frame" x="15" y="0.0" width="240" height="240"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="240" id="bmw-FO-MFA"/>
+                                            <constraint firstAttribute="width" constant="240" id="c8F-3d-orc"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpw-sk-Fk9">
+                                        <rect key="frame" x="0.0" y="275" width="270" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="270" id="ZP2-m1-6DN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Sea-79-4Ub"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="v0P-At-hfP" firstAttribute="centerX" secondItem="Ssx-j1-jMN" secondAttribute="centerX" id="WtB-AF-Uo5"/>
+                            <constraint firstItem="v0P-At-hfP" firstAttribute="centerY" secondItem="Ssx-j1-jMN" secondAttribute="centerY" id="dPT-jg-gp5"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Ingredient" id="fTs-bG-xpz"/>
+                    <connections>
+                        <outlet property="imageIngredientImageView" destination="D1Q-sU-oJu" id="xPU-gP-Ffe"/>
+                        <outlet property="nameIngredientLabel" destination="Zpw-sk-Fk9" id="88F-9Y-B1u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T54-MU-b9M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5191" y="-1251"/>
+        </scene>
         <!--Detail Recipies View Controller-->
         <scene sceneID="4rk-2H-ZAm">
             <objects>
@@ -681,7 +728,7 @@
                                     <constraint firstAttribute="height" constant="200" id="ts1-cX-vxW"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uMf-Ve-gZK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uMf-Ve-gZK">
                                 <rect key="frame" x="16" y="300" width="343" height="274"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -827,13 +874,14 @@
                         <outlet property="tableView" destination="uMf-Ve-gZK" id="JIK-Bm-WCo"/>
                         <outlet property="weightRecipeLabel" destination="rfq-EN-TLi" id="XEd-sf-bmc"/>
                         <outlet property="сaloriesRecipeLabel" destination="F9V-Hx-Jdi" id="KEf-ES-dK2"/>
+                        <segue destination="ALL-Vd-6Tt" kind="show" identifier="goIngredient" id="aTK-vB-5Cc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KSw-0P-u7W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4845.6000000000004" y="-602.24887556221893"/>
+            <point key="canvasLocation" x="4850" y="-582"/>
         </scene>
-        <!--Web View Controller-->
+        <!--Ingredient-->
         <scene sceneID="jit-ig-5qs">
             <objects>
                 <viewController id="hqp-vH-aTh" customClass="WebViewController" customModule="Recipe_builder" customModuleProvider="target" sceneMemberID="viewController">
@@ -851,7 +899,7 @@
                             </wkWebView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xfh-nu-mlF"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9q1-gt-QLX" firstAttribute="top" secondItem="xfh-nu-mlF" secondAttribute="top" id="6mr-6z-1xV"/>
                             <constraint firstItem="9q1-gt-QLX" firstAttribute="bottom" secondItem="xfh-nu-mlF" secondAttribute="bottom" id="7cs-bJ-wSa"/>
@@ -859,14 +907,14 @@
                             <constraint firstItem="9q1-gt-QLX" firstAttribute="leading" secondItem="xfh-nu-mlF" secondAttribute="leading" id="hrt-XU-HiA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="okH-sm-CkT"/>
+                    <navigationItem key="navigationItem" title="Ingredient" id="okH-sm-CkT"/>
                     <connections>
                         <outlet property="fullRecipeWebKit" destination="9q1-gt-QLX" id="Bd3-G4-bO3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geS-Ic-DfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5600.8000000000002" y="-602.24887556221893"/>
+            <point key="canvasLocation" x="5622" y="-582"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="on4-WM-bmY">

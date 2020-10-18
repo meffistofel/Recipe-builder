@@ -37,12 +37,9 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        startDownloadActivityIndicator()
         view.backgroundColor = .black
-        recipiesTableView.isHidden = true
-        downloadingRecipiesActivityIndicator.color = .white
-        downloadingRecipiesActivityIndicator.startAnimating()
-        downloadingRecipiesActivityIndicator.hidesWhenStopped = true
+        
     }
     
     // MARK: - Table view data source
@@ -92,6 +89,13 @@ extension RecipeViewController {
             }
         }
     }
+    
+    private func startDownloadActivityIndicator() {
+        recipiesTableView.isHidden = true
+        downloadingRecipiesActivityIndicator.color = .white
+        downloadingRecipiesActivityIndicator.startAnimating()
+        downloadingRecipiesActivityIndicator.hidesWhenStopped = true
+    }
 
     private func stopDownloadActivityIndicator() {
         self.downloadingRecipiesActivityIndicator.stopAnimating()
@@ -117,7 +121,6 @@ extension RecipeViewController: UISearchResultsUpdating {
     }
     
     func filterContentForSearchText(_ searchText: String) {
-      
       filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
         return recipe.recipe.label.lowercased().contains(searchText.lowercased())
       }
@@ -130,7 +133,6 @@ extension RecipeViewController: UISearchResultsUpdating {
 extension RecipeViewController {
     
     func animateOpacity() {
-        
         searchController.searchBar.layer.opacity = 0
         recipiesTableView.layer.opacity = 0
         UIView.animate(withDuration: 0.7) {

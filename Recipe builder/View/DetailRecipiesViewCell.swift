@@ -27,4 +27,8 @@ class DetailRecipiesViewCell: UITableViewCell {
             }
         }
     }
+    
+    func fetchInformation() {
+        
+    }
 }
