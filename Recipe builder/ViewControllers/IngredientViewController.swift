@@ -18,6 +18,13 @@ class IngredientViewController: UIViewController {
         super.viewDidLoad()
 
         fetchInformation()
+        transform(for: imageIngredientImageView,
+                  nameAnimation: "transform.scale",
+                  duration: 0.7,
+                  fromValue: 0.97,
+                  toValue: 1.15,
+                  autoreverses: true,
+                  repeatCount: Float.greatestFiniteMagnitude)
     }
     
     func fetchInformation() {
@@ -32,3 +39,20 @@ class IngredientViewController: UIViewController {
         }
     }
 }
+
+// MARK: - Extension: Animation
+extension IngredientViewController {
+    
+    func transform(for view: UIView, nameAnimation: String, duration: CFTimeInterval, fromValue: Float, toValue: Float, autoreverses: Bool, repeatCount: Float) {
+        
+        let animation = CASpringAnimation(keyPath: nameAnimation)
+        
+        animation.duration = duration
+        animation.fromValue = fromValue
+        animation.toValue = toValue
+        animation.autoreverses = autoreverses
+        animation.repeatCount = repeatCount
+        view.layer.add(animation, forKey: nil)
+    }
+}
+

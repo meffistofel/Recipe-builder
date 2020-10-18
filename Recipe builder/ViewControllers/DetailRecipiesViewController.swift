@@ -17,6 +17,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var nameRecipeLabel: UILabel!
     @IBOutlet var сaloriesRecipeLabel: UILabel!
     @IBOutlet var weightRecipeLabel: UILabel!
+    @IBOutlet var totalTimeLabel: UILabel!
     
     var recipies: Hit!
     
@@ -27,13 +28,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         seeFullRecipeLabel.layer.cornerRadius = 10
         
         fetchDetailRecipies()
-        transform(for: pictureRecipeImageView,
-                  nameAnimation: "transform.scale",
-                  duration: 0.7,
-                  fromValue: 0.97,
-                  toValue: 1.00,
-                  autoreverses: true,
-                  repeatCount: Float.greatestFiniteMagnitude)
     }
     
     // MARK: - Table view data source
@@ -69,33 +63,20 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     }
 }
 
-// MARK: - Extension: Animation
-extension DetailRecipiesViewController {
-    
-    func transform(for view: UIView, nameAnimation: String, duration: CFTimeInterval, fromValue: Float, toValue: Float, autoreverses: Bool, repeatCount: Float) {
-        
-        let animation = CASpringAnimation(keyPath: nameAnimation)
-        
-        animation.duration = duration
-        animation.fromValue = fromValue
-        animation.toValue = toValue
-        animation.autoreverses = autoreverses
-        animation.repeatCount = repeatCount
-        view.layer.add(animation, forKey: nil)
-    }
-}
-
 // MARK: - Extension: Fetch Recipe
 extension DetailRecipiesViewController {
     
     func fetchDetailRecipies() {
-        nameRecipeLabel.text = recipies.recipe.label
+        navigationItem.title = recipies.recipe.label
+//        nameRecipeLabel.text = recipies.recipe.label
+        totalTimeLabel.text = String(format: "Time: %.0f", recipies.recipe.totalTime) + "min"
+        сaloriesRecipeLabel.text = String(format: "Calories: %.0f", recipies.recipe.calories)
+        weightRecipeLabel.text = String(format: "Weight: %.0f", recipies.recipe.totalWeight)
+        
         DispatchQueue.global().async {
             let url = URL(string: self.recipies.recipe.image)
             DispatchQueue.main.async {
                 self.pictureRecipeImageView.kf.setImage(with: url)
-                self.сaloriesRecipeLabel.text = String(format: "Calories: %.0f", self.recipies.recipe.calories)
-                self.weightRecipeLabel.text = String(format: "Weight: %.0f", self.recipies.recipe.totalWeight)
             }
         }
     }

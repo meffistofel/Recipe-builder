@@ -487,7 +487,7 @@
             </objects>
             <point key="canvasLocation" x="3985" y="842"/>
         </scene>
-        <!--Recipe View Controller-->
+        <!--Recipe-->
         <scene sceneID="JyK-zH-eYo">
             <objects>
                 <viewController id="xj0-5o-ann" customClass="RecipeViewController" customModule="Recipe_builder" customModuleProvider="target" sceneMemberID="viewController">
@@ -589,7 +589,7 @@
                             <constraint firstItem="vvK-yx-gsz" firstAttribute="bottom" secondItem="zo1-Vj-JgL" secondAttribute="bottom" id="sCx-LQ-XjS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="LiK-HB-Wd3"/>
+                    <navigationItem key="navigationItem" title="Recipe" id="LiK-HB-Wd3"/>
                     <connections>
                         <outlet property="downloadingRecipiesActivityIndicator" destination="RfK-MN-JbU" id="Ng9-bt-uhq"/>
                         <outlet property="loadingLabel" destination="3dn-Xj-geQ" id="P64-dU-wGU"/>
@@ -601,7 +601,7 @@
             </objects>
             <point key="canvasLocation" x="4120.8000000000002" y="-699.40029985007504"/>
         </scene>
-        <!--Types of recipes-->
+        <!--Recipies-->
         <scene sceneID="yPD-Ig-7uv">
             <objects>
                 <collectionViewController id="Hdy-NA-MpZ" customClass="TypeRecipiesViewController" customModule="Recipe_builder" customModuleProvider="target" sceneMemberID="viewController">
@@ -655,7 +655,7 @@
                             <outlet property="delegate" destination="Hdy-NA-MpZ" id="llq-bQ-eVE"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Types of recipes" id="cq6-5v-0jP"/>
+                    <navigationItem key="navigationItem" title="Recipies" id="cq6-5v-0jP"/>
                     <connections>
                         <segue destination="xj0-5o-ann" kind="show" identifier="goRecipiesChiken" id="QXk-WE-1ka"/>
                         <segue destination="xj0-5o-ann" kind="show" identifier="goRecipiesMeat" id="8G4-Ym-0xj"/>
@@ -675,8 +675,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="v0P-At-hfP">
-                                <rect key="frame" x="52.5" y="139.5" width="270" height="295.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="v0P-At-hfP">
+                                <rect key="frame" x="52.5" y="134.5" width="270" height="305.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D1Q-sU-oJu">
                                         <rect key="frame" x="15" y="0.0" width="240" height="240"/>
@@ -685,8 +685,8 @@
                                             <constraint firstAttribute="width" constant="240" id="c8F-3d-orc"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpw-sk-Fk9">
-                                        <rect key="frame" x="0.0" y="275" width="270" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpw-sk-Fk9">
+                                        <rect key="frame" x="0.0" y="285" width="270" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="270" id="ZP2-m1-6DN"/>
                                         </constraints>
@@ -723,13 +723,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acg-x1-gIn">
-                                <rect key="frame" x="6" y="0.0" width="363" height="200"/>
+                                <rect key="frame" x="6" y="0.0" width="363" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="ts1-cX-vxW"/>
+                                    <constraint firstAttribute="height" constant="250" id="ts1-cX-vxW"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uMf-Ve-gZK">
-                                <rect key="frame" x="16" y="300" width="343" height="274"/>
+                                <rect key="frame" x="16" y="305" width="343" height="269"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -816,29 +816,21 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F9V-Hx-Jdi">
-                                <rect key="frame" x="16" y="206" width="40" height="23"/>
+                                <rect key="frame" x="16" y="256" width="40" height="23"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="17"/>
                                 <color key="textColor" red="0.47399097680000002" green="0.32311075929999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfq-EN-TLi">
-                                <rect key="frame" x="319" y="206" width="40" height="23"/>
+                                <rect key="frame" x="319" y="256" width="40" height="23"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="17"/>
                                 <color key="textColor" red="0.47399097680000002" green="0.32311075929999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-Ys-fxa">
-                                <rect key="frame" x="16" y="251" width="343" height="34"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Label">
-                                        <attributes>
-                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <font key="NSFont" size="26" name="MarkerFelt-Wide"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            <integer key="NSUnderline" value="1"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWF-Wl-Qfu">
+                                <rect key="frame" x="329" y="279" width="28" height="16"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -846,18 +838,17 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="uMf-Ve-gZK" secondAttribute="trailing" constant="16" id="3vD-B4-2WV"/>
-                            <constraint firstItem="tGg-Ys-fxa" firstAttribute="top" secondItem="F9V-Hx-Jdi" secondAttribute="bottom" constant="22" id="4ay-nY-tW9"/>
                             <constraint firstItem="Acg-x1-gIn" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="6" id="ABv-Jy-zLr"/>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="rfq-EN-TLi" secondAttribute="trailing" constant="16" id="CsN-rA-A0o"/>
                             <constraint firstItem="uMf-Ve-gZK" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="16" id="JX0-mc-c7G"/>
-                            <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="tGg-Ys-fxa" secondAttribute="trailing" constant="16" id="LrT-4N-h9S"/>
-                            <constraint firstItem="uMf-Ve-gZK" firstAttribute="top" secondItem="tGg-Ys-fxa" secondAttribute="bottom" constant="15" id="Zlb-my-6yP"/>
                             <constraint firstItem="F9V-Hx-Jdi" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="16" id="apV-6B-Yjw"/>
-                            <constraint firstItem="tGg-Ys-fxa" firstAttribute="leading" secondItem="dpd-py-VMR" secondAttribute="leading" constant="16" id="eB4-aR-07d"/>
+                            <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="xWF-Wl-Qfu" secondAttribute="trailing" constant="18" id="daz-fp-hZE"/>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="bottom" secondItem="uMf-Ve-gZK" secondAttribute="bottom" id="gYi-s2-4zB"/>
                             <constraint firstItem="rfq-EN-TLi" firstAttribute="top" secondItem="Acg-x1-gIn" secondAttribute="bottom" constant="6" id="jOQ-Qd-ydu"/>
                             <constraint firstItem="Acg-x1-gIn" firstAttribute="top" secondItem="dpd-py-VMR" secondAttribute="top" id="m8G-UQ-e0c"/>
                             <constraint firstItem="dpd-py-VMR" firstAttribute="trailing" secondItem="Acg-x1-gIn" secondAttribute="trailing" constant="6" id="mOM-h5-VkT"/>
+                            <constraint firstItem="uMf-Ve-gZK" firstAttribute="top" secondItem="xWF-Wl-Qfu" secondAttribute="bottom" constant="10" id="oVV-Sp-li9"/>
+                            <constraint firstItem="xWF-Wl-Qfu" firstAttribute="top" secondItem="rfq-EN-TLi" secondAttribute="bottom" id="q0T-uE-PSv"/>
                             <constraint firstItem="F9V-Hx-Jdi" firstAttribute="top" secondItem="Acg-x1-gIn" secondAttribute="bottom" constant="6" id="qjW-pb-dXY"/>
                         </constraints>
                     </view>
@@ -868,10 +859,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="nameRecipeLabel" destination="tGg-Ys-fxa" id="p23-uu-Kyh"/>
                         <outlet property="pictureRecipeImageView" destination="Acg-x1-gIn" id="iz0-ip-yyb"/>
                         <outlet property="seeFullRecipeLabel" destination="oeo-Hd-mTD" id="622-Yx-IWY"/>
                         <outlet property="tableView" destination="uMf-Ve-gZK" id="JIK-Bm-WCo"/>
+                        <outlet property="totalTimeLabel" destination="xWF-Wl-Qfu" id="xYJ-7K-gm1"/>
                         <outlet property="weightRecipeLabel" destination="rfq-EN-TLi" id="XEd-sf-bmc"/>
                         <outlet property="сaloriesRecipeLabel" destination="F9V-Hx-Jdi" id="KEf-ES-dK2"/>
                         <segue destination="ALL-Vd-6Tt" kind="show" identifier="goIngredient" id="aTK-vB-5Cc"/>

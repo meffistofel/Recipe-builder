@@ -110,7 +110,7 @@ extension RecipeViewController: UISearchResultsUpdating {
     func placeSearchBarOnTableView() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Recipies"
+        searchController.searchBar.placeholder = "Are you hungry?"
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }

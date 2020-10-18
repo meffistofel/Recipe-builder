@@ -24,7 +24,7 @@ struct Recipe: Decodable {
     let totalWeight: Double
     let ingredients: [Ingredient]
     let url: String?
-
+    let totalTime: Double
 }
 
 struct Ingredient: Decodable {
