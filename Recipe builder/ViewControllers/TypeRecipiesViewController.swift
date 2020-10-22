@@ -12,10 +12,10 @@ class TypeRecipiesViewController: UICollectionViewController {
     
     var typeRecipies = TypeRecipies.getTypeRecipie()
     
-    private let recipiesURLChiken = "https://edamam-recipe-search.p.rapidapi.com/search?q=chicken"
-    private let recipiesURLMeat = "https://edamam-recipe-search.p.rapidapi.com/search?q=meat"
-    private let recipiesURLMilk = "https://edamam-recipe-search.p.rapidapi.com/search?q=milk"
-    private let recipiesURLFish = "https://edamam-recipe-search.p.rapidapi.com/search?q=fish"
+    private let recipiesURLChiken = "https://api.edamam.com/search?q=chicken"
+    private let recipiesURLMeat = "https://api.edamam.com/search?q=meat"
+    private let recipiesURLMilk = "https://api.edamam.com/search?q=milk"
+    private let recipiesURLFish = "https://api.edamam.com/search?q=fish"
     
     override func viewDidLoad() {
         super.viewDidLoad()

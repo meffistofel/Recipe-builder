@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import Firebase
 
 class WelcomeViewController: UIViewController {
     
@@ -16,6 +17,8 @@ class WelcomeViewController: UIViewController {
     @IBOutlet var goLoginButton: UIButton!
     
     var paused: Bool = false
+    
+    let segueIdentifire = "goLoginVC"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,14 @@ class WelcomeViewController: UIViewController {
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,
                                                object: avPlayer.currentItem)
+        
+//        FirebaseAuth.Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+//            if user != nil {
+//                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
+//
+//            }
+//        }
+
     }
     
     // MARK: - Player Method
@@ -66,7 +77,7 @@ class WelcomeViewController: UIViewController {
         case "goRegister":
             authorizationVC.hidenloginStackView = true
             authorizationVC.hidenRegisterStackView = false
-        case "goLogin":
+        case "goLoginVC":
             authorizationVC.hidenRegisterStackView = true
             authorizationVC.hidenloginStackView = false
         default: break

@@ -81,11 +81,11 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
 extension RecipeViewController {
     
     func fetchRecipies(url: String) {
-        AlomofireNetwork.fetchRecipies(url: url) { (foodType) in
-            self.foodType = foodType
+        AlomofireNetwork.fetchRecipies(url: url) { [weak self] (foodType) in
+            self?.foodType = foodType
             DispatchQueue.main.async {
-                self.animateOpacity()
-                self.recipiesTableView.reloadData()
+                self?.animateOpacity()
+                self?.recipiesTableView.reloadData()
             }
         }
     }

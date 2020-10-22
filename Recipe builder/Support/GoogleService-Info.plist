@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>203258124320-j9gnm8hd8pnv3rs8b50k9fdalqd7mst3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.203258124320-j9gnm8hd8pnv3rs8b50k9fdalqd7mst3</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCg8lR3NqTwS-97ta3uHRRWt0sxuiQeKB0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>203258124320</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>www.instagram.com-kovalev-alex92-.Recipe-builder</string>
+	<key>PROJECT_ID</key>
+	<string>build-recipe-ac64f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>build-recipe-ac64f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:203258124320:ios:2d2a8b15547e7a65970445</string>
+	<key>DATABASE_URL</key>
+	<string>https://build-recipe-ac64f.firebaseio.com</string>
+</dict>
+</plist>

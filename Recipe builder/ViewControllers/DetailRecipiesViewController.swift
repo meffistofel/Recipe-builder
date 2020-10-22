@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import Firebase
 
 class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -21,8 +22,17 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     
     var recipies: Hit!
     
+    //firDatabase
+    var user: User!
+    var ref: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+         
+        //firDatabase
+        guard let currentUser = Auth.auth().currentUser else { return  }
+        user = User(user: currentUser)
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
         
         pictureRecipeImageView.layer.cornerRadius = 20
         seeFullRecipeLabel.layer.cornerRadius = 10
@@ -42,9 +52,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         return cell
     }
     
-    @IBAction func seeFullRecipies(_ sender: UIButton) {
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let ingredient = recipies.recipe.ingredients[indexPath.row]
@@ -61,6 +68,13 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
             ingredientVC.ingredient = sender as? Ingredient
         }
     }
+    
+    @IBAction func addTofavouriteRecipies(_ sender: UIBarButtonItem) {
+        let recipe = Recipies(recipe: recipies.recipe, userId: user.uid)
+        let recipeRef = ref.child(recipe.recipe.lowercased())
+        recipeRef.setValue(recipe.convertToDictionary())
+    }
+    
 }
 
 // MARK: - Extension: Fetch Recipe
@@ -68,7 +82,6 @@ extension DetailRecipiesViewController {
     
     func fetchDetailRecipies() {
         navigationItem.title = recipies.recipe.label
-//        nameRecipeLabel.text = recipies.recipe.label
         totalTimeLabel.text = String(format: "Time: %.0f", recipies.recipe.totalTime) + "min"
         сaloriesRecipeLabel.text = String(format: "Calories: %.0f", recipies.recipe.calories)
         weightRecipeLabel.text = String(format: "Weight: %.0f", recipies.recipe.totalWeight)
