@@ -20,7 +20,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var weightRecipeLabel: UILabel!
     @IBOutlet var totalTimeLabel: UILabel!
     
-    var recipies: Hit!
+    var recipies: Recipe!
     
     //firDatabase
     var user: User!
@@ -38,7 +38,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recipies.recipe.ingredients.count
+        recipies.ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,14 +50,14 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let ingredient = recipies.recipe.ingredients[indexPath.row]
+        let ingredient = recipies.ingredients[indexPath.row]
         performSegue(withIdentifier: "goIngredient", sender: ingredient)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "webKit" {
             let webKitVC = segue.destination as! WebViewController
-            let url = recipies.recipe.url
+            let url = recipies.url
             webKitVC.urlFullRecipe = url
         } else {
             let ingredientVC = segue.destination as! IngredientViewController
@@ -66,7 +66,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func addTofavouriteRecipies(_ sender: UIBarButtonItem) {
-        let recipe = Recipies(recipe: recipies.recipe, userId: user.uid)
+        let recipe = Recipies(recipe: recipies, userId: user.uid)
         let recipeRef = ref.child(recipe.recipe.lowercased())
         recipeRef.setValue(recipe.convertToDictionary())
     }
@@ -77,13 +77,13 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
 extension DetailRecipiesViewController {
     
     func fetchDetailRecipies() {
-        navigationItem.title = recipies.recipe.label
-        totalTimeLabel.text = String(format: "Time: %.0f", recipies.recipe.totalTime) + "min"
-        сaloriesRecipeLabel.text = String(format: "Calories: %.0f", recipies.recipe.calories)
-        weightRecipeLabel.text = String(format: "Weight: %.0f", recipies.recipe.totalWeight)
+        navigationItem.title = recipies.label
+        totalTimeLabel.text = String(format: "Time: %.0f", recipies.totalTime) + "min"
+        сaloriesRecipeLabel.text = String(format: "Calories: %.0f", recipies.calories)
+        weightRecipeLabel.text = String(format: "Weight: %.0f", recipies.totalWeight)
         
         DispatchQueue.global().async {
-            let url = URL(string: self.recipies.recipe.image)
+            let url = URL(string: self.recipies.image)
             DispatchQueue.main.async {
                 self.pictureRecipeImageView.kf.setImage(with: url)
             }

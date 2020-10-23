@@ -62,14 +62,14 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let recipie = isFiltering ? filteredRecipies[indexPath.row] : sortFoodType[indexPath.row]
+        let recipie = isFiltering ? filteredRecipies[indexPath.row].recipe : sortFoodType[indexPath.row].recipe
         performSegue(withIdentifier: "goDetailRecipe", sender: recipie)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goDetailRecipe" {
             let descriptionRecipiesVC = segue.destination as! DetailRecipiesViewController
-            descriptionRecipiesVC.recipies = sender as? Hit
+            descriptionRecipiesVC.recipies = sender as? Recipe
         }
     }
     

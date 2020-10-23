@@ -49,8 +49,14 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let recipe = recipiesFromFavourite[indexPath.row]
-        
+        performSegue(withIdentifier: "favouriteDescription", sender: recipe)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let favouriteVC = segue.destination as! DetailRecipiesViewController
+//        favouriteVC.recipies = sender as? Recipies
     }
 }
 

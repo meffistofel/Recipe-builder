@@ -1234,6 +1234,7 @@
                     <navigationItem key="navigationItem" title="Favourite" id="kfx-Yt-eim"/>
                     <connections>
                         <outlet property="tableView" destination="Ap6-eU-2oN" id="IHL-Iv-iKc"/>
+                        <segue destination="oL8-KZ-XK3" kind="show" identifier="favouriteDescription" id="bsT-4d-pOP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5vv-dn-99u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1261,6 +1262,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="bsT-4d-pOP"/>
         <segue reference="8G4-Ym-0xj"/>
         <segue reference="Ijo-yk-IDN"/>
     </inferredMetricsTieBreakers>

@@ -12,9 +12,9 @@ class DetailRecipiesViewCell: UITableViewCell {
     @IBOutlet var ingridientLabel: UILabel!
     @IBOutlet var imageIngredientImageView: UIImageView!
     
-    func configure(for recipe: Hit, indexPath: IndexPath) {
+    func configure(for recipe: Recipe, indexPath: IndexPath) {
         
-        let recipie = recipe.recipe.ingredients[indexPath.row]
+        let recipie = recipe.ingredients[indexPath.row]
         contentView.backgroundColor = .black
         ingridientLabel.text = recipie.text
         ingridientLabel.textColor = .white
@@ -26,9 +26,5 @@ class DetailRecipiesViewCell: UITableViewCell {
                 self.imageIngredientImageView.layer.cornerRadius = self.imageIngredientImageView.frame.width / 2
             }
         }
-    }
-    
-    func fetchInformation() {
-        
     }
 }
