@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="295" height="36"/>
                                         <color key="backgroundColor" red="0.44880562205759178" green="0.3474812684668861" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                                        <state key="normal" title="Я здесь впервые">
+                                        <state key="normal" title="Авторизация через соц.сети">
                                             <color key="titleColor" red="0.99557445529999999" green="1" blue="0.94077143640000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -37,7 +37,7 @@
                                         <rect key="frame" x="0.0" y="56" width="295" height="36"/>
                                         <color key="backgroundColor" red="0.44880562205759178" green="0.3474812684668861" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                                        <state key="normal" title="Я уже здесь был(-а)">
+                                        <state key="normal" title="Авторизация через E-mail">
                                             <color key="titleColor" red="0.97761374170000004" green="1" blue="0.95579409940000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -52,8 +52,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Healthy Communities" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMe-zQ-Djj">
-                                <rect key="frame" x="50.5" y="50" width="274" height="38"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cook Book" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMe-zQ-Djj">
+                                <rect key="frame" x="121" y="50" width="133" height="38"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="29"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>

@@ -47,6 +47,11 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.configure(recipe: favouriteRecipe)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipe = recipiesFromFavourite[indexPath.row]
+        
+    }
 }
 
 extension FavouriteViewController {
@@ -59,7 +64,6 @@ extension FavouriteViewController {
         guard let currentUser = Auth.auth().currentUser else { return  }
         user = User(user: currentUser)
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
-        
     }
 }
 
