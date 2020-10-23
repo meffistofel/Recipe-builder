@@ -29,14 +29,10 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
          
-        //firDatabase
-        guard let currentUser = Auth.auth().currentUser else { return  }
-        user = User(user: currentUser)
-        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
-        
         pictureRecipeImageView.layer.cornerRadius = 20
         seeFullRecipeLabel.layer.cornerRadius = 10
         
+        checkCurrentUser()
         fetchDetailRecipies()
     }
     
@@ -96,5 +92,11 @@ extension DetailRecipiesViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         52
+    }
+    
+    func checkCurrentUser() {
+        guard let currentUser = Auth.auth().currentUser else { return  }
+        user = User(user: currentUser)
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
     }
 }

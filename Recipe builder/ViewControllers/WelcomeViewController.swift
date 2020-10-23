@@ -41,14 +41,6 @@ class WelcomeViewController: UIViewController {
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,
                                                object: avPlayer.currentItem)
-        
-//        FirebaseAuth.Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-//            if user != nil {
-//                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
-//
-//            }
-//        }
-
     }
     
     // MARK: - Player Method

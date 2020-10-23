@@ -19,10 +19,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let currentUser = Auth.auth().currentUser else { return  }
-        user = User(user: currentUser)
-        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
-
+        checkCurrentUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +52,14 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
 extension FavouriteViewController {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         90
+    }
+    
+    //firebase
+    func checkCurrentUser() {
+        guard let currentUser = Auth.auth().currentUser else { return  }
+        user = User(user: currentUser)
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
+        
     }
 }
 
