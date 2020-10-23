@@ -20,6 +20,10 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var weightRecipeLabel: UILabel!
     @IBOutlet var totalTimeLabel: UILabel!
     
+    var checkRecipeType: Bool {
+        recipies == nil
+    }
+    
     var recipies: Recipe!
     
     //firDatabase

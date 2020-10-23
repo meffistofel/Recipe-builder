@@ -56,7 +56,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let favouriteVC = segue.destination as! DetailRecipiesViewController
-//        favouriteVC.recipies = sender as? Recipies
+//        favouriteVC.favouriteRecipe = sender as? Recipies
     }
 }
 

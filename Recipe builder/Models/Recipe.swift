@@ -19,7 +19,9 @@ struct Recipies {
     let totalTime: Double
     let url: String
     let ingredients: [Ingredient]
+    let ingredienta: [String: Any]
     let ref: DatabaseReference?
+    
     
     init(recipe: Recipe, userId: String) {
         self.recipe = recipe.label
@@ -32,6 +34,7 @@ struct Recipies {
         totalTime = recipe.totalTime
         url = recipe.url!
         ingredients = recipe.ingredients
+        ingredienta = [:]
     }
     
     init(snapShot: DataSnapshot) {
@@ -44,31 +47,15 @@ struct Recipies {
         totalWeight = snapShotValue["totalWeight"] as! Double
         totalTime = snapShotValue["totalTime"] as! Double
         url = snapShotValue["url"] as! String
-        ingredients = snapShotValue["ingredients"] as! [Ingredient]
+        ingredients = []
+        ingredienta = snapShotValue["ingredients"] as! [String: Any]
+        print(ingredienta)
         ref = snapShot.ref
+        
     }
     
     func convertToDictionary() -> Any {
-        return ["recipe": recipe, "uerId": userId, "image": image, "describe": describe, "calories": calories, "totalWeight": totalWeight, "totalTime": totalTime, "url": url, "ingredients": [ingredients[0].image, ingredients[1].text]]
-        
-//        "ingredients": ingredients
-        
+        return ["recipe": recipe, "uerId": userId, "image": image, "describe": describe, "calories": calories, "totalWeight": totalWeight, "totalTime": totalTime, "url": url, "ingredients": ["image" : ingredients[1].image ?? "https://i.imgur.com/NBVwpDH.png" , "text": [ingredients[1].text, ingredients[2].text]]]
     }
 }
 
-//struct Ingredients {
-//    let text: String
-//    let image: String
-//
-//    init(ingredient: Ingredient, userId: String) {
-//        text = ingredient.text
-//        image = ingredient.image!
-//    }
-    
-//    init(snapShot: DataSnapshot) {
-//        let snapShotValue = snapShot.value as! [String: Any]
-//        text = snapShotValue["text"] as! String
-//        image = snapShotValue["image"] as! String
-//    }
-//    
-//}
