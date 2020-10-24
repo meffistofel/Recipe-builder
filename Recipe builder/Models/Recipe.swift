@@ -37,7 +37,6 @@ struct Recipies {
         ingredients = recipe.ingredients
         ingredientName = [""]
         ingredientImage = [""]
-        
     }
     
     init(snapShot: DataSnapshot) {
@@ -55,7 +54,6 @@ struct Recipies {
         ingredientName = ingredienta["text"] as! [String]
         ingredientImage = ingredienta["image"] as! [String]
         ref = snapShot.ref
-        
     }
     
     func convertToDictionary() -> Any {

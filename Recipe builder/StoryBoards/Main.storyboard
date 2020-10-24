@@ -889,7 +889,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Z3f-jl-KZz">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="rGE-Cv-mpJ">
-                            <imageReference key="image" image="heart.fill" catalog="system" symbolScale="large"/>
+                            <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
                             <color key="tintColor" red="0.4735201597" green="0.35403037069999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addTofavouriteRecipies:" destination="oL8-KZ-XK3" id="xyJ-1h-CnR"/>
@@ -1271,7 +1271,6 @@
         <image name="1" width="325" height="260"/>
         <image name="34909-200" width="50" height="50"/>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="icons8-банан-100" width="100" height="100"/>
         <image name="icons8-брокколи-100" width="100" height="100"/>
         <image name="icons8-каре-ягненка-100" width="100" height="100"/>

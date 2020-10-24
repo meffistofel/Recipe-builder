@@ -41,7 +41,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         
         checkCurrentUser()
         checkRecipeType ? fetchDetailFavouriteRecipies() : fetchDetailRecipies()
-        like()
+        makeColorHeartFavourite()
     }
     
     // MARK: - Table view data source
@@ -82,17 +82,11 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func addTofavouriteRecipies(_ sender: UIBarButtonItem) {
+        addFavouriteRecipeBarButton.image = UIImage(systemName: "heart.fill")
+        addFavouriteRecipeBarButton.tintColor = .red
         let recipe = Recipies(recipe: recipies, userId: user.uid)
         let recipeRef = ref.child(recipe.recipe.lowercased())
         recipeRef.setValue(recipe.convertToDictionary())
-    }
-    
-    func like() {
-        if checkRecipeType {
-            addFavouriteRecipeBarButton.tintColor = .red
-        } else {
-            addFavouriteRecipeBarButton.tintColor = .white
-        }
     }
 }
 
@@ -129,6 +123,20 @@ extension DetailRecipiesViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         52
+    }
+}
+
+// MARK: - Favourite
+extension DetailRecipiesViewController {
+    
+    func makeColorHeartFavourite() {
+        if checkRecipeType {
+            addFavouriteRecipeBarButton.image = UIImage(systemName: "heart.fill")
+            addFavouriteRecipeBarButton.tintColor = .red
+        } else {
+            addFavouriteRecipeBarButton.image = UIImage(systemName: "heart")
+            addFavouriteRecipeBarButton.tintColor = .white
+        }
     }
     
     func checkCurrentUser() {

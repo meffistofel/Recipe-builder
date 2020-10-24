@@ -57,7 +57,6 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let favouriteVC = segue.destination as! DetailRecipiesViewController
         favouriteVC.favouriteRecipies = sender as? Recipies
-
     }
 }
 
@@ -66,7 +65,6 @@ extension FavouriteViewController {
         90
     }
     
-    //firebase
     func checkCurrentUser() {
         guard let currentUser = Auth.auth().currentUser else { return  }
         user = User(user: currentUser)

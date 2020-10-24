@@ -21,8 +21,9 @@ class IngredientViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         checkTypeIngredient ? fetchDetailFavouriteIngredient() : fetchDetailIngredient()
-//        fetchDetailIngredient()
+        
         transform(for: imageIngredientImageView,
                   nameAnimation: "transform.scale",
                   duration: 0.7,
