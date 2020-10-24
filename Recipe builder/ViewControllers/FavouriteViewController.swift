@@ -19,6 +19,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
         checkCurrentUser()
     }
     
@@ -46,6 +47,22 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         let favouriteRecipe = recipiesFromFavourite[indexPath.row]
         cell.configure(recipe: favouriteRecipe)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let recipe = recipiesFromFavourite[indexPath.row]
+            recipe.ref?.removeValue()
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
