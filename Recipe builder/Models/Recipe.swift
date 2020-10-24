@@ -42,7 +42,6 @@ struct Recipies {
     
     init(snapShot: DataSnapshot) {
         let snapShotValue = snapShot.value as! [String: Any]
-        print(snapShotValue)
         recipe = snapShotValue["recipe"] as! String
         userId = snapShotValue["uerId"] as! String
         image = snapShotValue["image"] as! String

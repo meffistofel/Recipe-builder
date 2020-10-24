@@ -19,11 +19,12 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var weightRecipeLabel: UILabel!
     @IBOutlet var totalTimeLabel: UILabel!
     
-//    var checkRecipeType: Bool {
-//        recipies == nil
-//    }
+    var checkRecipeType: Bool {
+        recipies == nil
+    }
     
     var recipies: Recipe!
+    var favouriteRecipies: Recipies!
     
     //firDatabase
     var user: User!
@@ -36,31 +37,39 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         seeFullRecipeLabel.layer.cornerRadius = 10
         
         checkCurrentUser()
-        fetchDetailRecipies()
+        checkRecipeType ? fetchDetailFavouriteRecipies() : fetchDetailRecipies()
     }
     
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recipies.ingredients.count
+        checkRecipeType ? favouriteRecipies.ingredientName.count : recipies.ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailRecipies", for: indexPath) as! DetailRecipiesViewCell
-        cell.configure(for: recipies, indexPath: indexPath)
+        
+        checkRecipeType ? cell.configureFavourite(for: favouriteRecipies, indexPath: indexPath) : cell.configure(for: recipies, indexPath: indexPath)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if checkRecipeType {
+            let ingredientName = favouriteRecipies.ingredientName[indexPath.row]
+            let ingredientImage = favouriteRecipies.ingredientImage[indexPath.row]
+            let ingredient = Ingredient(text: ingredientName, image: ingredientImage)
+            performSegue(withIdentifier: "goIngredient", sender: ingredient)
+        } else {
         let ingredient = recipies.ingredients[indexPath.row]
         performSegue(withIdentifier: "goIngredient", sender: ingredient)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "webKit" {
             let webKitVC = segue.destination as! WebViewController
-            let url = recipies.url
+            let url = checkRecipeType ? favouriteRecipies.url : recipies.url
             webKitVC.urlFullRecipe = url
         } else {
             let ingredientVC = segue.destination as! IngredientViewController
@@ -87,6 +96,20 @@ extension DetailRecipiesViewController {
         
         DispatchQueue.global().async {
             let url = URL(string: self.recipies.image)
+            DispatchQueue.main.async {
+                self.pictureRecipeImageView.kf.setImage(with: url)
+            }
+        }
+    }
+    
+    func fetchDetailFavouriteRecipies() {
+        navigationItem.title = favouriteRecipies.recipe
+        totalTimeLabel.text = String(format: "Time: %.0f", favouriteRecipies.totalTime) + "min"
+        сaloriesRecipeLabel.text = String(format: "Calories: %.0f", favouriteRecipies.calories)
+        weightRecipeLabel.text = String(format: "Weight: %.0f", favouriteRecipies.totalWeight)
+        
+        DispatchQueue.global().async {
+            let url = URL(string: self.favouriteRecipies.image)
             DispatchQueue.main.async {
                 self.pictureRecipeImageView.kf.setImage(with: url)
             }

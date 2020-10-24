@@ -27,4 +27,23 @@ class DetailRecipiesViewCell: UITableViewCell {
             }
         }
     }
+    
+    func configureFavourite(for ingredient: Recipies, indexPath: IndexPath) {
+         
+        let ingreientName = ingredient.ingredientName[indexPath.row]
+        let ingredientImage = ingredient.ingredientImage[indexPath.row]
+        
+        contentView.backgroundColor = .black
+        ingridientLabel.text = ingreientName
+        ingridientLabel.textColor = .white
+        
+        DispatchQueue.global().async {
+            let url = URL(string: ingredientImage)
+            DispatchQueue.main.async {
+                self.imageIngredientImageView.kf.setImage(with: url)
+                self.imageIngredientImageView.layer.cornerRadius = self.imageIngredientImageView.frame.width / 2
+            }
+        }
+        
+}
 }

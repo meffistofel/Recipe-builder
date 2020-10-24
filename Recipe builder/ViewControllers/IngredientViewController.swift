@@ -12,12 +12,16 @@ class IngredientViewController: UIViewController {
     @IBOutlet var imageIngredientImageView: UIImageView!
     @IBOutlet var nameIngredientLabel: UILabel!
     
+    var checkTypeIngredient: Bool {
+        ingredient == nil
+    }
+    
     var ingredient: Ingredient!
     var favouriteIngredient: Ingredient!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchDetailFavouriteIngredient()
+        checkTypeIngredient ? fetchDetailFavouriteIngredient() : fetchDetailIngredient()
 //        fetchDetailIngredient()
         transform(for: imageIngredientImageView,
                   nameAnimation: "transform.scale",

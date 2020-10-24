@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1234,12 +1234,12 @@
                     <navigationItem key="navigationItem" title="Favourite" id="kfx-Yt-eim"/>
                     <connections>
                         <outlet property="tableView" destination="Ap6-eU-2oN" id="IHL-Iv-iKc"/>
-                        <segue destination="CLw-a7-ZYQ" kind="show" identifier="favouriteDescription" id="Jge-uN-QnP"/>
+                        <segue destination="oL8-KZ-XK3" kind="show" identifier="favouriteDescription" id="x3R-qj-ntu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5vv-dn-99u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5065" y="-1333"/>
+            <point key="canvasLocation" x="5054" y="-1384"/>
         </scene>
         <!--Favourite-->
         <scene sceneID="wYl-i0-5WP">
@@ -1265,7 +1265,7 @@
             <objects>
                 <viewController id="CLw-a7-ZYQ" customClass="DetailFavouriteRecipeViewController" customModule="Recipe_builder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IOh-eX-kSX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HZ5-dz-WvF">
@@ -1275,7 +1275,7 @@
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eN6-31-cjm">
-                                <rect key="frame" x="16" y="275" width="343" height="299"/>
+                                <rect key="frame" x="16" y="275" width="343" height="392"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1407,7 +1407,6 @@
                         <outlet property="totalTimeLabel" destination="9xd-Zo-FTb" id="0gq-s7-KXn"/>
                         <outlet property="weightRecipeLabel" destination="tvC-VZ-ORN" id="lXx-t8-Et2"/>
                         <outlet property="сaloriesRecipeLabel" destination="kNx-Vm-ddc" id="tcW-DX-RX9"/>
-                        <segue destination="ALL-Vd-6Tt" kind="show" identifier="detailFavourite" id="9BT-Ad-Bhl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9V3-4c-Sx4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1416,7 +1415,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9BT-Ad-Bhl"/>
+        <segue reference="x3R-qj-ntu"/>
         <segue reference="8G4-Ym-0xj"/>
         <segue reference="Ijo-yk-IDN"/>
     </inferredMetricsTieBreakers>
