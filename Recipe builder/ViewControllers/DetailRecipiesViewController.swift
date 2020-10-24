@@ -18,10 +18,12 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var сaloriesRecipeLabel: UILabel!
     @IBOutlet var weightRecipeLabel: UILabel!
     @IBOutlet var totalTimeLabel: UILabel!
+    @IBOutlet var addFavouriteRecipeBarButton: UIBarButtonItem!
     
     var checkRecipeType: Bool {
         recipies == nil
     }
+    
     
     var recipies: Recipe!
     var favouriteRecipies: Recipies!
@@ -29,6 +31,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     //firDatabase
     var user: User!
     var ref: DatabaseReference!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         
         checkCurrentUser()
         checkRecipeType ? fetchDetailFavouriteRecipies() : fetchDetailRecipies()
+        like()
     }
     
     // MARK: - Table view data source
@@ -83,6 +87,13 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         recipeRef.setValue(recipe.convertToDictionary())
     }
     
+    func like() {
+        if checkRecipeType {
+            addFavouriteRecipeBarButton.tintColor = .red
+        } else {
+            addFavouriteRecipeBarButton.tintColor = .white
+        }
+    }
 }
 
 // MARK: - Extension: Fetch Recipe
