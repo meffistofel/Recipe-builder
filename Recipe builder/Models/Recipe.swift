@@ -19,7 +19,8 @@ struct Recipies {
     let totalTime: Double
     let url: String
     let ingredients: [Ingredient]
-    let ingredienta: [String: Any]
+    let ingredientName: [String]
+    let ingredientImage: [String]
     let ref: DatabaseReference?
     
     
@@ -34,11 +35,14 @@ struct Recipies {
         totalTime = recipe.totalTime
         url = recipe.url!
         ingredients = recipe.ingredients
-        ingredienta = [:]
+        ingredientName = [""]
+        ingredientImage = [""]
+        
     }
     
     init(snapShot: DataSnapshot) {
         let snapShotValue = snapShot.value as! [String: Any]
+        print(snapShotValue)
         recipe = snapShotValue["recipe"] as! String
         userId = snapShotValue["uerId"] as! String
         image = snapShotValue["image"] as! String
@@ -48,14 +52,16 @@ struct Recipies {
         totalTime = snapShotValue["totalTime"] as! Double
         url = snapShotValue["url"] as! String
         ingredients = []
-        ingredienta = snapShotValue["ingredients"] as! [String: Any]
-        print(ingredienta)
+        let ingredienta = snapShotValue["ingredients"] as! [String: Any]
+        ingredientName = ingredienta["text"] as! [String]
+        ingredientImage = ingredienta["image"] as! [String]
         ref = snapShot.ref
         
     }
     
     func convertToDictionary() -> Any {
-        return ["recipe": recipe, "uerId": userId, "image": image, "describe": describe, "calories": calories, "totalWeight": totalWeight, "totalTime": totalTime, "url": url, "ingredients": ["image" : ingredients[1].image ?? "https://i.imgur.com/NBVwpDH.png" , "text": [ingredients[1].text, ingredients[2].text]]]
+        return ["recipe": recipe, "uerId": userId, "image": image, "describe": describe, "calories": calories, "totalWeight": totalWeight, "totalTime": totalTime, "url": url, "ingredients": ["image" : ingredients.map {$0.image ?? "https://i.imgur.com/NBVwpDH.png"} , "text": ingredients.map{$0.text}]]
     }
 }
 
+    

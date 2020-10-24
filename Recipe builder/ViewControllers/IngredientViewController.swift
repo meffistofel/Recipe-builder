@@ -13,11 +13,12 @@ class IngredientViewController: UIViewController {
     @IBOutlet var nameIngredientLabel: UILabel!
     
     var ingredient: Ingredient!
+    var favouriteIngredient: Ingredient!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        fetchInformation()
+        fetchDetailFavouriteIngredient()
+//        fetchDetailIngredient()
         transform(for: imageIngredientImageView,
                   nameAnimation: "transform.scale",
                   duration: 0.7,
@@ -27,11 +28,23 @@ class IngredientViewController: UIViewController {
                   repeatCount: Float.greatestFiniteMagnitude)
     }
     
-    func fetchInformation() {
+    func fetchDetailIngredient() {
         nameIngredientLabel.text = ingredient.text
         
         DispatchQueue.global().async {
             let url = URL(string: self.ingredient.image ?? "https://i.imgur.com/NBVwpDH.png")
+            DispatchQueue.main.async {
+                self.imageIngredientImageView.kf.setImage(with: url)
+                self.imageIngredientImageView.layer.cornerRadius = self.imageIngredientImageView.frame.width / 2
+            }
+        }
+    }
+    
+    func fetchDetailFavouriteIngredient() {
+        nameIngredientLabel.text = favouriteIngredient.text
+        
+        DispatchQueue.global().async {
+            let url = URL(string: self.favouriteIngredient.image ?? "https://i.imgur.com/NBVwpDH.png")
             DispatchQueue.main.async {
                 self.imageIngredientImageView.kf.setImage(with: url)
                 self.imageIngredientImageView.layer.cornerRadius = self.imageIngredientImageView.frame.width / 2

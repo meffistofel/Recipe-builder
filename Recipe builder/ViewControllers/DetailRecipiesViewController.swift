@@ -15,14 +15,13 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var pictureRecipeImageView: UIImageView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var seeFullRecipeLabel: UIButton!
-    @IBOutlet var nameRecipeLabel: UILabel!
     @IBOutlet var сaloriesRecipeLabel: UILabel!
     @IBOutlet var weightRecipeLabel: UILabel!
     @IBOutlet var totalTimeLabel: UILabel!
     
-    var checkRecipeType: Bool {
-        recipies == nil
-    }
+//    var checkRecipeType: Bool {
+//        recipies == nil
+//    }
     
     var recipies: Recipe!
     

@@ -748,7 +748,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T54-MU-b9M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5370" y="116"/>
+            <point key="canvasLocation" x="5833" y="-877"/>
         </scene>
         <!--Detail Recipies View Controller-->
         <scene sceneID="4rk-2H-ZAm">
@@ -943,7 +943,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geS-Ic-DfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5838" y="-602"/>
+            <point key="canvasLocation" x="6585" y="-538"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="on4-WM-bmY">
@@ -1234,12 +1234,12 @@
                     <navigationItem key="navigationItem" title="Favourite" id="kfx-Yt-eim"/>
                     <connections>
                         <outlet property="tableView" destination="Ap6-eU-2oN" id="IHL-Iv-iKc"/>
-                        <segue destination="CLw-a7-ZYQ" kind="show" identifier="goFavourite" id="Jge-uN-QnP"/>
+                        <segue destination="CLw-a7-ZYQ" kind="show" identifier="favouriteDescription" id="Jge-uN-QnP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5vv-dn-99u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5188" y="-1332.6836581709147"/>
+            <point key="canvasLocation" x="5065" y="-1333"/>
         </scene>
         <!--Favourite-->
         <scene sceneID="wYl-i0-5WP">
@@ -1260,10 +1260,10 @@
             </objects>
             <point key="canvasLocation" x="4248.8000000000002" y="-1332.6836581709147"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail Favourite Recipe View Controller-->
         <scene sceneID="ecf-Ku-iXD">
             <objects>
-                <viewController id="CLw-a7-ZYQ" sceneMemberID="viewController">
+                <viewController id="CLw-a7-ZYQ" customClass="DetailFavouriteRecipeViewController" customModule="Recipe_builder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IOh-eX-kSX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1316,7 +1316,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="detailRecipies" rowHeight="44" id="gA0-m3-gOo" customClass="DetailRecipiesViewCell" customModule="Recipe_builder" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="detailRecipies" rowHeight="44" id="gA0-m3-gOo" customClass="DetailFavouriteTableViewCell" customModule="Recipe_builder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="58" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gA0-m3-gOo" id="GfS-94-EDp">
@@ -1346,8 +1346,16 @@
                                                 <constraint firstItem="Dh1-uZ-GaZ" firstAttribute="top" secondItem="GfS-94-EDp" secondAttribute="top" constant="5" id="VJV-Ze-0fX"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="imageIngredientImageView" destination="2D4-h8-v4b" id="E21-Ek-ALK"/>
+                                            <outlet property="ingridientLabel" destination="Dh1-uZ-GaZ" id="o0r-A8-pZo"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="CLw-a7-ZYQ" id="ItQ-SF-rsG"/>
+                                    <outlet property="delegate" destination="CLw-a7-ZYQ" id="4AM-fZ-oeR"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNx-Vm-ddc">
                                 <rect key="frame" x="16" y="226" width="40" height="23"/>
@@ -1390,18 +1398,25 @@
                         <barButtonItem key="rightBarButtonItem" title="Add" id="Bn0-Xm-YM6">
                             <imageReference key="image" image="suit.heart" catalog="system" symbolScale="large"/>
                             <color key="tintColor" red="0.4735201597" green="0.35403037069999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="addTofavouriteRecipies:" destination="CLw-a7-ZYQ" id="1V4-EQ-dcb"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="pictureRecipeImageView" destination="HZ5-dz-WvF" id="scw-F2-rNo"/>
+                        <outlet property="seeFullRecipeLabel" destination="aIE-SB-SvL" id="nzr-9C-6W9"/>
+                        <outlet property="tableView" destination="eN6-31-cjm" id="nj5-mB-puR"/>
+                        <outlet property="totalTimeLabel" destination="9xd-Zo-FTb" id="0gq-s7-KXn"/>
+                        <outlet property="weightRecipeLabel" destination="tvC-VZ-ORN" id="lXx-t8-Et2"/>
+                        <outlet property="сaloriesRecipeLabel" destination="kNx-Vm-ddc" id="tcW-DX-RX9"/>
+                        <segue destination="ALL-Vd-6Tt" kind="show" identifier="detailFavourite" id="9BT-Ad-Bhl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9V3-4c-Sx4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5956" y="-1333"/>
+            <point key="canvasLocation" x="5834" y="-1578"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="9BT-Ad-Bhl"/>
         <segue reference="8G4-Ym-0xj"/>
         <segue reference="Ijo-yk-IDN"/>
     </inferredMetricsTieBreakers>
