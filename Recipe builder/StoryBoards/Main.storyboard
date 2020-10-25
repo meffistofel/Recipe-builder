@@ -20,24 +20,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="c5L-zk-ksD">
-                                <rect key="frame" x="40" y="535" width="295" height="92"/>
+                                <rect key="frame" x="40" y="570" width="295" height="54"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ljf-QN-h9U">
-                                        <rect key="frame" x="0.0" y="0.0" width="295" height="36"/>
-                                        <color key="backgroundColor" red="0.44880562205759178" green="0.3474812684668861" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                                        <state key="normal" title="Авторизация через соц.сети">
-                                            <color key="titleColor" red="0.99557445529999999" green="1" blue="0.94077143640000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="Qwo-va-HWL" kind="presentation" identifier="goRegister" modalPresentationStyle="fullScreen" id="Yow-GU-dSL"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XM0-jw-RoA">
-                                        <rect key="frame" x="0.0" y="56" width="295" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="54"/>
                                         <color key="backgroundColor" red="0.44880562205759178" green="0.3474812684668861" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                                        <state key="normal" title="Авторизация через E-mail">
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="32"/>
+                                        <state key="normal" title="Вход">
                                             <color key="titleColor" red="0.97761374170000004" green="1" blue="0.95579409940000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -47,7 +36,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добро пожаловать" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nNO-QC-CIw">
-                                <rect key="frame" x="27" y="492" width="321" height="33"/>
+                                <rect key="frame" x="27" y="527" width="321" height="33"/>
                                 <fontDescription key="fontDescription" name="Rockwell-Regular" family="Rockwell" pointSize="33"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -67,7 +56,7 @@
                             <constraint firstItem="c5L-zk-ksD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="byx-JU-Zgr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nNO-QC-CIw" secondAttribute="trailing" constant="27" id="hSq-kF-0Dq"/>
                             <constraint firstItem="c5L-zk-ksD" firstAttribute="top" secondItem="nNO-QC-CIw" secondAttribute="bottom" constant="10" id="iff-y9-ecb"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="c5L-zk-ksD" secondAttribute="bottom" constant="40" id="jS2-JL-eSR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="c5L-zk-ksD" secondAttribute="bottom" constant="43" id="jS2-JL-eSR"/>
                             <constraint firstItem="c5L-zk-ksD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="kNF-ZI-Cav"/>
                             <constraint firstItem="nNO-QC-CIw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="27" id="r0l-Ub-0rO"/>
                             <constraint firstItem="LMe-zQ-Djj" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="y2J-BM-3ff"/>
@@ -75,7 +64,6 @@
                     </view>
                     <connections>
                         <outlet property="goLoginButton" destination="XM0-jw-RoA" id="0Pv-Yl-Me3"/>
-                        <outlet property="goRegisterButton" destination="ljf-QN-h9U" id="MJX-tF-J57"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -418,20 +406,28 @@
                                     <action selector="signOut:" destination="yGi-l0-e1G" eventType="touchUpInside" id="t0b-2S-rdp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Irina Boguta" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQd-Q9-fG7">
-                                <rect key="frame" x="25" y="40" width="325" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name and Surname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRd-pg-ZrA">
+                                <rect key="frame" x="62" y="247" width="251.5" height="40.5"/>
                                 <fontDescription key="fontDescription" name="KohinoorGujarati-Bold" family="Kohinoor Gujarati" pointSize="27"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="rzr-ur-tRj">
+                                <rect key="frame" x="87.5" y="29" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="rzr-ur-tRj" secondAttribute="height" multiplier="1:1" id="akK-9X-4P1"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hVY-xA-2WP"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hVY-xA-2WP" firstAttribute="trailing" secondItem="hQd-Q9-fG7" secondAttribute="trailing" constant="25" id="Eag-cF-kbG"/>
-                            <constraint firstItem="hQd-Q9-fG7" firstAttribute="top" secondItem="hVY-xA-2WP" secondAttribute="top" constant="40" id="PNe-YM-2CJ"/>
-                            <constraint firstItem="hQd-Q9-fG7" firstAttribute="leading" secondItem="hVY-xA-2WP" secondAttribute="leading" constant="25" id="a9t-Hn-5cd"/>
+                            <constraint firstItem="rzr-ur-tRj" firstAttribute="top" secondItem="hVY-xA-2WP" secondAttribute="top" constant="29" id="8eC-fQ-SV9"/>
+                            <constraint firstItem="BRd-pg-ZrA" firstAttribute="top" secondItem="rzr-ur-tRj" secondAttribute="bottom" constant="18" id="V0Y-5a-Xb5"/>
+                            <constraint firstItem="BRd-pg-ZrA" firstAttribute="centerX" secondItem="hVY-xA-2WP" secondAttribute="centerX" id="fer-5j-z6I"/>
                             <constraint firstItem="hVY-xA-2WP" firstAttribute="bottom" secondItem="R7F-xa-D8C" secondAttribute="bottom" constant="16" id="hZn-GA-iBY"/>
+                            <constraint firstItem="rzr-ur-tRj" firstAttribute="width" secondItem="ho2-OV-UmF" secondAttribute="height" multiplier="100:287" id="oZb-Zx-j4s"/>
+                            <constraint firstItem="rzr-ur-tRj" firstAttribute="centerX" secondItem="hVY-xA-2WP" secondAttribute="centerX" id="uaI-Dk-W2O"/>
                             <constraint firstItem="R7F-xa-D8C" firstAttribute="centerX" secondItem="hVY-xA-2WP" secondAttribute="centerX" id="x7W-YH-a0x"/>
                         </constraints>
                     </view>
@@ -440,10 +436,14 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="pencil.tip.crop.circle.badge.plus" catalog="system" id="a7k-Va-qkq">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="xMD-aK-wIQ" kind="show" id="8kH-if-WKa"/>
+                                <segue destination="xMD-aK-wIQ" kind="show" identifier="editProfile" id="8kH-if-WKa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="userImageView" destination="rzr-ur-tRj" id="fkP-T6-Gc3"/>
+                        <outlet property="userNameAndSurnameLabel" destination="BRd-pg-ZrA" id="JMh-4i-DqR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ucZ-qR-Z5r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -457,58 +457,83 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name and Surname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMu-KQ-5Oh">
-                                <rect key="frame" x="16" y="167" width="343" height="40.5"/>
-                                <fontDescription key="fontDescription" name="KohinoorGujarati-Bold" family="Kohinoor Gujarati" pointSize="27"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="bV8-CF-ORk">
-                                <rect key="frame" x="25" y="242.5" width="325" height="89"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="DfZ-kZ-7Ha">
+                                <rect key="frame" x="37.5" y="6" width="300" height="562.5"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="svl-9Y-qZm">
-                                        <rect key="frame" x="0.0" y="0.0" width="325" height="34"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Surname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fTG-Xk-t4F">
-                                        <rect key="frame" x="0.0" y="55" width="325" height="34"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="9Yb-An-gZj">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name ? Surname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMu-KQ-5Oh">
+                                        <rect key="frame" x="0.0" y="279" width="300" height="40.5"/>
+                                        <fontDescription key="fontDescription" name="KohinoorGujarati-Bold" family="Kohinoor Gujarati" pointSize="27"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="bV8-CF-ORk">
+                                        <rect key="frame" x="0.0" y="348.5" width="300" height="89"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="svl-9Y-qZm">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="34"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Surname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fTG-Xk-t4F">
+                                                <rect key="frame" x="0.0" y="55" width="300" height="34"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="qXV-yH-Wsn"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5iI-rM-f0A">
+                                        <rect key="frame" x="0.0" y="466.5" width="300" height="96"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6H-2M-tEt">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="27"/>
+                                                <state key="normal" title="Save">
+                                                    <color key="titleColor" red="0.0" green="0.48840749259999999" blue="0.98300510640000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="signOut:" destination="yGi-l0-e1G" eventType="touchUpInside" id="mhi-A9-rwr"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B54-L8-keV">
+                                                <rect key="frame" x="0.0" y="52" width="300" height="44"/>
+                                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="27"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="signOut:" destination="yGi-l0-e1G" eventType="touchUpInside" id="Ipc-Ou-bd8"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="9Yb-An-gZj">
-                                <rect key="frame" x="122" y="20" width="130" height="130"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dps-75-njF"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="9Yb-An-gZj" firstAttribute="top" secondItem="dps-75-njF" secondAttribute="top" constant="20" id="56G-Cq-6p8"/>
-                            <constraint firstItem="CMu-KQ-5Oh" firstAttribute="leading" secondItem="dps-75-njF" secondAttribute="leading" constant="16" id="FTv-lU-PrB"/>
-                            <constraint firstItem="9Yb-An-gZj" firstAttribute="leading" secondItem="dps-75-njF" secondAttribute="leading" constant="122" id="HGP-Cw-MIx"/>
-                            <constraint firstItem="bV8-CF-ORk" firstAttribute="leading" secondItem="dps-75-njF" secondAttribute="leading" constant="25" id="LAj-Bb-nq2"/>
-                            <constraint firstItem="dps-75-njF" firstAttribute="trailing" secondItem="CMu-KQ-5Oh" secondAttribute="trailing" constant="16" id="WKQ-Rq-7Iq"/>
-                            <constraint firstItem="dps-75-njF" firstAttribute="trailing" secondItem="bV8-CF-ORk" secondAttribute="trailing" constant="25" id="WfM-12-uRp"/>
-                            <constraint firstItem="bV8-CF-ORk" firstAttribute="top" secondItem="CMu-KQ-5Oh" secondAttribute="bottom" constant="35" id="Zkp-dZ-JZu"/>
-                            <constraint firstItem="CMu-KQ-5Oh" firstAttribute="top" secondItem="9Yb-An-gZj" secondAttribute="bottom" constant="17" id="c4g-BP-HjG"/>
-                            <constraint firstItem="dps-75-njF" firstAttribute="trailing" secondItem="9Yb-An-gZj" secondAttribute="trailing" constant="123" id="pRm-IC-Gsj"/>
-                            <constraint firstItem="bV8-CF-ORk" firstAttribute="centerY" secondItem="dps-75-njF" secondAttribute="centerY" id="zbo-wP-YS1"/>
+                            <constraint firstItem="DfZ-kZ-7Ha" firstAttribute="centerY" secondItem="dps-75-njF" secondAttribute="centerY" id="Ny7-e9-9l6"/>
+                            <constraint firstItem="DfZ-kZ-7Ha" firstAttribute="centerX" secondItem="dps-75-njF" secondAttribute="centerX" id="brJ-VB-nRG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RHP-cI-FMG">
@@ -1222,7 +1247,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="W3o-ch-0vu"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ap6-eU-2oN" firstAttribute="bottom" secondItem="W3o-ch-0vu" secondAttribute="bottom" id="Lq2-mq-qyy"/>
                             <constraint firstItem="Ap6-eU-2oN" firstAttribute="leading" secondItem="W3o-ch-0vu" secondAttribute="leading" id="MtH-Jf-G7P"/>
@@ -1234,6 +1259,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Favourite" id="kfx-Yt-eim"/>
                     <connections>
+                        <outlet property="downloadFavouriteActivityIndicator" destination="sR7-ip-Ztc" id="YEo-n3-ZOn"/>
+                        <outlet property="processDownloadLabel" destination="4uL-sk-Kuo" id="Qiy-4P-TWX"/>
                         <outlet property="tableView" destination="Ap6-eU-2oN" id="IHL-Iv-iKc"/>
                         <segue destination="oL8-KZ-XK3" kind="show" identifier="favouriteDescription" id="x3R-qj-ntu"/>
                     </connections>
@@ -1265,11 +1292,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="x3R-qj-ntu"/>
         <segue reference="8G4-Ym-0xj"/>
-        <segue reference="Ijo-yk-IDN"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="1" width="325" height="260"/>
         <image name="34909-200" width="50" height="50"/>
+        <image name="default" width="250" height="250"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="icons8-банан-100" width="100" height="100"/>
         <image name="icons8-брокколи-100" width="100" height="100"/>

@@ -11,6 +11,8 @@ import Firebase
 class FavouriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var downloadFavouriteActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet var processDownloadLabel: UILabel!
     
     var user: User!
     var ref: DatabaseReference!
@@ -21,6 +23,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         checkCurrentUser()
+        startDownloadActivityIndicator()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +40,11 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.isEditing = !tableView.isEditing
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recipiesFromFavourite.count
     }
@@ -46,25 +54,19 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let favouriteRecipe = recipiesFromFavourite[indexPath.row]
         cell.configure(recipe: favouriteRecipe)
+        
+        stopDownloadActivityIndicator()
+        
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let recipe = recipiesFromFavourite[indexPath.row]
             recipe.ref?.removeValue()
-            
         }
     }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
+       
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let recipe = recipiesFromFavourite[indexPath.row]
@@ -87,9 +89,22 @@ extension FavouriteViewController {
         user = User(user: currentUser)
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
     }
+    
+    private func startDownloadActivityIndicator() {
+        tableView.isHidden = true
+            downloadFavouriteActivityIndicator.color = .white
+        downloadFavouriteActivityIndicator.startAnimating()
+        downloadFavouriteActivityIndicator.hidesWhenStopped = true
+    }
+
+    private func stopDownloadActivityIndicator() {
+        downloadFavouriteActivityIndicator.stopAnimating()
+        processDownloadLabel.isHidden = true
+        tableView.isHidden = false
+    }
 }
 
 
-    
+
 
 

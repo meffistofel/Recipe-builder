@@ -11,19 +11,17 @@ import Firebase
 
 class WelcomeViewController: UIViewController {
     
-    var avPlayer: AVPlayer!
-    var avPlayerLayer: AVPlayerLayer!
-    @IBOutlet var goRegisterButton: UIButton!
     @IBOutlet var goLoginButton: UIButton!
     
-    var paused: Bool = false
-    
     let segueIdentifire = "goLoginVC"
+    
+    var avPlayer: AVPlayer!
+    var avPlayerLayer: AVPlayerLayer!
+    var paused: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        goRegisterButton.layer.cornerRadius = 10
         goLoginButton.layer.cornerRadius = 10
         
         let theURL = Bundle.main.url(forResource:"Food", withExtension: "mp4")
@@ -65,17 +63,10 @@ class WelcomeViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let authorizationVC = segue.destination as? AuthorizationViewController else { return }
-        switch segue.identifier {
-        case "goRegister":
-            authorizationVC.hidenloginStackView = true
-            authorizationVC.hidenRegisterStackView = false
-        case "goLoginVC":
             authorizationVC.hidenRegisterStackView = true
             authorizationVC.hidenloginStackView = false
-        default: break
         }
     }
-}
 
 
 
