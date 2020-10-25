@@ -14,6 +14,17 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var downloadFavouriteActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var processDownloadLabel: UILabel!
     
+    //UISearchControllet
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredRecipies = [Recipies]()
+    var isSearchBarEmpty: Bool {
+        searchController.searchBar.text?.isEmpty ?? true
+    }
+    var isFiltering: Bool {
+        searchController.isActive && !isSearchBarEmpty
+    }
+    
+    //FireBase
     var user: User!
     var ref: DatabaseReference!
     var recipiesFromFavourite = [Recipies]()
@@ -22,21 +33,27 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-        checkCurrentUser()
         startDownloadActivityIndicator()
+        checkCurrentUser()
+        placeSearchBarOnTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        ref.observe(.value) { [weak self] (snapshot) in
+        ref.observe(.value) { (snapshot) in
             var recipiesFavourite = [Recipies]()
             for item in snapshot.children {
                 let recipe = Recipies(snapShot: item as! DataSnapshot)
                 recipiesFavourite.append(recipe)
             }
-            self?.recipiesFromFavourite = recipiesFavourite
-            self?.tableView.reloadData()
+            if self.isFiltering {
+                self.filteredRecipies = recipiesFavourite
+                self.tableView.reloadData()
+            } else {
+                self.recipiesFromFavourite = recipiesFavourite
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -46,13 +63,13 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recipiesFromFavourite.count
+        isFiltering ? filteredRecipies.count : recipiesFromFavourite.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favourite", for: indexPath) as! FavouriteTableViewCell
         
-        let favouriteRecipe = recipiesFromFavourite[indexPath.row]
+        let favouriteRecipe = isFiltering ? filteredRecipies[indexPath.row] : recipiesFromFavourite[indexPath.row]
         cell.configure(recipe: favouriteRecipe)
         
         stopDownloadActivityIndicator()
@@ -69,7 +86,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let recipe = recipiesFromFavourite[indexPath.row]
+        let recipe = isFiltering ? filteredRecipies[indexPath.row] : recipiesFromFavourite[indexPath.row]
         performSegue(withIdentifier: "favouriteDescription", sender: recipe)
     }
     
@@ -78,7 +95,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         favouriteVC.favouriteRecipies = sender as? Recipies
     }
 }
-
+// MARK: - Extension
 extension FavouriteViewController {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         90
@@ -101,6 +118,29 @@ extension FavouriteViewController {
         downloadFavouriteActivityIndicator.stopAnimating()
         processDownloadLabel.isHidden = true
         tableView.isHidden = false
+    }
+}
+
+    // MARK: - UISearch Conroller
+extension FavouriteViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchtext(searchBar.text!)
+    }
+
+    func placeSearchBarOnTableView() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Favoutire recipe"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+
+    func filterContentForSearchtext(_ searchText: String) {
+        filteredRecipies = recipiesFromFavourite.filter({ (recipe: Recipies) -> Bool in
+            recipe.recipe.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
     }
 }
 
