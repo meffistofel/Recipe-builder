@@ -11,6 +11,7 @@ import Firebase
 
 class AuthorizationViewController: UIViewController {
     
+    // MARK: - IB Outlet
     @IBOutlet var loginTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
@@ -23,6 +24,7 @@ class AuthorizationViewController: UIViewController {
     
     @IBOutlet var cornerRadiusRegisterLabel: [UIButton]!
     
+    // MARK: - Let & Var
     let segueIdentifire = "goLogin"
     var ref: DatabaseReference!
     
@@ -33,51 +35,22 @@ class AuthorizationViewController: UIViewController {
     var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
     
+    
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ref = Database.database().reference(withPath: "users")
         
         wanringLabel.alpha = 0
-        
-        for label in cornerRadiusRegisterLabel {
-            label.layer.cornerRadius = 5
-        }
-        
         loginStackView.isHidden = hidenloginStackView
         registerStackView.isHidden = hidenRegisterStackView
-        
-        logInButton.layer.cornerRadius = 10
-        registerButton.layer.cornerRadius = 10
-        
-        // MARK: - BackGround Video
-        let theURL = Bundle.main.url(forResource:"Food", withExtension: "mp4")
-        avPlayer = AVPlayer(url: theURL!)
-        avPlayerLayer = AVPlayerLayer(player: avPlayer)
-        avPlayerLayer.videoGravity = .resizeAspectFill
-        avPlayer.volume = 0
-        avPlayer.actionAtItemEnd = .none
-        avPlayerLayer.frame = view.layer.bounds
-        view.backgroundColor = .clear
-        view.layer.insertSublayer(avPlayerLayer, at: 0)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(playerItemDidReachEnd(notification:)),
-                                               name: .AVPlayerItemDidPlayToEndTime,
-                                               object: avPlayer.currentItem)
-        
-        // MARK: - Blur
-        view.backgroundColor = .clear
-        let blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-        blurredView.frame = view.bounds
-        view.insertSubview(blurredView, at: 1)
-        
-        FirebaseAuth.Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-            if user != nil {
-                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
-            }
-        }
+        displayButtonCornerRadius()
+        avPlayerConfiguration()
+        authFireBase()
     }
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loginTextField.text = ""
@@ -105,37 +78,36 @@ class AuthorizationViewController: UIViewController {
         paused = true
     }
     
-    @IBAction func registerInLoginWindow(_ sender: UIButton) {
+    // MARK: - Methods
+    func displayWarningLabel(withText text: String) {
+        wanringLabel.text = text
         
-        loginStackView.isHidden = true
-        registerStackView.isHidden = false
+        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
+            self?.wanringLabel.alpha = 1
+        } completion: { [weak self] (complete) in
+            self?.wanringLabel.alpha = 0
+        }
     }
-    
-    @IBAction func loginInRegisterWindow(_ sender: UIButton) {
-        
-        loginStackView.isHidden = false
-        registerStackView.isHidden = true
-    }
-    
+    // MARK: - IB Actions
     @IBAction func loginTapped(_ sender: UIButton) { // логиним пользователя через FireBase
         
         guard let login = loginTextField.text, let password = passwordTextField.text, login != "", password != "" else {
-           displayWarningLabel(withText: "Login or password isn't correct")
-           return 
+            displayWarningLabel(withText: "Login or password isn't correct")
+            return
         }
         FirebaseAuth.Auth.auth().signIn(withEmail: login, password: password) { [weak self] (user, error) in
             if error != nil {
                 self?.displayWarningLabel(withText: "Error occured")
                 return
-        }
+            }
             if user != nil {
                 self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
                 return
             }
             self?.displayWarningLabel(withText: "No such user")
         }
-            }
-        
+    }
+    
     @IBAction func registerTapped(_ sender: UIButton) {
         
         guard let login = loginTextField.text, let password = passwordTextField.text, login != "", password != "" else {
@@ -150,35 +122,36 @@ class AuthorizationViewController: UIViewController {
         }
     }
     
+    @IBAction func registerInLoginWindow(_ sender: UIButton) {
         
-    
-    func displayWarningLabel(withText text: String) {
-        wanringLabel.text = text
-        
-        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
-            self?.wanringLabel.alpha = 1
-        } completion: { [weak self] (complete) in
-            self?.wanringLabel.alpha = 0
-        }
+        loginStackView.isHidden = true
+        registerStackView.isHidden = false
     }
-
+    
+    @IBAction func loginInRegisterWindow(_ sender: UIButton) {
+        
+        loginStackView.isHidden = false
+        registerStackView.isHidden = true
+    }
+    
     @IBAction func termsOfUse(_ sender: UIButton) {
         showAlert(title: "Главное правило 🍒", message: "Готовьте вкусно, а мы в этом поможем")
+    }
+    
+    @IBAction func printAlertRegistrationButton(_ sender: UIButton) {
+        showAlert(title: "Sooooon 🥩", message: "Function in development")
     }
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
         loginTextField.text = nil
         passwordTextField.text = nil
     }
-    
-    @IBAction func printAlertRegistrationButton(_ sender: UIButton) {
-        showAlert(title: "Sooooon 🥩", message: "Function in development")
-    }
 }
 
-    // MARK: - UIText Field Delegate
+// MARK: -  Extension
 extension AuthorizationViewController: UITextFieldDelegate {
     
+    // MARK: - UIText Field Delegate
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
@@ -188,17 +161,61 @@ extension AuthorizationViewController: UITextFieldDelegate {
         if textField == loginTextField {
             passwordTextField.becomeFirstResponder()
         } else {
-          performSegue(withIdentifier: "goLogin", sender: nil)
+            performSegue(withIdentifier: "goLogin", sender: nil)
         }
         return true
     }
-}
+    
     // MARK: - UIAlert
-extension AuthorizationViewController {
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
         present(alert, animated: true)
     }
+    
+    // MARK: - Button CornerRaduis
+    func displayButtonCornerRadius() {
+        for label in cornerRadiusRegisterLabel {
+            label.layer.cornerRadius = 5
+        }
+        logInButton.layer.cornerRadius = 10
+        registerButton.layer.cornerRadius = 10
+    }
+    
+    // MARK: - AVPlayer Config
+    func avPlayerConfiguration() {
+        
+        // BackGround Video
+        let theURL = Bundle.main.url(forResource:"Food", withExtension: "mp4")
+        avPlayer = AVPlayer(url: theURL!)
+        avPlayerLayer = AVPlayerLayer(player: avPlayer)
+        avPlayerLayer.videoGravity = .resizeAspectFill
+        avPlayer.volume = 0
+        avPlayer.actionAtItemEnd = .none
+        avPlayerLayer.frame = view.layer.bounds
+        view.backgroundColor = .clear
+        view.layer.insertSublayer(avPlayerLayer, at: 0)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(playerItemDidReachEnd(notification:)),
+                                               name: .AVPlayerItemDidPlayToEndTime,
+                                               object: avPlayer.currentItem)
+        
+        // Blur
+        view.backgroundColor = .clear
+        let blurredView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blurredView.frame = view.bounds
+        view.insertSubview(blurredView, at: 1)
+    }
+    
+    // MARK: - Firebase Auth
+    func authFireBase() {
+        FirebaseAuth.Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+            if user != nil {
+                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
+            }
+        }
+    }
 }
+
+

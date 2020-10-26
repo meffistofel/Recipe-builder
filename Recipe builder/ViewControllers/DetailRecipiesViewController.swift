@@ -20,19 +20,19 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var totalTimeLabel: UILabel!
     @IBOutlet var addFavouriteRecipeBarButton: UIBarButtonItem!
     
+    // MARK: - Let & Var
+    var recipies: Recipe!
+    var favouriteRecipies: Recipies!
+    
+    var user: User!
+    var ref: DatabaseReference!
+    
+    // MARK: - Observers
     var checkRecipeType: Bool {
         recipies == nil
     }
     
-    
-    var recipies: Recipe!
-    var favouriteRecipies: Recipies!
-    
-    //firDatabase
-    var user: User!
-    var ref: DatabaseReference!
-    
-    
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
          
@@ -70,6 +70,7 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
+    // MARK: - NAvigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "webKit" {
             let webKitVC = segue.destination as! WebViewController
@@ -81,18 +82,31 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
+    // MARK: - IB Actions
     @IBAction func addTofavouriteRecipies(_ sender: UIBarButtonItem) {
-        addFavouriteRecipeBarButton.image = UIImage(systemName: "heart.fill")
-        addFavouriteRecipeBarButton.tintColor = .red
-        let recipe = Recipies(recipe: recipies, userId: user.uid)
-        let recipeRef = ref.child(recipe.recipe.lowercased())
-        recipeRef.setValue(recipe.convertToDictionary())
+        if checkRecipeType {
+            addFavouriteRecipeBarButton.image = UIImage(systemName: "heart")
+            addFavouriteRecipeBarButton.tintColor = .white
+            favouriteRecipies.ref?.removeValue()
+        } else {
+            addFavouriteRecipeBarButton.image = UIImage(systemName: "heart.fill")
+            addFavouriteRecipeBarButton.tintColor = .red
+            let recipe = Recipies(recipe: recipies, userId: user.uid)
+            let recipeRef = ref.child(recipe.recipe.lowercased())
+            recipeRef.setValue(recipe.convertToDictionary())
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        52
     }
 }
 
-// MARK: - Extension: Fetch Recipe
+// MARK: - Extension
 extension DetailRecipiesViewController {
     
+    
+    // MARK: - Fetch Recipe
     func fetchDetailRecipies() {
         navigationItem.title = recipies.label
         totalTimeLabel.text = String(format: "Time: %.0f", recipies.totalTime) + "min"
@@ -121,14 +135,7 @@ extension DetailRecipiesViewController {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        52
-    }
-}
-
-// MARK: - Favourite
-extension DetailRecipiesViewController {
-    
+    // MARK: - FavouriteRecipeImage
     func makeColorHeartFavourite() {
         if checkRecipeType {
             addFavouriteRecipeBarButton.image = UIImage(systemName: "heart.fill")
@@ -139,6 +146,7 @@ extension DetailRecipiesViewController {
         }
     }
     
+    // MARK: - FireBase Auth
     func checkCurrentUser() {
         guard let currentUser = Auth.auth().currentUser else { return  }
         user = User(user: currentUser)

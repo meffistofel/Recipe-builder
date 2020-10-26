@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-   
+    
     // MARK: - let, var & IBOutlet
     @IBOutlet var recipiesTableView: UITableView!
     @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
@@ -18,21 +18,21 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let searchController = UISearchController(searchResultsController: nil)
     
     private var foodType: FoodType!
+    private var filteredRecipies: [Hit] = []
     
+    // MARK: - Observes
     private var sortFoodType: [Hit] {
         foodType.hits.sorted { ($0.recipe.label < $1.recipe.label) }
     }
     
     private var isSearchBarEmpty: Bool {
-      return searchController.searchBar.text?.isEmpty ?? true
+        return searchController.searchBar.text?.isEmpty ?? true
     }
     
     private var isFiltering: Bool {
-      return searchController.isActive && !isSearchBarEmpty
+        return searchController.isActive && !isSearchBarEmpty
     }
-        
-    private var filteredRecipies: [Hit] = []
-  
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,9 +77,12 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         95
     }
 }
-    // MARK: - Extension Fetch Recipe
-extension RecipeViewController {
+
+// MARK: - Extension
+extension RecipeViewController: UISearchResultsUpdating {
     
+    
+    // MARK: - Fetch Recipe
     func fetchRecipies(url: String) {
         AlomofireNetwork.fetchRecipies(url: url) { [weak self] (foodType) in
             self?.foodType = foodType
@@ -96,17 +99,14 @@ extension RecipeViewController {
         downloadingRecipiesActivityIndicator.startAnimating()
         downloadingRecipiesActivityIndicator.hidesWhenStopped = true
     }
-
+    
     private func stopDownloadActivityIndicator() {
         self.downloadingRecipiesActivityIndicator.stopAnimating()
         self.loadingLabel.isHidden = true
         self.recipiesTableView.isHidden = false
     }
-}
-
-    // MARK: - Extension UISearchBar
-extension RecipeViewController: UISearchResultsUpdating {
     
+    // MARK: - Extension UISearchBar
     func placeSearchBarOnTableView() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -121,17 +121,13 @@ extension RecipeViewController: UISearchResultsUpdating {
     }
     
     func filterContentForSearchText(_ searchText: String) {
-      filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
-        return recipe.recipe.label.lowercased().contains(searchText.lowercased())
-      }
+        filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
+            return recipe.recipe.label.lowercased().contains(searchText.lowercased())
+        }
         recipiesTableView.reloadData()
     }
-}
-
-    // MARK: - Extension Opasity Cell
-
-extension RecipeViewController {
     
+    // MARK: - Extension Opasity Cell
     func animateOpacity() {
         searchController.searchBar.layer.opacity = 0
         recipiesTableView.layer.opacity = 0

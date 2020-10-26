@@ -10,6 +10,7 @@ import UIKit
 
 class TypeRecipiesViewController: UICollectionViewController {
     
+    // MARK: - Let & Var
     var typeRecipies = TypeRecipies.getTypeRecipie()
     
     private let recipiesURLChiken = "https://api.edamam.com/search?q=chicken"
@@ -17,6 +18,7 @@ class TypeRecipiesViewController: UICollectionViewController {
     private let recipiesURLMilk = "https://api.edamam.com/search?q=milk"
     private let recipiesURLFish = "https://api.edamam.com/search?q=fish"
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
     }

@@ -1163,6 +1163,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorite recipes list is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2J6-o1-avq">
+                                <rect key="frame" x="81.5" y="276" width="212" height="22.5"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="jFf-8h-g3s">
                                 <rect key="frame" x="150.5" y="265" width="74.5" height="44.5"/>
                                 <subviews>
@@ -1253,13 +1259,16 @@
                             <constraint firstItem="Ap6-eU-2oN" firstAttribute="leading" secondItem="W3o-ch-0vu" secondAttribute="leading" id="MtH-Jf-G7P"/>
                             <constraint firstItem="jFf-8h-g3s" firstAttribute="centerY" secondItem="4bI-zz-6zx" secondAttribute="centerY" id="PEG-iG-a0H"/>
                             <constraint firstItem="jFf-8h-g3s" firstAttribute="centerX" secondItem="4bI-zz-6zx" secondAttribute="centerX" id="R9x-vO-vjp"/>
+                            <constraint firstItem="2J6-o1-avq" firstAttribute="centerX" secondItem="W3o-ch-0vu" secondAttribute="centerX" id="UNC-ny-DAt"/>
                             <constraint firstItem="Ap6-eU-2oN" firstAttribute="trailing" secondItem="W3o-ch-0vu" secondAttribute="trailing" id="dgs-Dr-iyE"/>
                             <constraint firstItem="Ap6-eU-2oN" firstAttribute="top" secondItem="W3o-ch-0vu" secondAttribute="top" id="oyr-dn-n0M"/>
+                            <constraint firstItem="2J6-o1-avq" firstAttribute="centerY" secondItem="W3o-ch-0vu" secondAttribute="centerY" id="y5N-2P-TZh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Favourite" id="kfx-Yt-eim"/>
                     <connections>
                         <outlet property="downloadFavouriteActivityIndicator" destination="sR7-ip-Ztc" id="YEo-n3-ZOn"/>
+                        <outlet property="favListIsEmptyLabel" destination="2J6-o1-avq" id="aQc-r4-lgP"/>
                         <outlet property="processDownloadLabel" destination="4uL-sk-Kuo" id="Qiy-4P-TWX"/>
                         <outlet property="tableView" destination="Ap6-eU-2oN" id="IHL-Iv-iKc"/>
                         <segue destination="oL8-KZ-XK3" kind="show" identifier="favouriteDescription" id="x3R-qj-ntu"/>
@@ -1267,7 +1276,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5vv-dn-99u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5054" y="-1384"/>
+            <point key="canvasLocation" x="5066" y="-1368"/>
         </scene>
         <!--Favourite-->
         <scene sceneID="wYl-i0-5WP">

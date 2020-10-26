@@ -23,7 +23,6 @@ struct Recipies {
     let ingredientImage: [String]
     let ref: DatabaseReference?
     
-    
     init(recipe: Recipe, userId: String) {
         self.recipe = recipe.label
         self.userId = userId

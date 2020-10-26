@@ -8,17 +8,21 @@
 import UIKit
 
 class IngredientViewController: UIViewController {
-
+    
+    // MARK: - IB Outlet
     @IBOutlet var imageIngredientImageView: UIImageView!
     @IBOutlet var nameIngredientLabel: UILabel!
     
+    // MARK: - Let & Var
+    var ingredient: Ingredient!
+    var favouriteIngredient: Ingredient!
+    
+    // MARK: - Observers
     var checkTypeIngredient: Bool {
         ingredient == nil
     }
     
-    var ingredient: Ingredient!
-    var favouriteIngredient: Ingredient!
-    
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +37,7 @@ class IngredientViewController: UIViewController {
                   repeatCount: Float.greatestFiniteMagnitude)
     }
     
+    // MARK: - Methods
     func fetchDetailIngredient() {
         nameIngredientLabel.text = ingredient.text
         

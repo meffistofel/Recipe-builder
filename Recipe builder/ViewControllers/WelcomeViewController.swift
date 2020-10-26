@@ -11,34 +11,23 @@ import Firebase
 
 class WelcomeViewController: UIViewController {
     
+    // MARK: - IB Outlet
     @IBOutlet var goLoginButton: UIButton!
     
+    
+    // MARK: - Let & Var
     let segueIdentifire = "goLoginVC"
     
     var avPlayer: AVPlayer!
     var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         goLoginButton.layer.cornerRadius = 10
-        
-        let theURL = Bundle.main.url(forResource:"Food", withExtension: "mp4")
-        
-        avPlayer = AVPlayer(url: theURL!)
-        avPlayerLayer = AVPlayerLayer(player: avPlayer)
-        avPlayerLayer.videoGravity = .resizeAspectFill
-        avPlayer.volume = 0
-        avPlayer.actionAtItemEnd = .none
-        avPlayerLayer.frame = view.layer.bounds
-        view.backgroundColor = .clear
-        view.layer.insertSublayer(avPlayerLayer, at: 0)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(playerItemDidReachEnd(notification:)),
-                                               name: .AVPlayerItemDidPlayToEndTime,
-                                               object: avPlayer.currentItem)
+        avPlayerConfiguration()
     }
     
     // MARK: - Player Method
@@ -61,12 +50,34 @@ class WelcomeViewController: UIViewController {
         paused = true
     }
     
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let authorizationVC = segue.destination as? AuthorizationViewController else { return }
-            authorizationVC.hidenRegisterStackView = true
-            authorizationVC.hidenloginStackView = false
-        }
+        authorizationVC.hidenRegisterStackView = true
+        authorizationVC.hidenloginStackView = false
     }
+}
+// MARK: - Extension
+extension WelcomeViewController {
+    
+    // MARK: - AV Player
+    func avPlayerConfiguration() {
+        let theURL = Bundle.main.url(forResource:"Food", withExtension: "mp4")
+        avPlayer = AVPlayer(url: theURL!)
+        avPlayerLayer = AVPlayerLayer(player: avPlayer)
+        avPlayerLayer.videoGravity = .resizeAspectFill
+        avPlayer.volume = 0
+        avPlayer.actionAtItemEnd = .none
+        avPlayerLayer.frame = view.layer.bounds
+        view.backgroundColor = .clear
+        view.layer.insertSublayer(avPlayerLayer, at: 0)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(playerItemDidReachEnd(notification:)),
+                                               name: .AVPlayerItemDidPlayToEndTime,
+                                               object: avPlayer.currentItem)
+    }
+}
 
 
 

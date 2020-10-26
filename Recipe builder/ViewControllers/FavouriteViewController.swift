@@ -10,13 +10,21 @@ import Firebase
 
 class FavouriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: - IB Outlet
     @IBOutlet var tableView: UITableView!
     @IBOutlet var downloadFavouriteActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var processDownloadLabel: UILabel!
+    @IBOutlet var favListIsEmptyLabel: UILabel!
     
-    //UISearchControllet
+    // MARK: - Let & Var
     let searchController = UISearchController(searchResultsController: nil)
     var filteredRecipies = [Recipies]()
+    
+    var user: User!
+    var ref: DatabaseReference!
+    var recipiesFromFavourite = [Recipies]()
+    
+    // MARK: - Observers
     var isSearchBarEmpty: Bool {
         searchController.searchBar.text?.isEmpty ?? true
     }
@@ -24,20 +32,20 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         searchController.isActive && !isSearchBarEmpty
     }
     
-    //FireBase
-    var user: User!
-    var ref: DatabaseReference!
-    var recipiesFromFavourite = [Recipies]()
+    var checkValueFilteredRecipies: Bool {
+        recipiesFromFavourite.isEmpty
+    }
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-        startDownloadActivityIndicator()
         checkCurrentUser()
-        placeSearchBarOnTableView()
+       
     }
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -55,8 +63,10 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.tableView.reloadData()
             }
         }
+        checkValueFilteredRecipies ? favListEmpty() : startDownloadActivityIndicator()
     }
     
+    // MARK: - Methods
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.isEditing = !tableView.isEditing
@@ -72,7 +82,9 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         let favouriteRecipe = isFiltering ? filteredRecipies[indexPath.row] : recipiesFromFavourite[indexPath.row]
         cell.configure(recipe: favouriteRecipe)
         
+        
         stopDownloadActivityIndicator()
+        placeSearchBarOnTableView()
         
         return cell
     }
@@ -83,7 +95,8 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
             recipe.ref?.removeValue()
         }
     }
-       
+    
+    // MARK: - Navigation
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let recipe = isFiltering ? filteredRecipies[indexPath.row] : recipiesFromFavourite[indexPath.row]
@@ -94,48 +107,58 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         let favouriteVC = segue.destination as! DetailRecipiesViewController
         favouriteVC.favouriteRecipies = sender as? Recipies
     }
-}
-// MARK: - Extension
-extension FavouriteViewController {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         90
     }
+}
+// MARK: - Extension
+extension FavouriteViewController: UISearchResultsUpdating {
     
+    // MARK: - FireBase Auth
     func checkCurrentUser() {
         guard let currentUser = Auth.auth().currentUser else { return  }
         user = User(user: currentUser)
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
     }
     
+    // MARK: - Fetch Favoutire Recipe
     private func startDownloadActivityIndicator() {
         tableView.isHidden = true
-            downloadFavouriteActivityIndicator.color = .white
+        downloadFavouriteActivityIndicator.isHidden = false
+        downloadFavouriteActivityIndicator.color = .white
         downloadFavouriteActivityIndicator.startAnimating()
         downloadFavouriteActivityIndicator.hidesWhenStopped = true
     }
-
+    
     private func stopDownloadActivityIndicator() {
         downloadFavouriteActivityIndicator.stopAnimating()
         processDownloadLabel.isHidden = true
         tableView.isHidden = false
     }
-}
-
+    
+    private func favListEmpty() {
+        tableView.isHidden = true
+        downloadFavouriteActivityIndicator.isHidden = true
+        processDownloadLabel.isHidden = true
+        searchController.searchBar.isHidden = true
+    }
+    
     // MARK: - UISearch Conroller
-extension FavouriteViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContentForSearchtext(searchBar.text!)
     }
-
+    
     func placeSearchBarOnTableView() {
+        searchController.searchBar.isHidden = false
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Favoutire recipe"
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
-
+    
     func filterContentForSearchtext(_ searchText: String) {
         filteredRecipies = recipiesFromFavourite.filter({ (recipe: Recipies) -> Bool in
             recipe.recipe.lowercased().contains(searchText.lowercased())
