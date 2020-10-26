@@ -31,18 +31,15 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     var isFiltering: Bool {
         searchController.isActive && !isSearchBarEmpty
     }
-    
-    var checkValueFilteredRecipies: Bool {
-        recipiesFromFavourite.isEmpty
-    }
-    
+        
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        checkValueFilteredRecipies()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         checkCurrentUser()
-       
+        
     }
     
     // MARK: - viewWillAppear
@@ -55,16 +52,14 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
                 let recipe = Recipies(snapShot: item as! DataSnapshot)
                 recipiesFavourite.append(recipe)
             }
-            if self.isFiltering {
-                self.filteredRecipies = recipiesFavourite
-                self.tableView.reloadData()
-            } else {
                 self.recipiesFromFavourite = recipiesFavourite
+            if self.recipiesFromFavourite.isEmpty {
+                self.favListEmpty()
+            }
                 self.tableView.reloadData()
             }
         }
-        checkValueFilteredRecipies ? favListEmpty() : startDownloadActivityIndicator()
-    }
+    
     
     // MARK: - Methods
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -76,12 +71,19 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         isFiltering ? filteredRecipies.count : recipiesFromFavourite.count
     }
     
+    func checkValueFilteredRecipies() {
+        if recipiesFromFavourite.count >= 1 {
+            startDownloadActivityIndicator()
+        } else {
+            favListEmpty()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favourite", for: indexPath) as! FavouriteTableViewCell
         
         let favouriteRecipe = isFiltering ? filteredRecipies[indexPath.row] : recipiesFromFavourite[indexPath.row]
         cell.configure(recipe: favouriteRecipe)
-        
         
         stopDownloadActivityIndicator()
         placeSearchBarOnTableView()
@@ -125,6 +127,7 @@ extension FavouriteViewController: UISearchResultsUpdating {
     // MARK: - Fetch Favoutire Recipe
     private func startDownloadActivityIndicator() {
         tableView.isHidden = true
+        favListIsEmptyLabel.isHidden = true
         downloadFavouriteActivityIndicator.isHidden = false
         downloadFavouriteActivityIndicator.color = .white
         downloadFavouriteActivityIndicator.startAnimating()
