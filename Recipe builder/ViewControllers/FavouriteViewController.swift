@@ -31,16 +31,18 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     var isFiltering: Bool {
         searchController.isActive && !isSearchBarEmpty
     }
-        
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkValueFilteredRecipies()
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        configureNAvigationBar()
         checkCurrentUser()
-        
+        checkValueFilteredRecipies()
+        animateOpacity()
     }
+    
+    
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -52,13 +54,17 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
                 let recipe = Recipies(snapShot: item as! DataSnapshot)
                 recipiesFavourite.append(recipe)
             }
-                self.recipiesFromFavourite = recipiesFavourite
+            self.recipiesFromFavourite = recipiesFavourite
             if self.recipiesFromFavourite.isEmpty {
                 self.favListEmpty()
+                self.navigationItem.leftBarButtonItem?.isEnabled = false
+            } else {
+                self.navigationItem.leftBarButtonItem?.isEnabled = true
             }
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
+        placeSearchBarOnTableView()
+    }
     
     
     // MARK: - Methods
@@ -68,7 +74,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        isFiltering ? filteredRecipies.count : recipiesFromFavourite.count
+        return isFiltering ? filteredRecipies.count : recipiesFromFavourite.count
     }
     
     func checkValueFilteredRecipies() {
@@ -86,7 +92,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.configure(recipe: favouriteRecipe)
         
         stopDownloadActivityIndicator()
-        placeSearchBarOnTableView()
+       
         
         return cell
     }
@@ -106,8 +112,10 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let favouriteVC = segue.destination as! DetailRecipiesViewController
-        favouriteVC.favouriteRecipies = sender as? Recipies
+        if segue.identifier == "favouriteDescription"{
+            let favouriteVC = segue.destination as! DetailRecipiesViewController
+            favouriteVC.favouriteRecipies = sender as? Recipies
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -115,7 +123,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 }
 // MARK: - Extension
-extension FavouriteViewController: UISearchResultsUpdating {
+extension FavouriteViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     // MARK: - FireBase Auth
     func checkCurrentUser() {
@@ -128,7 +136,6 @@ extension FavouriteViewController: UISearchResultsUpdating {
     private func startDownloadActivityIndicator() {
         tableView.isHidden = true
         favListIsEmptyLabel.isHidden = true
-        downloadFavouriteActivityIndicator.isHidden = false
         downloadFavouriteActivityIndicator.color = .white
         downloadFavouriteActivityIndicator.startAnimating()
         downloadFavouriteActivityIndicator.hidesWhenStopped = true
@@ -145,14 +152,10 @@ extension FavouriteViewController: UISearchResultsUpdating {
         downloadFavouriteActivityIndicator.isHidden = true
         processDownloadLabel.isHidden = true
         searchController.searchBar.isHidden = true
+        
     }
     
     // MARK: - UISearch Conroller
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        filterContentForSearchtext(searchBar.text!)
-    }
-    
     func placeSearchBarOnTableView() {
         searchController.searchBar.isHidden = false
         searchController.searchResultsUpdater = self
@@ -162,11 +165,33 @@ extension FavouriteViewController: UISearchResultsUpdating {
         definesPresentationContext = true
     }
     
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchtext(searchBar.text!)
+    }
+
+
     func filterContentForSearchtext(_ searchText: String) {
         filteredRecipies = recipiesFromFavourite.filter({ (recipe: Recipies) -> Bool in
             recipe.recipe.lowercased().contains(searchText.lowercased())
         })
         tableView.reloadData()
+    }
+    
+    // MARK: - NagitaionBar
+    func configureNAvigationBar() {
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
+    }
+    
+    // MARK: - Extension Opasity Cell
+    func animateOpacity() {
+        searchController.searchBar.layer.opacity = 0
+        tableView.layer.opacity = 0
+        UIView.animate(withDuration: 0.7) {
+            self.tableView.layer.opacity = 1
+            self.searchController.searchBar.layer.opacity = 1
+        }
     }
 }
 

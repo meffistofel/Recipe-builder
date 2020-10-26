@@ -32,7 +32,7 @@ class IngredientViewController: UIViewController {
                   nameAnimation: "transform.scale",
                   duration: 0.7,
                   fromValue: 0.97,
-                  toValue: 1.15,
+                  toValue: 1.05,
                   autoreverses: true,
                   repeatCount: Float.greatestFiniteMagnitude)
     }
