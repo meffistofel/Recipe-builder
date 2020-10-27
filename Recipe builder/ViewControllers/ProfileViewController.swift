@@ -31,6 +31,17 @@ class ProfileViewController: UIViewController {
         checkCurrentUser()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        ref.observe(.value) { [weak self] (snapShot) in
+            for item in snapShot.children {
+                let profile = Profile(snapshot: item as! DataSnapshot)
+                self?.userNameAndSurnameLabel.text = profile.surName + " " + profile.name
+            }
+        }
+    }
+    
     // MARK: - IB Actions
     @IBAction func signOut(_ sender: UIButton) {
         do {
@@ -69,7 +80,9 @@ extension ProfileViewController {
             guard let textFieldOne = alertController.textFields?.first, textFieldOne.text != "" else { return }
             guard let textFieldTwo = alertController.textFields?.last, textFieldTwo.text != "" else { return }
             
-            let profileName = Profile(name: textFieldOne.text, surName: textFieldTwo.text, userId: <#T##String#>)
+            let profileName = Profile(name: textFieldOne.text!, surName: textFieldTwo.text!, userId: self.user.uid)
+            let taskRef = self.ref.child("Name and Surname")
+            taskRef.setValue(profileName.convertToDictionary())
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         alertController.addAction(save)
@@ -81,6 +94,6 @@ extension ProfileViewController {
     func checkCurrentUser() {
         guard let currentUser = Auth.auth().currentUser else { return  }
         user = User(user: currentUser)
-        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("profile")
     }
 }

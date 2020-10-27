@@ -42,8 +42,6 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         animateOpacity()
     }
     
-    
-    
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
