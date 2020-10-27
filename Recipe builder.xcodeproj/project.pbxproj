@@ -35,6 +35,7 @@
 		C5C9C7F225387F540081B541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5C9C7F125387F540081B541 /* Main.storyboard */; };
 		C5C9C7F92538D2440081B541 /* DetailRecipiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9C7F82538D2440081B541 /* DetailRecipiesViewCell.swift */; };
 		C5E4D5692548286400C83B4C /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E4D5682548286400C83B4C /* SearchFooter.swift */; };
+		C5E4D56D25489E4700C83B4C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E4D56C25489E4700C83B4C /* Profile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		C5C9C7F125387F540081B541 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C5C9C7F82538D2440081B541 /* DetailRecipiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipiesViewCell.swift; sourceTree = "<group>"; };
 		C5E4D5682548286400C83B4C /* SearchFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
+		C5E4D56C25489E4700C83B4C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				C5B15B3625362BA800982D10 /* TypeRecipiesModel.swift */,
 				C5401BEB2541C6570048C4C5 /* User.swift */,
 				C5401BEE2541C67F0048C4C5 /* Recipe.swift */,
+				C5E4D56C25489E4700C83B4C /* Profile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				C5455EA6252F52F800457457 /* ProfileViewController.swift in Sources */,
 				C5BDBF56253108DD00DB8EDB /* DetailRecipiesViewController.swift in Sources */,
 				C54A016C252E0C1D00DC80C6 /* AuthorizationViewController.swift in Sources */,
+				C5E4D56D25489E4700C83B4C /* Profile.swift in Sources */,
 				C59E667F253E27280052F04F /* FavouriteTableViewCell.swift in Sources */,
 				C544364C252F2C8B00FF08DE /* AlomofireNetwork.swift in Sources */,
 				C59E6676253E24BE0052F04F /* FavouriteViewController.swift in Sources */,

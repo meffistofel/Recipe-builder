@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     // MARK: - IB Outlet
     @IBOutlet var nameTextField: UITextField!
@@ -22,5 +22,16 @@ class EditProfileViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     }
+}
 
+    // MARK: - UIImagePickerController
+extension EditProfileViewController {
+    
+    func configImagePicker() {
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
+        pickerController.mediaTypes = ["public.image", "public.movie"]
+        pickerController.sourceType = .camera
+    }
 }

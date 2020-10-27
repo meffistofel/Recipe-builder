@@ -14,7 +14,9 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var recipiesTableView: UITableView!
     @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
+    
     @IBOutlet var searchFooterImageView: SearchFooter!
+    @IBOutlet var bottomSearchFooterConstraint: NSLayoutConstraint!
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -39,24 +41,22 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Scope Bar
-        searchController.searchBar.scopeButtonTitles = ["30", "60", "120", "180"]
-        searchController.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
-        searchController.searchBar.delegate = self
-        view.backgroundColor = .black
         startDownloadActivityIndicator()
+        configScopeBar()
+        observersKeyboardSearchFooter()
+        
         
     }
     
     // MARK: - Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         if isFiltering {
+        if isFiltering {
             searchFooterImageView.setIsFilteringShow(filteredItemCount: filteredRecipies.count, totalItemCount: foodType?.hits.count ?? 0)
-           return filteredRecipies.count
+            return filteredRecipies.count
         } else {
             searchFooterImageView.setIsNotFiltering()
-           return foodType?.hits.count ?? 0
+            return foodType?.hits.count ?? 0
         }
     }
     
@@ -91,7 +91,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
 }
 
 // MARK: - Extension
-extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate{
+extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     // MARK: - Fetch Recipe
     func fetchRecipies(url: String) {
@@ -132,14 +132,15 @@ extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate{
         filterContentForSearchText(searchBar.text!, scope: Double(scope)!)
     }
     
+    //searchBar & ScopeBar
     func filterContentForSearchText(_ searchText: String, scope: Double = 30) {
         var doesCategoryMacth = true
         filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
             switch scope {
-            case 30: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 1 )
-            case 60: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 30)
-            case 120: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 60)
-            case 180: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 120)
+            case 30: doesCategoryMacth = (scope == 30) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 1 )
+            case 60: doesCategoryMacth = (scope == 30) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 30)
+            case 120: doesCategoryMacth = (scope == 30) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 60)
+            case 180: doesCategoryMacth = (scope == 30) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 120)
             default: break
             }
             if isSearchBarEmpty {
@@ -154,6 +155,14 @@ extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate{
         filterContentForSearchText(searchBar.text!, scope: Double(searchBar.scopeButtonTitles![selectedScope])!)
     }
     
+    // MARK: - Scope Bar
+    
+    func configScopeBar() {
+        searchController.searchBar.scopeButtonTitles = ["30", "60", "120", "180"]
+        searchController.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
+        searchController.searchBar.delegate = self
+    }
+    
     // MARK: - Extension Opasity Cell
     func animateOpacity() {
         searchController.searchBar.layer.opacity = 0
@@ -162,5 +171,46 @@ extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate{
             self.recipiesTableView.layer.opacity = 1
             self.searchController.searchBar.layer.opacity = 1
         }
+    }
+    
+    // MARK: - Observers Keyboards (SearchFooter)
+    
+    func observersKeyboardSearchFooter() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(
+            forName: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil, queue: .main) { (notification) in
+            self.handleKeyboard(notification: notification)
+        }
+        notificationCenter.addObserver(
+            forName: UIResponder.keyboardWillHideNotification,
+            object: nil, queue: .main) { (notification) in
+            self.handleKeyboard(notification: notification)
+        }
+    }
+    
+    func handleKeyboard(notification: Notification) {
+        // 1
+        guard notification.name == UIResponder.keyboardWillChangeFrameNotification else {
+            bottomSearchFooterConstraint.constant = 0
+            view.layoutIfNeeded()
+            return
+        }
+        
+        guard
+            let info = notification.userInfo,
+            let keyboardFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+        else {
+            return
+        }
+        
+        // 2
+        
+        
+        let keyboardHeight = keyboardFrame.size.height - (tabBarController?.tabBar.frame.height)!
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+            self.bottomSearchFooterConstraint.constant = keyboardHeight
+            self.view.layoutIfNeeded()
+        })
     }
 }
