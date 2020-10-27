@@ -14,6 +14,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var recipiesTableView: UITableView!
     @IBOutlet var downloadingRecipiesActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
+    @IBOutlet var searchFooterImageView: SearchFooter!
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -42,15 +43,21 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchController.searchBar.scopeButtonTitles = ["30", "60", "120", "180"]
         searchController.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
         searchController.searchBar.delegate = self
-        startDownloadActivityIndicator()
         view.backgroundColor = .black
+        startDownloadActivityIndicator()
         
     }
     
     // MARK: - Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isFiltering ? filteredRecipies.count : foodType?.hits.count ?? 0
+         if isFiltering {
+            searchFooterImageView.setIsFilteringShow(filteredItemCount: filteredRecipies.count, totalItemCount: foodType?.hits.count ?? 0)
+           return filteredRecipies.count
+        } else {
+            searchFooterImageView.setIsNotFiltering()
+           return foodType?.hits.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -129,7 +136,7 @@ extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate{
         var doesCategoryMacth = true
         filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
             switch scope {
-            case 30: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 0 )
+            case 30: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 1 )
             case 60: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 30)
             case 120: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 60)
             case 180: doesCategoryMacth = (scope == 10) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 120)

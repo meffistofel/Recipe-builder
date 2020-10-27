@@ -643,15 +643,25 @@
                                     <outlet property="delegate" destination="xj0-5o-ann" id="i5E-gn-9Qz"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNp-1v-xR3" customClass="SearchFooter" customModule="Recipe_builder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="530" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="t62-0h-GF9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zo1-Vj-JgL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="XNp-1v-xR3" firstAttribute="leading" secondItem="zo1-Vj-JgL" secondAttribute="leading" id="0NI-On-evB"/>
                             <constraint firstItem="vvK-yx-gsz" firstAttribute="trailing" secondItem="zo1-Vj-JgL" secondAttribute="trailing" id="29v-hn-5sw"/>
                             <constraint firstItem="uPy-zX-aa7" firstAttribute="centerX" secondItem="5qN-dP-D8b" secondAttribute="centerX" id="CDS-B1-Za7"/>
+                            <constraint firstItem="XNp-1v-xR3" firstAttribute="trailing" secondItem="zo1-Vj-JgL" secondAttribute="trailing" id="KCq-F7-TtQ"/>
                             <constraint firstItem="vvK-yx-gsz" firstAttribute="top" secondItem="zo1-Vj-JgL" secondAttribute="top" id="PEd-RD-zgn"/>
                             <constraint firstItem="vvK-yx-gsz" firstAttribute="leading" secondItem="zo1-Vj-JgL" secondAttribute="leading" id="ULo-DG-cv7"/>
                             <constraint firstItem="uPy-zX-aa7" firstAttribute="centerY" secondItem="5qN-dP-D8b" secondAttribute="centerY" id="VwU-eV-kRJ"/>
+                            <constraint firstItem="zo1-Vj-JgL" firstAttribute="bottom" secondItem="XNp-1v-xR3" secondAttribute="bottom" id="af8-MK-LTK"/>
                             <constraint firstItem="vvK-yx-gsz" firstAttribute="bottom" secondItem="zo1-Vj-JgL" secondAttribute="bottom" id="sCx-LQ-XjS"/>
                         </constraints>
                     </view>
@@ -660,12 +670,13 @@
                         <outlet property="downloadingRecipiesActivityIndicator" destination="RfK-MN-JbU" id="Ng9-bt-uhq"/>
                         <outlet property="loadingLabel" destination="3dn-Xj-geQ" id="P64-dU-wGU"/>
                         <outlet property="recipiesTableView" destination="vvK-yx-gsz" id="leX-6r-J7t"/>
+                        <outlet property="searchFooterImageView" destination="XNp-1v-xR3" id="DI8-vh-VN1"/>
                         <segue destination="oL8-KZ-XK3" kind="show" identifier="goDetailRecipe" id="mOU-72-Opy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N0x-Ci-Axp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4249" y="-602"/>
+            <point key="canvasLocation" x="4248.8000000000002" y="-602.24887556221893"/>
         </scene>
         <!--Recipies-->
         <scene sceneID="yPD-Ig-7uv">
