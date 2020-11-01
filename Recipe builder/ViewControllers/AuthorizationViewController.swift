@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import Firebase
+import Kingfisher
 
 class AuthorizationViewController: UIViewController {
     
@@ -34,6 +35,8 @@ class AuthorizationViewController: UIViewController {
     var avPlayer: AVPlayer!
     var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
+    
+    
     
     
     // MARK: - ViewDidLoad
@@ -100,8 +103,15 @@ class AuthorizationViewController: UIViewController {
                 self?.displayWarningLabel(withText: "Error occured")
                 return
             }
+            
             if user != nil {
-                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
+                let storageProfileImagesRef = Storage.storage().reference().child((user?.user.uid)!)
+                let megaByte = Int64(1 * 1024 * 1024)
+                storageProfileImagesRef.getData(maxSize: megaByte) { (data, error) in
+                    guard let imageData = data else { return }
+                    let image = UIImage(data: imageData)
+                    self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: image)
+                }
                 return
             }
             self?.displayWarningLabel(withText: "No such user")
@@ -115,7 +125,7 @@ class AuthorizationViewController: UIViewController {
             return
         }
         
-        Firebase.Auth.auth().createUser(withEmail: login, password: password) { [weak self](user, error) in
+        Firebase.Auth.auth().createUser(withEmail: login, password: password) { [weak self] (user, error) in
             guard error == nil, user != nil else { return print(error!.localizedDescription) }
             let userRef = self?.ref.child((user?.user.uid)!)
             userRef?.setValue(["email": user?.user.email])
@@ -146,6 +156,34 @@ class AuthorizationViewController: UIViewController {
         loginTextField.text = nil
         passwordTextField.text = nil
     }
+    
+
+    
+    // MARK: - Firebase Auth
+    func authFireBase() {
+        FirebaseAuth.Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+            if user != nil {
+                let storageProfileImagesRef = Storage.storage().reference().child(user!.uid)
+                let megaByte = Int64(1 * 1024 * 1024)
+                storageProfileImagesRef.getData(maxSize: megaByte) { (data, error) in
+                    let imageData = data
+                    if imageData != nil {
+                        let image = UIImage(data: imageData!)
+                        self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: image)
+                    } else {
+                        self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let tabBarVC = segue.destination as! UITabBarController
+        let navigationVC = tabBarVC.viewControllers?.last as! UINavigationController
+        let profileVC = navigationVC.topViewController as! ProfileViewController
+        profileVC.image = sender as? UIImage
+    }
 }
 
 // MARK: -  Extension
@@ -161,7 +199,7 @@ extension AuthorizationViewController: UITextFieldDelegate {
         if textField == loginTextField {
             passwordTextField.becomeFirstResponder()
         } else {
-            performSegue(withIdentifier: "goLogin", sender: nil)
+            registerTapped(registerButton)
         }
         return true
     }
@@ -208,14 +246,7 @@ extension AuthorizationViewController: UITextFieldDelegate {
         view.insertSubview(blurredView, at: 1)
     }
     
-    // MARK: - Firebase Auth
-    func authFireBase() {
-        FirebaseAuth.Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-            if user != nil {
-                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
-            }
-        }
-    }
+    
 }
 
 

@@ -11,12 +11,6 @@ import Alamofire
 class AlomofireNetwork {
     
     static func fetchRecipies(url: String, completion: @escaping (_ foodType: FoodType) -> ()) {
-        
-//        let headers: HTTPHeaders = [
-//            "x-rapidapi-host": "edamam-recipe-search.p.rapidapi.com",
-//            "x-rapidapi-key": "3eeb2e0a0amshc391b4623717cd8p1eb6e1jsn5738e9a6f5e6",
-//        ]
-        
         let urlParams = [
             "from": "0",
             "to": "100",

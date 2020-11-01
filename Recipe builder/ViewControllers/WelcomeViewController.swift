@@ -78,8 +78,3 @@ extension WelcomeViewController {
                                                object: avPlayer.currentItem)
     }
 }
-
-
-
-
-

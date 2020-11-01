@@ -19,7 +19,7 @@ struct Profile {
         self.userId = userId
         self.name = name
         self.surName = surName
-        self.ref = nil
+        ref = nil
     }
     
     init(snapshot: DataSnapshot) {

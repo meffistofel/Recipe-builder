@@ -19,9 +19,6 @@ class SearchFooter: UIView {
         configureView()
     }
     
-    
-    
-
     let label = UILabel()
     
     override func draw(_ rect: CGRect) {

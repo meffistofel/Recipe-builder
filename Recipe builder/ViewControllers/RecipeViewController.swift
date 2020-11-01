@@ -137,10 +137,10 @@ extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate {
         var doesCategoryMacth = true
         filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
             switch scope {
-            case 30: doesCategoryMacth = (scope == 30) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 1 )
-            case 60: doesCategoryMacth = (scope == 30) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 30)
-            case 120: doesCategoryMacth = (scope == 30) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 60)
-            case 180: doesCategoryMacth = (scope == 30) || (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 120)
+            case 30: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 1 )
+            case 60: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 30)
+            case 120: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 60)
+            case 180: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 120)
             default: break
             }
             if isSearchBarEmpty {
@@ -203,9 +203,6 @@ extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate {
         else {
             return
         }
-        
-        // 2
-        
         
         let keyboardHeight = keyboardFrame.size.height - (tabBarController?.tabBar.frame.height)!
         UIView.animate(withDuration: 0.1, animations: { () -> Void in
