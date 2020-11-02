@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 
 class TypeRecipiesViewController: UICollectionViewController {
@@ -18,9 +19,25 @@ class TypeRecipiesViewController: UICollectionViewController {
     private let recipiesURLMilk = "https://api.edamam.com/search?q=milk"
     private let recipiesURLFish = "https://api.edamam.com/search?q=fish"
     
+    var text = "23"
+    var ref: DatabaseReference!
+    var user: User!
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        checkCurrentUser()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        FirebaseService.firebaseObserverProfile(ref: ref) { [weak self] (profile) in
+        
+        let navController = self?.tabBarController!.viewControllers![2] as! UINavigationController
+        let vc = navController.topViewController as! ProfileViewController
+            vc.nameAndSurname = profile.name + "" + profile.surName
+        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -59,4 +76,11 @@ class TypeRecipiesViewController: UICollectionViewController {
         default: break
         }
     }
+    
+    func checkCurrentUser() {
+        guard let currentUser = Auth.auth().currentUser else { return  }
+        user = User(user: currentUser)
+        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("profile")
+    }
 }
+

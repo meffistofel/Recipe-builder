@@ -37,6 +37,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         configureNAvigationBar()
         checkCurrentUser()
         animateOpacity()
@@ -46,9 +47,12 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        FirebaseService.firebaseObserverFavouriteRecipies(ref: ref) { (recipies) in
+        FirebaseService.firebaseObserverFavouriteRecipies(ref: ref) {
+            self.startDownloadActivityIndicator()
+        } completion: { (recipies) in
             self.recipiesFromFavourite = recipies
             self.tableView.reloadData()
+            print(self.recipiesFromFavourite.count)
             self.checkValueFavouriteRecipies()
         }
         placeSearchBarOnTableView()
@@ -117,6 +121,8 @@ extension FavouriteViewController {
     // MARK: - Fetch Favoutire Recipe
     private func startDownloadActivityIndicator() {
         tableView.isHidden = true
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
+        self.searchController.searchBar.isHidden = false
         favListIsEmptyLabel.isHidden = true
         processDownloadLabel.isHidden = false
         downloadFavouriteActivityIndicator.isHidden = false

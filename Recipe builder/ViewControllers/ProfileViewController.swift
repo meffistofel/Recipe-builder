@@ -13,12 +13,11 @@ import Kingfisher
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - IB Outlet
-    @IBOutlet var userImageView: UIImageView!
+    @IBOutlet var userImageButton: UIButton!
     @IBOutlet var userNameAndSurnameLabel: UILabel!
     @IBOutlet var exitButton: UIButton!
     @IBOutlet var shadowOpacityView: UIView!
     
-    @IBOutlet var addProfilePhotoBarButton: UIBarButtonItem!
     @IBOutlet var addProfileNameBarButton: UIBarButtonItem!
     
     @IBOutlet var recipiesCollectionView: UICollectionView!
@@ -36,17 +35,20 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     var image: UIImage!
     var timer: Timer?
-    var name: String!
-    var surName: String!
+    var nameAndSurname: String!
     var recipies = ["1", "2", "3", "4", "5"]
+    
     
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        userNameAndSurnameLabel.text = nameAndSurname
+        
         imagePicker.delegate = self
-        downloadImageProfile ? userImageView.image = image : nil // если картинка есть то добавить
+        downloadImageProfile ? userImageButton.setImage(image, for: .normal) : nil // если картинка есть то добавить
+        userImageButton.imageView?.contentMode = .scaleAspectFill
         configureLayer()
         startTimer()
         checkCurrentUser()
@@ -62,7 +64,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewWillLayoutSubviews() {
 
-        userImageView.applyshadowWithCorner(containerView: shadowOpacityView, cornerRadious: userImageView.frame.width / 2)
+        userImageButton.applyshadowWithCorner(containerView: shadowOpacityView, cornerRadious: shadowOpacityView.frame.width / 2)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -94,14 +96,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func addPhoto(_ sender: UIBarButtonItem) { // создание пикера (фотогалерее и добавление их)
+    @IBAction func addUserPhoto(_ sender: UIButton) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func editNameAndSurName(_ sender: UIBarButtonItem) {
-        showAlert(title: "Your profile", message: "Enter your name and surname")
+        showAlert(title: "Name and surname", message: "containing numbers are not saved")
     }
 }
 
@@ -117,8 +119,9 @@ extension ProfileViewController {
             textField.placeholder = "Surname"
         }
         let save = UIAlertAction(title: "Save", style: .default) { [weak self] (_) in
-            guard let textFieldOne = alertController.textFields?.first, textFieldOne.text != "" else { return }
-            guard let textFieldTwo = alertController.textFields?.last, textFieldTwo.text != "" else { return }
+            let numberCharacters = NSCharacterSet.decimalDigits // с помощью этого можно проверить строки на наличие цифр
+            guard let textFieldOne = alertController.textFields?.first, textFieldOne.text != "", textFieldOne.text?.rangeOfCharacter(from: numberCharacters) == nil else { return }
+            guard let textFieldTwo = alertController.textFields?.last, textFieldTwo.text != "", textFieldTwo.text?.rangeOfCharacter(from: numberCharacters) == nil else { return }
             
             let profileName = Profile(name: textFieldOne.text!, surName: textFieldTwo.text!, userId: (self?.user.uid)!)
             let taskRef = self?.ref.child("Name and Surname")
@@ -139,7 +142,7 @@ extension ProfileViewController {
         storageProfileImagesRef = Storage.storage().reference().child(user!.uid)
     }
     
-    // MARK: - CLLayer
+    // MARK: - CALayer All
     func configureLayer() {
         recipiesCollectionView.layer.shadowColor = UIColor.white.cgColor
         recipiesCollectionView.layer.shadowRadius = 8
@@ -157,8 +160,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationC
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            userImageView.contentMode = .scaleAspectFill
-            userImageView.image = image
+            userImageButton.imageView?.contentMode = .scaleAspectFill
+            userImageButton.setImage(image, for: .normal)
             
             //Firebase Upload Imagw и получение ссылки
             guard let data = image.jpegData(compressionQuality: 0.1) else { return }
@@ -222,8 +225,8 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
             timer = nil
         }
 }
-
-extension UIImageView {
+    // MARK: - CALAyer UIButton
+extension UIButton {
     func applyshadowWithCorner(containerView : UIView, cornerRadious : CGFloat){
         containerView.clipsToBounds = false
         containerView.layer.shadowColor = UIColor.gray.cgColor

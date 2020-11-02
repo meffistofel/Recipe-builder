@@ -19,7 +19,8 @@ class FirebaseService {
         }
     }
     
-    static func firebaseObserverFavouriteRecipies(ref: DatabaseReference, completion: @escaping (_ recipies: [Recipies]) -> ()) {
+    static func firebaseObserverFavouriteRecipies(ref: DatabaseReference,completionTwo: @escaping () -> (), completion: @escaping (_ recipies: [Recipies]) -> ()) {
+        completionTwo()
         ref.observe(.value) { (snapshot) in
             var recipiesFavourite = [Recipies]()
             for item in snapshot.children {

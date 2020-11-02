@@ -26,7 +26,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        goLoginButton.layer.cornerRadius = 10
+        configLayer()
         avPlayerConfiguration()
     }
     
@@ -76,5 +76,12 @@ extension WelcomeViewController {
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: .AVPlayerItemDidPlayToEndTime,
                                                object: avPlayer.currentItem)
+    }
+    
+    // MARK: - CALayer
+    func configLayer() {
+        goLoginButton.layer.cornerRadius = 10
+        goLoginButton.layer.borderWidth = 1
+        goLoginButton.layer.borderColor = UIColor.black.cgColor
     }
 }

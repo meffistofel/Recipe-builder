@@ -17,9 +17,11 @@ class AuthorizationViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var logoAppImageView: UIImageView!
     
+    @IBOutlet var goToLoginStackViewButton: UIButton!
     @IBOutlet var forgotPasswordButton: UIButton!
     @IBOutlet var logInButton: UIButton!
     @IBOutlet var registerButton: UIButton!
+    
     @IBOutlet var wanringLabel: UILabel!
     
     @IBOutlet var loginStackView: UIStackView!
@@ -46,15 +48,12 @@ class AuthorizationViewController: UIViewController {
         super.viewDidLoad()
         
         ref = Database.database().reference(withPath: "users")
-        
-        
-        forgotPasswordButton.layer.borderColor = UIColor.white.cgColor
-        forgotPasswordButton.layer.cornerRadius = 15
-        forgotPasswordButton.layer.borderWidth = 1
+    
         wanringLabel.alpha = 0
         loginStackView.isHidden = hidenloginStackView
         registerStackView.isHidden = hidenRegisterStackView
-        displayButtonCornerRadius()
+        
+        configLayer()
         avPlayerConfiguration()
         authFireBase()
     }
@@ -135,6 +134,11 @@ class AuthorizationViewController: UIViewController {
             return
         }
         
+        guard password.count > 6 else {
+            displayWarningLabel(withText: "Minimum 6 characters in password")
+            return
+        }
+        
         Firebase.Auth.auth().createUser(withEmail: login, password: password) { [weak self] (user, error) in
             guard error == nil, user != nil else { return print(error!.localizedDescription) }
             let userRef = self?.ref.child((user?.user.uid)!)
@@ -155,7 +159,7 @@ class AuthorizationViewController: UIViewController {
     }
     
     @IBAction func termsOfUse(_ sender: UIButton) {
-        showAlert(title: "Главное правило 🍒", message: "Готовьте вкусно, а мы в этом поможем")
+        showAlert(title: "The main rule 🍒", message: "Cook deliciously, and we will help you with this")
     }
     
     @IBAction func printAlertRegistrationButton(_ sender: UIButton) {
@@ -209,7 +213,7 @@ extension AuthorizationViewController: UITextFieldDelegate {
         if textField == loginTextField {
             passwordTextField.becomeFirstResponder()
         } else {
-            registerTapped(registerButton)
+            view.endEditing(true)
         }
         return true
     }
@@ -220,15 +224,6 @@ extension AuthorizationViewController: UITextFieldDelegate {
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
         present(alert, animated: true)
-    }
-    
-    // MARK: - Button CornerRaduis
-    func displayButtonCornerRadius() {
-        for label in cornerRadiusRegisterLabel {
-            label.layer.cornerRadius = 5
-        }
-        logInButton.layer.cornerRadius = 10
-        registerButton.layer.cornerRadius = 10
     }
     
     // MARK: - AVPlayer Config
@@ -256,7 +251,24 @@ extension AuthorizationViewController: UITextFieldDelegate {
         view.insertSubview(blurredView, at: 1)
     }
     
-    
+    // MARK: - CALayer
+    func configLayer() {
+        
+        for label in cornerRadiusRegisterLabel {
+            label.layer.cornerRadius = 5
+        }
+        
+        logInButton.layer.cornerRadius = 10
+        registerButton.layer.cornerRadius = 10
+        goToLoginStackViewButton.layer.borderColor = UIColor.white.cgColor
+        goToLoginStackViewButton.layer.cornerRadius = 15
+        goToLoginStackViewButton.layer.borderWidth = 1
+        forgotPasswordButton.layer.borderColor = UIColor.white.cgColor
+        forgotPasswordButton.layer.cornerRadius = 15
+        forgotPasswordButton.layer.borderWidth = 1
+        logInButton.layer.borderWidth = 0.6
+        logInButton.layer.borderColor = UIColor.black.cgColor
+    }
 }
 
 
