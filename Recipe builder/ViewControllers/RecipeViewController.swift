@@ -44,8 +44,6 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         startDownloadActivityIndicator()
         configScopeBar()
         observersKeyboardSearchFooter()
-        
-        
     }
     
     // MARK: - Table view data source
@@ -91,7 +89,8 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
 }
 
 // MARK: - Extension
-extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate {
+
+extension RecipeViewController {
     
     // MARK: - Fetch Recipe
     func fetchRecipies(url: String) {
@@ -115,52 +114,6 @@ extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate {
         self.downloadingRecipiesActivityIndicator.stopAnimating()
         self.loadingLabel.isHidden = true
         self.recipiesTableView.isHidden = false
-    }
-    
-    // MARK: - Extension UISearchBar
-    func placeSearchBarOnTableView() {
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Are you hungry?"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchBar.text!, scope: Double(scope)!)
-    }
-    
-    //searchBar & ScopeBar
-    func filterContentForSearchText(_ searchText: String, scope: Double = 30) {
-        var doesCategoryMacth = true
-        filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
-            switch scope {
-            case 30: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 1 )
-            case 60: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 30)
-            case 120: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 60)
-            case 180: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 120)
-            default: break
-            }
-            if isSearchBarEmpty {
-                return doesCategoryMacth
-            }
-            return doesCategoryMacth && recipe.recipe.label.lowercased().contains(searchText.lowercased())
-        }
-        recipiesTableView.reloadData()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        filterContentForSearchText(searchBar.text!, scope: Double(searchBar.scopeButtonTitles![selectedScope])!)
-    }
-    
-    // MARK: - Scope Bar
-    
-    func configScopeBar() {
-        searchController.searchBar.scopeButtonTitles = ["30", "60", "120", "180"]
-        searchController.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
-        searchController.searchBar.delegate = self
     }
     
     // MARK: - Extension Opasity Cell
@@ -209,5 +162,53 @@ extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate {
             self.bottomSearchFooterConstraint.constant = keyboardHeight
             self.view.layoutIfNeeded()
         })
+    }
+}
+
+extension RecipeViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    // MARK: - UISearchBar
+    func placeSearchBarOnTableView() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Are you hungry?"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchBar.text!, scope: Double(scope)!)
+    }
+    
+    //searchBar & ScopeBar
+    func filterContentForSearchText(_ searchText: String, scope: Double = 30) {
+        var doesCategoryMacth = true
+        filteredRecipies = sortFoodType.filter { (recipe: Hit) -> Bool in
+            switch scope {
+            case 30: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 1 )
+            case 60: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 30)
+            case 120: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 60)
+            case 180: doesCategoryMacth = (recipe.recipe.totalTime <= scope && recipe.recipe.totalTime > 120)
+            default: break
+            }
+            if isSearchBarEmpty {
+                return doesCategoryMacth
+            }
+            return doesCategoryMacth && recipe.recipe.label.lowercased().contains(searchText.lowercased())
+        }
+        recipiesTableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: Double(searchBar.scopeButtonTitles![selectedScope])!)
+    }
+    
+    // MARK: - Scope Bar
+    func configScopeBar() {
+        searchController.searchBar.scopeButtonTitles = ["30", "60", "120", "180"]
+        searchController.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
+        searchController.searchBar.delegate = self
     }
 }

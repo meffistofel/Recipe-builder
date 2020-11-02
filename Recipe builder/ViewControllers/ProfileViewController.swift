@@ -10,28 +10,34 @@ import Firebase
 import FirebaseStorage
 import Kingfisher
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - IB Outlet
     @IBOutlet var userImageView: UIImageView!
     @IBOutlet var userNameAndSurnameLabel: UILabel!
     @IBOutlet var exitButton: UIButton!
+    @IBOutlet var shadowOpacityView: UIView!
     
     @IBOutlet var addProfilePhotoBarButton: UIBarButtonItem!
     @IBOutlet var addProfileNameBarButton: UIBarButtonItem!
     
     @IBOutlet var recipiesCollectionView: UICollectionView!
+    
     let imagePicker = UIImagePickerController()
+    
+    var downloadImageProfile: Bool {
+        image != nil
+    }
     
     var user: User!
     var ref: DatabaseReference!
     var imageRef: DatabaseReference!
     var storageProfileImagesRef: StorageReference!
 
-    var name: String!
-    var surName: String!
     var image: UIImage!
     var timer: Timer?
+    var name: String!
+    var surName: String!
     var recipies = ["1", "2", "3", "4", "5"]
     
     
@@ -39,14 +45,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        
-        
-        recipiesCollectionView.layer.shadowColor = CGColor(red: 93, green: 83, blue: 230, alpha: 1)
-        recipiesCollectionView.layer.shadowRadius = 6
-        recipiesCollectionView.layer.shadowOpacity = 1
         imagePicker.delegate = self
+        downloadImageProfile ? userImageView.image = image : nil // если картинка есть то добавить
+        configureLayer()
         startTimer()
-        downloadImageProfile()
         checkCurrentUser()
     }
     
@@ -59,33 +61,29 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
     }
     
     override func viewWillLayoutSubviews() {
-        userImageView.layer.cornerRadius = userImageView.frame.width / 2
+
+        userImageView.applyshadowWithCorner(containerView: shadowOpacityView, cornerRadious: userImageView.frame.width / 2)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return 100 // (создание бесконечной круговой прокрутки collectionView)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "seeRecipe", for: indexPath) as! ProfileCollectionViewCellRecipe
         
-        let recipe = recipies[indexPath.item % recipies.count]
+        let recipe = recipies[indexPath.item % recipies.count] // (создание бесконечной круговой прокрутки collectionView)
         cell.imageRecipeImageView.image = UIImage(named: recipe)
         cell.imageRecipeImageView.layer.cornerRadius = 30
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goRecipeProfile", sender: nil)
+        performSegue(withIdentifier: "goRecipeProfile", sender: nil )
     }
     
     // MARK: - IB Actions
-    
-    func downloadImageProfile() {
-        if image != nil {
-            userImageView.image = image
-        }
-    }
     
     @IBAction func signOut(_ sender: UIButton) {
         do {
@@ -96,7 +94,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func addPhoto(_ sender: UIBarButtonItem) {
+    @IBAction func addPhoto(_ sender: UIBarButtonItem) { // создание пикера (фотогалерее и добавление их)
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
@@ -127,8 +125,8 @@ extension ProfileViewController {
             taskRef!.setValue(profileName.convertToDictionary())
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-        alertController.addAction(save)
         alertController.addAction(cancel)
+        alertController.addAction(save)
         present(alertController, animated: true, completion: nil)
     }
     
@@ -141,13 +139,28 @@ extension ProfileViewController {
         storageProfileImagesRef = Storage.storage().reference().child(user!.uid)
     }
     
+    // MARK: - CLLayer
+    func configureLayer() {
+        recipiesCollectionView.layer.shadowColor = UIColor.white.cgColor
+        recipiesCollectionView.layer.shadowRadius = 8
+        recipiesCollectionView.layer.shadowOpacity = 0.7
+    
+        exitButton.layer.borderColor = UIColor.gray.cgColor
+        exitButton.layer.borderWidth = 1
+        exitButton.layer.cornerRadius = 10
+
+    }
+}
+
     // MARK: - ImagePicker(Photo Gallery) & FireBase Storage
+extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             userImageView.contentMode = .scaleAspectFill
             userImageView.image = image
             
-            //Firebase Upload Imagw
+            //Firebase Upload Imagw и получение ссылки
             guard let data = image.jpegData(compressionQuality: 0.1) else { return }
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
@@ -166,6 +179,7 @@ extension ProfileViewController {
         dismiss(animated: true, completion: nil)
     }
 }
+
     // MARK: - UICollectionView
 extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     
@@ -185,7 +199,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
-    @objc func autoScroll() {
+    @objc func autoScroll() { //автопрокрутка UIcollectionViewCell
             guard let currentItemNumber = recipiesCollectionView.indexPathsForVisibleItems.first?.item  else { return }
             let nextItemNumber = currentItemNumber + 1
             let nextIndexPath = IndexPath(item: nextItemNumber, section: 0)
@@ -207,5 +221,18 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
             timer?.invalidate()
             timer = nil
         }
+}
+
+extension UIImageView {
+    func applyshadowWithCorner(containerView : UIView, cornerRadious : CGFloat){
+        containerView.clipsToBounds = false
+        containerView.layer.shadowColor = UIColor.gray.cgColor
+        containerView.layer.shadowOpacity = 1
+        containerView.layer.shadowOffset = CGSize.zero
+        containerView.layer.shadowRadius = 10
+        containerView.layer.cornerRadius = cornerRadious
+        self.clipsToBounds = true
+        self.layer.cornerRadius = cornerRadious
+    }
 }
 

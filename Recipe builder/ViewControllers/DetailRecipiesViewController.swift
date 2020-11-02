@@ -13,11 +13,15 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - let, var & IBOutlet
     @IBOutlet var pictureRecipeImageView: UIImageView!
+    
     @IBOutlet var tableView: UITableView!
+    
     @IBOutlet var seeFullRecipeLabel: UIButton!
+    
     @IBOutlet var сaloriesRecipeLabel: UILabel!
     @IBOutlet var weightRecipeLabel: UILabel!
     @IBOutlet var totalTimeLabel: UILabel!
+    
     @IBOutlet var addFavouriteRecipeBarButton: UIBarButtonItem!
     
     // MARK: - Let & Var
@@ -36,11 +40,10 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
          
-        pictureRecipeImageView.layer.cornerRadius = 20
-        seeFullRecipeLabel.layer.cornerRadius = 10
         
         checkCurrentUser()
         checkRecipeType ? fetchDetailFavouriteRecipies() : fetchDetailRecipies()
+        configLayer()
         makeColorHeartFavourite()
     }
     
@@ -105,7 +108,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
 // MARK: - Extension
 extension DetailRecipiesViewController {
     
-    
     // MARK: - Fetch Recipe
     func fetchDetailRecipies() {
         navigationItem.title = recipies.label
@@ -151,5 +153,11 @@ extension DetailRecipiesViewController {
         guard let currentUser = Auth.auth().currentUser else { return  }
         user = User(user: currentUser)
         ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("recipiesFromFavourite")
+    }
+    
+    // MARK: - CLLayer
+    func configLayer() {
+        pictureRecipeImageView.layer.cornerRadius = 20
+        seeFullRecipeLabel.layer.cornerRadius = 10
     }
 }

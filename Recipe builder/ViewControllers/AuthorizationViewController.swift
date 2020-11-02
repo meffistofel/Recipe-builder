@@ -15,7 +15,9 @@ class AuthorizationViewController: UIViewController {
     // MARK: - IB Outlet
     @IBOutlet var loginTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var logoAppImageView: UIImageView!
     
+    @IBOutlet var forgotPasswordButton: UIButton!
     @IBOutlet var logInButton: UIButton!
     @IBOutlet var registerButton: UIButton!
     @IBOutlet var wanringLabel: UILabel!
@@ -45,12 +47,20 @@ class AuthorizationViewController: UIViewController {
         
         ref = Database.database().reference(withPath: "users")
         
+        
+        forgotPasswordButton.layer.borderColor = UIColor.white.cgColor
+        forgotPasswordButton.layer.cornerRadius = 15
+        forgotPasswordButton.layer.borderWidth = 1
         wanringLabel.alpha = 0
         loginStackView.isHidden = hidenloginStackView
         registerStackView.isHidden = hidenRegisterStackView
         displayButtonCornerRadius()
         avPlayerConfiguration()
         authFireBase()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        logoAppImageView.layer.cornerRadius = logoAppImageView.frame.width / 2
     }
     
     // MARK: - viewWillAppear

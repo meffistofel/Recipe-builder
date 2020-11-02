@@ -46,20 +46,14 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        ref.observe(.value) { (snapshot) in
-            var recipiesFavourite = [Recipies]()
-            for item in snapshot.children {
-                let recipe = Recipies(snapShot: item as! DataSnapshot)
-                recipiesFavourite.append(recipe)
-            }
-            self.recipiesFromFavourite = recipiesFavourite
+        FirebaseService.firebaseObserverFavouriteRecipies(ref: ref) { (recipies) in
+            self.recipiesFromFavourite = recipies
             self.tableView.reloadData()
             self.checkValueFavouriteRecipies()
         }
         placeSearchBarOnTableView()
     }
-    
-    
+
     // MARK: - Methods
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -109,8 +103,9 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         90
     }
 }
+
 // MARK: - Extension
-extension FavouriteViewController: UISearchResultsUpdating, UISearchBarDelegate {
+extension FavouriteViewController {
     
     // MARK: - FireBase Auth
     func checkCurrentUser() {
@@ -146,6 +141,25 @@ extension FavouriteViewController: UISearchResultsUpdating, UISearchBarDelegate 
         self.navigationItem.leftBarButtonItem?.isEnabled = false
         
     }
+
+    // MARK: - NagitaionBar
+    func configureNAvigationBar() {
+        self.navigationItem.leftBarButtonItem = editButtonItem
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
+    }
+    
+    // MARK: - CLLayer
+    func animateOpacity() {
+        searchController.searchBar.layer.opacity = 0
+        tableView.layer.opacity = 0
+        UIView.animate(withDuration: 0.7) {
+            self.tableView.layer.opacity = 1
+            self.searchController.searchBar.layer.opacity = 1
+        }
+    }
+}
+
+extension FavouriteViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     // MARK: - UISearch Conroller
     func placeSearchBarOnTableView() {
@@ -163,28 +177,11 @@ extension FavouriteViewController: UISearchResultsUpdating, UISearchBarDelegate 
         filterContentForSearchtext(searchBar.text!)
     }
 
-
     func filterContentForSearchtext(_ searchText: String) {
         filteredRecipies = recipiesFromFavourite.filter({ (recipe: Recipies) -> Bool in
             recipe.recipe.lowercased().contains(searchText.lowercased())
         })
         tableView.reloadData()
-    }
-    
-    // MARK: - NagitaionBar
-    func configureNAvigationBar() {
-        self.navigationItem.leftBarButtonItem = editButtonItem
-        self.navigationItem.leftBarButtonItem?.isEnabled = false
-    }
-    
-    // MARK: - Extension Opasity Cell
-    func animateOpacity() {
-        searchController.searchBar.layer.opacity = 0
-        tableView.layer.opacity = 0
-        UIView.animate(withDuration: 0.7) {
-            self.tableView.layer.opacity = 1
-            self.searchController.searchBar.layer.opacity = 1
-        }
     }
 }
 

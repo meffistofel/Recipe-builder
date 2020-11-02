@@ -7,7 +7,6 @@
 
 import Foundation
 import Firebase
-import Kingfisher
 
 class FirebaseService {
     
@@ -17,6 +16,17 @@ class FirebaseService {
                 let profile = Profile(snapshot: item as! DataSnapshot)
                 completion(profile)
             }
+        }
+    }
+    
+    static func firebaseObserverFavouriteRecipies(ref: DatabaseReference, completion: @escaping (_ recipies: [Recipies]) -> ()) {
+        ref.observe(.value) { (snapshot) in
+            var recipiesFavourite = [Recipies]()
+            for item in snapshot.children {
+                let recipe = Recipies(snapShot: item as! DataSnapshot)
+                recipiesFavourite.append(recipe)
+            }
+            completion(recipiesFavourite)
         }
     }
 }
