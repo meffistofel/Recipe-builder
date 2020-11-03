@@ -18,7 +18,7 @@ class RecipeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var searchFooterImageView: SearchFooter!
     @IBOutlet var bottomSearchFooterConstraint: NSLayoutConstraint!
     
-    let searchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
     
     private var foodType: FoodType!
     private var filteredRecipies: [Hit] = []
@@ -143,7 +143,6 @@ extension RecipeViewController {
     }
     
     func handleKeyboard(notification: Notification) {
-        // 1
         guard notification.name == UIResponder.keyboardWillChangeFrameNotification else {
             bottomSearchFooterConstraint.constant = 0
             view.layoutIfNeeded()

@@ -33,10 +33,4 @@ struct Ingredient: Decodable {
     let image: String?
 }
 
-//    enum CodingKeys: String, CodingKey {
-//
-//        case text
-//        case image
-//    }
-
 

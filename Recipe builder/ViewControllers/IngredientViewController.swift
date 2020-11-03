@@ -18,7 +18,7 @@ class IngredientViewController: UIViewController {
     var favouriteIngredient: Ingredient!
     
     // MARK: - Observers
-    var checkTypeIngredient: Bool {
+    private var checkTypeIngredient: Bool {
         ingredient == nil
     }
     
@@ -69,7 +69,6 @@ extension IngredientViewController {
     func transform(for view: UIView, nameAnimation: String, duration: CFTimeInterval, fromValue: Float, toValue: Float, autoreverses: Bool, repeatCount: Float) {
         
         let animation = CASpringAnimation(keyPath: nameAnimation)
-        
         animation.duration = duration
         animation.fromValue = fromValue
         animation.toValue = toValue

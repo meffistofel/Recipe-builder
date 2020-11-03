@@ -18,10 +18,9 @@ class TypeRecipiesViewController: UICollectionViewController {
     private let recipiesURLMeat = "https://api.edamam.com/search?q=meat"
     private let recipiesURLMilk = "https://api.edamam.com/search?q=milk"
     private let recipiesURLFish = "https://api.edamam.com/search?q=fish"
-    
-    var text = "23"
-    var ref: DatabaseReference!
-    var user: User!
+
+    private var ref: DatabaseReference!
+    private var user: User!
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -32,10 +31,11 @@ class TypeRecipiesViewController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        FirebaseService.firebaseObserverProfile(ref: ref) { [weak self] (profile) in
-            
-            let navController = self?.tabBarController!.viewControllers![2] as! UINavigationController
-            let vc = navController.topViewController as? ProfileViewController
+        
+        let navController = self.tabBarController!.viewControllers![2] as! UINavigationController
+        let vc = navController.topViewController as? ProfileViewController
+        
+        FirebaseService.firebaseObserverProfile(ref: ref) { (profile) in
             vc?.nameAndSurname = profile.name + "" + profile.surName
         }
         
@@ -45,8 +45,6 @@ class TypeRecipiesViewController: UICollectionViewController {
             let imageData = data
             if imageData != nil {
                 guard let image = UIImage(data: imageData!) else { return }
-                let navController = self.tabBarController!.viewControllers![2] as! UINavigationController
-                let vc = navController.topViewController as? ProfileViewController
                 vc?.profileImage = image
             }
         }

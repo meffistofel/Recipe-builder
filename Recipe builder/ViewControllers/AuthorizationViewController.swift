@@ -21,26 +21,25 @@ class AuthorizationViewController: UIViewController, UIViewControllerTransitioni
     @IBOutlet var forgotPasswordButton: UIButton!
     @IBOutlet var logInButton: UIButton!
     @IBOutlet var registerButton: UIButton!
+    @IBOutlet var cornerRadiusRegisterLabel: [UIButton]!
     
     @IBOutlet var wanringLabel: UILabel!
     
     @IBOutlet var loginStackView: UIStackView!
     @IBOutlet var registerStackView: UIStackView!
     
-    @IBOutlet var cornerRadiusRegisterLabel: [UIButton]!
-    
     // MARK: - Let & Var
-    let segueIdentifire = "goLogin"
-    var ref: DatabaseReference!
+    private let segueIdentifire = "goLogin"
+    private var ref: DatabaseReference!
     
     var hidenloginStackView: Bool!
     var hidenRegisterStackView: Bool!
     
-    var avPlayer: AVPlayer!
-    var avPlayerLayer: AVPlayerLayer!
-    var paused: Bool = false
+    private var avPlayer: AVPlayer!
+    private var avPlayerLayer: AVPlayerLayer!
+    private var paused: Bool = false
     
-    let transition = CircularTransiton()
+    private let transition = CircularTransiton()
  
     // MARK: - ViewDidLoad
     override func viewDidLoad() {

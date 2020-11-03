@@ -16,11 +16,12 @@ class WelcomeViewController: UIViewController, UIViewControllerTransitioningDele
     
     
     // MARK: - Let & Var
-    let segueIdentifire = "goLoginVC"
     
-    var avPlayer: AVPlayer!
-    var avPlayerLayer: AVPlayerLayer!
-    var paused: Bool = false
+    private let segueIdentifire = "goLoginVC"
+    
+    private var avPlayer: AVPlayer!
+    private var avPlayerLayer: AVPlayerLayer!
+    private var paused: Bool = false
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {

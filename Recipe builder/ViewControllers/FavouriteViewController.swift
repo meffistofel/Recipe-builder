@@ -18,25 +18,25 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     // MARK: - Let & Var
-    let searchController = UISearchController(searchResultsController: nil)
-    var filteredRecipies = [Recipies]()
+    private let searchController = UISearchController(searchResultsController: nil)
     
-    var user: User!
-    var ref: DatabaseReference!
+    private var user: User!
+    private var ref: DatabaseReference!
+    
+    var filteredRecipies = [Recipies]()
     var recipiesFromFavourite = [Recipies]()
     
     // MARK: - Observers
-    var isSearchBarEmpty: Bool {
+    private var isSearchBarEmpty: Bool {
         searchController.searchBar.text?.isEmpty ?? true
     }
-    var isFiltering: Bool {
+    private var isFiltering: Bool {
         searchController.isActive && !isSearchBarEmpty
     }
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         configureNAvigationBar()
         checkCurrentUser()
@@ -57,7 +57,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         placeSearchBarOnTableView()
     }
-
+    
     // MARK: - Methods
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -70,14 +70,14 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func checkValueFavouriteRecipies() {
         recipiesFromFavourite.count >= 1 ? startDownloadActivityIndicator() : favListEmpty()
-        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favourite", for: indexPath) as! FavouriteTableViewCell
         
         let favouriteRecipe = isFiltering ? filteredRecipies[indexPath.row] : recipiesFromFavourite[indexPath.row]
         cell.configure(recipe: favouriteRecipe)
-    
+        
         stopDownloadActivityIndicator()
         return cell
     }
@@ -148,7 +148,7 @@ extension FavouriteViewController {
         self.navigationItem.leftBarButtonItem?.isEnabled = false
         
     }
-
+    
     // MARK: - NagitaionBar
     func configureNAvigationBar() {
         self.navigationItem.leftBarButtonItem = editButtonItem
@@ -183,7 +183,7 @@ extension FavouriteViewController: UISearchResultsUpdating, UISearchBarDelegate 
         let searchBar = searchController.searchBar
         filterContentForSearchtext(searchBar.text!)
     }
-
+    
     func filterContentForSearchtext(_ searchText: String) {
         filteredRecipies = recipiesFromFavourite.filter({ (recipe: Recipies) -> Bool in
             recipe.recipe.lowercased().contains(searchText.lowercased())

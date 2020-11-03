@@ -14,34 +14,34 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // MARK: - IB Outlet
     @IBOutlet var userImageButton: UIButton!
-    @IBOutlet var userNameAndSurnameLabel: UILabel!
     @IBOutlet var exitButton: UIButton!
+    
+    @IBOutlet var userNameAndSurnameLabel: UILabel!
+    
     @IBOutlet var shadowOpacityView: UIView!
     
     @IBOutlet var addProfileNameBarButton: UIBarButtonItem!
     
     @IBOutlet var recipiesCollectionView: UICollectionView!
     
-    let imagePicker = UIImagePickerController()
+    private let imagePicker = UIImagePickerController()
     
-    var downloadImageProfile: Bool {
+    private var downloadImageProfile: Bool {
         image != nil
     }
     
-    var user: User!
-    var ref: DatabaseReference!
-    var imageRef: DatabaseReference!
-    var storageProfileImagesRef: StorageReference!
+    private var user: User!
+    private var refNameAndSurname: DatabaseReference!
+    private var imageRef: DatabaseReference!
+    private var storageProfileImagesRef: StorageReference!
+    
+    private var recipies = ["1", "2", "3", "4", "5"]
 
+    private var timer: Timer?
+    
     var image: UIImage!
-    var timer: Timer?
     var nameAndSurname: String?
     var profileImage: UIImage!
-    var recipies = ["1", "2", "3", "4", "5"]
-    
-    
-    
-    
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -49,7 +49,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         imagePicker.delegate = self
         downloadImageProfile ? userImageButton.setImage(image, for: .normal) : nil // если картинка есть то добавить
-        userImageButton.imageView?.contentMode = .scaleAspectFill
         checkUserNameAndPhoto()
         configureLayer()
         startTimer()
@@ -59,7 +58,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        FirebaseService.firebaseObserverProfile(ref: ref) { [weak self] (profile) in
+        FirebaseService.firebaseObserverProfile(ref: refNameAndSurname) { [weak self] (profile) in
             self?.userNameAndSurnameLabel.text = profile.surName.capitalized + " " + profile.name.capitalized
         }
     }
@@ -99,7 +98,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @IBAction func addUserPhoto(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
@@ -143,7 +142,7 @@ extension ProfileViewController {
             guard let textFieldTwo = alertController.textFields?.last, textFieldTwo.text != "", textFieldTwo.text?.rangeOfCharacter(from: numberCharacters) == nil else { return }
             
             let profileName = Profile(name: textFieldOne.text!, surName: textFieldTwo.text!, userId: (self?.user.uid)!)
-            let taskRef = self?.ref.child("Name and Surname")
+            let taskRef = self?.refNameAndSurname.child("Name and Surname")
             taskRef!.setValue(profileName.convertToDictionary())
         }
         
@@ -158,7 +157,7 @@ extension ProfileViewController {
     func checkCurrentUser() {
         guard let currentUser = Auth.auth().currentUser else { return  }
         user = User(user: currentUser)
-        ref = Database.database().reference(withPath: "users").child(String(user.uid)).child("profile")
+        refNameAndSurname = Database.database().reference(withPath: "users").child(String(user.uid)).child("profile")
         imageRef = Database.database().reference(withPath: "users").child(String(self.user.uid)).child("imageProfile")
         storageProfileImagesRef = Storage.storage().reference().child(user!.uid)
     }
@@ -172,6 +171,8 @@ extension ProfileViewController {
         exitButton.layer.borderColor = UIColor.gray.cgColor
         exitButton.layer.borderWidth = 1
         exitButton.layer.cornerRadius = 10
+        
+        userImageButton.imageView?.contentMode = .scaleAspectFill
 
     }
 }
@@ -180,7 +181,7 @@ extension ProfileViewController {
 extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             userImageButton.imageView?.contentMode = .scaleAspectFill
             userImageButton.setImage(image, for: .normal)
             

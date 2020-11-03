@@ -25,14 +25,15 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var addFavouriteRecipeBarButton: UIBarButtonItem!
     
     // MARK: - Let & Var
+    
+    private var user: User!
+    private var ref: DatabaseReference!
+    
     var recipies: Recipe!
     var favouriteRecipies: Recipies!
     
-    var user: User!
-    var ref: DatabaseReference!
-    
     // MARK: - Observers
-    var checkRecipeType: Bool {
+    private var checkRecipeType: Bool {
         recipies == nil
     }
     
@@ -40,7 +41,6 @@ class DetailRecipiesViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
          
-        
         checkCurrentUser()
         checkRecipeType ? fetchDetailFavouriteRecipies() : fetchDetailRecipies()
         configLayer()
