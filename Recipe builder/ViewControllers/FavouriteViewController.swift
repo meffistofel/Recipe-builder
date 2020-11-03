@@ -121,8 +121,8 @@ extension FavouriteViewController {
     // MARK: - Fetch Favoutire Recipe
     private func startDownloadActivityIndicator() {
         tableView.isHidden = true
-        self.navigationItem.leftBarButtonItem?.isEnabled = false
-        self.searchController.searchBar.isHidden = false
+        navigationItem.leftBarButtonItem?.isEnabled = false
+        searchController.searchBar.isHidden = true
         favListIsEmptyLabel.isHidden = true
         processDownloadLabel.isHidden = false
         downloadFavouriteActivityIndicator.isHidden = false
@@ -135,7 +135,8 @@ extension FavouriteViewController {
         downloadFavouriteActivityIndicator.stopAnimating()
         processDownloadLabel.isHidden = true
         tableView.isHidden = false
-        self.navigationItem.leftBarButtonItem?.isEnabled = true
+        searchController.searchBar.isHidden = false
+        navigationItem.leftBarButtonItem?.isEnabled = true
     }
     
     private func favListEmpty() {
@@ -169,7 +170,7 @@ extension FavouriteViewController: UISearchResultsUpdating, UISearchBarDelegate 
     
     // MARK: - UISearch Conroller
     func placeSearchBarOnTableView() {
-        searchController.searchBar.isHidden = false
+        searchController.searchBar.isHidden = true
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Favoutire recipe"

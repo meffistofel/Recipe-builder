@@ -10,7 +10,7 @@ import AVFoundation
 import Firebase
 import Kingfisher
 
-class AuthorizationViewController: UIViewController {
+class AuthorizationViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     // MARK: - IB Outlet
     @IBOutlet var loginTextField: UITextField!
@@ -40,9 +40,8 @@ class AuthorizationViewController: UIViewController {
     var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
     
-    
-    
-    
+    let transition = CircularTransiton()
+ 
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +90,27 @@ class AuthorizationViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .present
+        transition.startPoint = logoAppImageView.center
+        transition.circleColor = .black
+        return transition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .dismiss
+        transition.startPoint = logoAppImageView.center
+        transition.circleColor = .clear
+        return transition
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let NavigationVC = segue.destination as? UITabBarController else { return }
+        NavigationVC.transitioningDelegate = self
+        NavigationVC.modalPresentationStyle = .custom
+    }
+    
     func displayWarningLabel(withText text: String) {
         wanringLabel.text = text
         
@@ -114,13 +134,7 @@ class AuthorizationViewController: UIViewController {
             }
             
             if user != nil {
-                let storageProfileImagesRef = Storage.storage().reference().child((user?.user.uid)!)
-                let megaByte = Int64(1 * 1024 * 1024)
-                storageProfileImagesRef.getData(maxSize: megaByte) { (data, error) in
-                    guard let imageData = data else { return }
-                    let image = UIImage(data: imageData)
-                    self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: image)
-                }
+                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
                 return
             }
             self?.displayWarningLabel(withText: "No such user")
@@ -134,7 +148,7 @@ class AuthorizationViewController: UIViewController {
             return
         }
         
-        guard password.count > 6 else {
+        guard password.count >= 6 else {
             displayWarningLabel(withText: "Minimum 6 characters in password")
             return
         }
@@ -163,40 +177,22 @@ class AuthorizationViewController: UIViewController {
     }
     
     @IBAction func printAlertRegistrationButton(_ sender: UIButton) {
-        showAlert(title: "Sooooon 🥩", message: "Function in development")
+        
+        resetPasswordAlert(title: "Reset password", message: "Enter your E-mail")
     }
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
         loginTextField.text = nil
         passwordTextField.text = nil
     }
-    
 
-    
     // MARK: - Firebase Auth
     func authFireBase() {
         FirebaseAuth.Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
             if user != nil {
-                let storageProfileImagesRef = Storage.storage().reference().child(user!.uid)
-                let megaByte = Int64(1 * 1024 * 1024)
-                storageProfileImagesRef.getData(maxSize: megaByte) { (data, error) in
-                    let imageData = data
-                    if imageData != nil {
-                        let image = UIImage(data: imageData!)
-                        self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: image)
-                    } else {
-                        self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
-                    }
-                }
+                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
             }
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let tabBarVC = segue.destination as! UITabBarController
-        let navigationVC = tabBarVC.viewControllers?.last as! UINavigationController
-        let profileVC = navigationVC.topViewController as! ProfileViewController
-        profileVC.image = sender as? UIImage
     }
 }
 
@@ -224,6 +220,24 @@ extension AuthorizationViewController: UITextFieldDelegate {
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
         present(alert, animated: true)
+    }
+    
+    private func resetPasswordAlert(title: String, message: String) {
+        let resetController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        resetController.addTextField { (textField) in
+            textField.placeholder = "E-mail"
+        }
+        
+        let resetPassword = UIAlertAction(title: "Send password", style: .default) { (_) in
+            guard let textfield = resetController.textFields?.first, textfield.text != "" else { return }
+            Auth.auth().sendPasswordReset(withEmail: textfield.text!)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        resetController.addAction(resetPassword)
+        resetController.addAction(cancel)
+        present(resetController, animated: true, completion: nil)
     }
     
     // MARK: - AVPlayer Config

@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import Firebase
 
-class WelcomeViewController: UIViewController {
+class WelcomeViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     // MARK: - IB Outlet
     @IBOutlet var goLoginButton: UIButton!

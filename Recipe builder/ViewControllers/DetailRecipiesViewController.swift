@@ -160,4 +160,5 @@ extension DetailRecipiesViewController {
         pictureRecipeImageView.layer.cornerRadius = 20
         seeFullRecipeLabel.layer.cornerRadius = 10
     }
+    
 }

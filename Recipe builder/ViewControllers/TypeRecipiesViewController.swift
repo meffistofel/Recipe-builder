@@ -33,13 +33,25 @@ class TypeRecipiesViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         FirebaseService.firebaseObserverProfile(ref: ref) { [weak self] (profile) in
+            
+            let navController = self?.tabBarController!.viewControllers![2] as! UINavigationController
+            let vc = navController.topViewController as? ProfileViewController
+            vc?.nameAndSurname = profile.name + "" + profile.surName
+        }
         
-        let navController = self?.tabBarController!.viewControllers![2] as! UINavigationController
-        let vc = navController.topViewController as! ProfileViewController
-            vc.nameAndSurname = profile.name + "" + profile.surName
+        let storageProfileImagesRef = Storage.storage().reference().child(user!.uid)
+        let megaByte = Int64(1 * 1024 * 1024)
+        storageProfileImagesRef.getData(maxSize: megaByte) { (data, error) in
+            let imageData = data
+            if imageData != nil {
+                guard let image = UIImage(data: imageData!) else { return }
+                let navController = self.tabBarController!.viewControllers![2] as! UINavigationController
+                let vc = navController.topViewController as? ProfileViewController
+                vc?.profileImage = image
+            }
         }
     }
-
+    
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return typeRecipies.count

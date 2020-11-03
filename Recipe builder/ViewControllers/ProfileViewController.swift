@@ -35,8 +35,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     var image: UIImage!
     var timer: Timer?
-    var nameAndSurname: String!
+    var nameAndSurname: String?
+    var profileImage: UIImage!
     var recipies = ["1", "2", "3", "4", "5"]
+    
+    
     
     
     
@@ -44,11 +47,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userNameAndSurnameLabel.text = nameAndSurname
-        
         imagePicker.delegate = self
         downloadImageProfile ? userImageButton.setImage(image, for: .normal) : nil // если картинка есть то добавить
         userImageButton.imageView?.contentMode = .scaleAspectFill
+        checkUserNameAndPhoto()
         configureLayer()
         startTimer()
         checkCurrentUser()
@@ -105,6 +107,21 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBAction func editNameAndSurName(_ sender: UIBarButtonItem) {
         showAlert(title: "Name and surname", message: "containing numbers are not saved")
     }
+    
+    func checkUserNameAndPhoto() {
+        
+        if nameAndSurname != nil {
+            userNameAndSurnameLabel.text = nameAndSurname
+        } else {
+            userNameAndSurnameLabel.text = "Name"
+        }
+        
+        if profileImage != nil {
+            userImageButton.setImage(profileImage, for: .normal)
+        } else {
+            userImageButton.setBackgroundImage(#imageLiteral(resourceName: "default1"), for: .normal)
+        }
+    }
 }
 
 extension ProfileViewController {
@@ -112,12 +129,14 @@ extension ProfileViewController {
     // MARK: - UIAllert
     private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
         alertController.addTextField { (textField) in
             textField.placeholder = "Name"
         }
         alertController.addTextField { (textField) in
             textField.placeholder = "Surname"
         }
+        
         let save = UIAlertAction(title: "Save", style: .default) { [weak self] (_) in
             let numberCharacters = NSCharacterSet.decimalDigits // с помощью этого можно проверить строки на наличие цифр
             guard let textFieldOne = alertController.textFields?.first, textFieldOne.text != "", textFieldOne.text?.rangeOfCharacter(from: numberCharacters) == nil else { return }
@@ -127,7 +146,9 @@ extension ProfileViewController {
             let taskRef = self?.ref.child("Name and Surname")
             taskRef!.setValue(profileName.convertToDictionary())
         }
+        
         let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
         alertController.addAction(cancel)
         alertController.addAction(save)
         present(alertController, animated: true, completion: nil)
@@ -237,5 +258,6 @@ extension UIButton {
         self.clipsToBounds = true
         self.layer.cornerRadius = cornerRadious
     }
+    
 }
 
