@@ -60,13 +60,6 @@ class AuthorizationViewController: UIViewController, UIViewControllerTransitioni
         logoAppImageView.layer.cornerRadius = logoAppImageView.frame.width / 2
     }
     
-    // MARK: - viewWillAppear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loginTextField.text = ""
-        passwordTextField.text = ""
-    }
-    
     // MARK: - Methods
     @objc func playerItemDidReachEnd(notification: Notification) {
         let p: AVPlayerItem = notification.object as! AVPlayerItem
@@ -105,7 +98,7 @@ class AuthorizationViewController: UIViewController, UIViewControllerTransitioni
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let NavigationVC = segue.destination as? UITabBarController else { return }
+        guard let NavigationVC = segue.destination as? UINavigationController else { return }
         NavigationVC.transitioningDelegate = self
         NavigationVC.modalPresentationStyle = .custom
     }
@@ -133,7 +126,6 @@ class AuthorizationViewController: UIViewController, UIViewControllerTransitioni
             }
             
             if user != nil {
-                self?.performSegue(withIdentifier: (self?.segueIdentifire)!, sender: nil)
                 return
             }
             self?.displayWarningLabel(withText: "No such user")

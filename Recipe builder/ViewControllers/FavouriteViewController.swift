@@ -49,11 +49,10 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
         
         FirebaseService.firebaseObserverFavouriteRecipies(ref: ref) {
             self.startDownloadActivityIndicator()
-        } completion: { (recipies) in
-            self.recipiesFromFavourite = recipies
-            self.tableView.reloadData()
-            print(self.recipiesFromFavourite.count)
-            self.checkValueFavouriteRecipies()
+        } completion: { [weak self] (recipies) in
+            self?.recipiesFromFavourite = recipies
+            self?.tableView.reloadData()
+            self?.checkValueFavouriteRecipies()
         }
         placeSearchBarOnTableView()
     }

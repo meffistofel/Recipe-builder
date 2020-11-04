@@ -26,10 +26,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     private let imagePicker = UIImagePickerController()
     
-    private var downloadImageProfile: Bool {
-        image != nil
-    }
-    
     private var user: User!
     private var refNameAndSurname: DatabaseReference!
     private var imageRef: DatabaseReference!
@@ -39,7 +35,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     private var timer: Timer?
     
-    var image: UIImage!
     var nameAndSurname: String?
     var profileImage: UIImage!
     
@@ -48,7 +43,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         
         imagePicker.delegate = self
-        downloadImageProfile ? userImageButton.setImage(image, for: .normal) : nil // если картинка есть то добавить
         checkUserNameAndPhoto()
         configureLayer()
         startTimer()
@@ -104,7 +98,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @IBAction func editNameAndSurName(_ sender: UIBarButtonItem) {
-        showAlert(title: "Name and surname", message: "containing numbers are not saved")
+        editProfileName(title: "Name and surname", message: "containing numbers are not saved")
+    }
+    
+    @IBAction func updateUserPassword(_ sender: Any) {
+        editProfilePassword(title: "Update password", message: "Write new password") {
+            
+        }
     }
     
     func checkUserNameAndPhoto() {
@@ -126,7 +126,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 extension ProfileViewController {
     
     // MARK: - UIAllert
-    private func showAlert(title: String, message: String) {
+    private func editProfileName(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
@@ -153,6 +153,26 @@ extension ProfileViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    private func editProfilePassword(title: String, message: String, completion: @escaping () -> ()) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "New password"
+        }
+        
+        let save = UIAlertAction(title: "Save", style: .default) { (_) in
+            guard let textFieldOne = alertController.textFields?.first, textFieldOne.text != ""  else { return }
+            Auth.auth().currentUser?.updatePassword(to: textFieldOne.text!)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        alertController.addAction(cancel)
+        alertController.addAction(save)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
     // MARK: - FireBase Auth
     func checkCurrentUser() {
         guard let currentUser = Auth.auth().currentUser else { return  }
@@ -173,7 +193,6 @@ extension ProfileViewController {
         exitButton.layer.cornerRadius = 10
         
         userImageButton.imageView?.contentMode = .scaleAspectFill
-
     }
 }
 
