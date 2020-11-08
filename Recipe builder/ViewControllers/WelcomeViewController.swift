@@ -23,12 +23,16 @@ class WelcomeViewController: UIViewController, UIViewControllerTransitioningDele
     private var avPlayerLayer: AVPlayerLayer!
     private var paused: Bool = false
     
+    deinit {
+        print("Hello")
+    }
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configLayer()
         avPlayerConfiguration()
+        configLayer()
     }
     
     // MARK: - Player Method

@@ -41,6 +41,10 @@ class AuthorizationViewController: UIViewController, UIViewControllerTransitioni
     
     private let transition = CircularTransiton()
  
+    deinit {
+        print("Hello")
+    }
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,68 +85,38 @@ class AuthorizationViewController: UIViewController, UIViewControllerTransitioni
         paused = true
     }
     
-    // MARK: - Methods
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.transitionMode = .present
-        transition.startPoint = logoAppImageView.center
-        transition.circleColor = .black
-        return transition
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.transitionMode = .dismiss
-        transition.startPoint = logoAppImageView.center
-        transition.circleColor = .clear
-        return transition
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let NavigationVC = segue.destination as? UINavigationController else { return }
-        NavigationVC.transitioningDelegate = self
-        NavigationVC.modalPresentationStyle = .custom
-    }
-    
-    func displayWarningLabel(withText text: String) {
-        wanringLabel.text = text
-        
-        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) { [weak self] in
-            self?.wanringLabel.alpha = 1
-        } completion: { [weak self] (complete) in
-            self?.wanringLabel.alpha = 0
-        }
-    }
     // MARK: - IB Actions
     @IBAction func loginTapped(_ sender: UIButton) { // логиним пользователя через FireBase
         
         guard let login = loginTextField.text, let password = passwordTextField.text, login != "", password != "" else {
-            displayWarningLabel(withText: "Login or password isn't correct")
+            showAlert(title: "Login or password isn't correct", message: nil)
             return
         }
         FirebaseAuth.Auth.auth().signIn(withEmail: login, password: password) { [weak self] (user, error) in
             if error != nil {
-                self?.displayWarningLabel(withText: "Error occured")
+                self?.showAlert(title: "Error occured", message: nil)
                 return
             }
             
             if user != nil {
                 return
             }
-            self?.displayWarningLabel(withText: "No such user")
+            self?.showAlert(title: "No such user", message: nil)
         }
     }
     
     @IBAction func registerTapped(_ sender: UIButton) {
         
         guard let login = loginTextField.text, let password = passwordTextField.text, login != "", password != "" else {
-            displayWarningLabel(withText: "Failed to register")
+            showAlert(title: "Failed to register", message: nil)
             return
         }
         
         guard password.count >= 6 else {
-            displayWarningLabel(withText: "Minimum 6 characters in password")
+            showAlert(title: "Minimum 6 characters in password", message: nil)
             return
         }
+    
         
         Firebase.Auth.auth().createUser(withEmail: login, password: password) { [weak self] (user, error) in
             guard error == nil, user != nil else { return print(error!.localizedDescription) }
@@ -185,6 +159,27 @@ class AuthorizationViewController: UIViewController, UIViewControllerTransitioni
             }
         }
     }
+    // MARK: - Methods
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .present
+        transition.startPoint = logoAppImageView.center
+        transition.circleColor = .black
+        return transition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .dismiss
+        transition.startPoint = logoAppImageView.center
+        transition.circleColor = .clear
+        return transition
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let NavigationVC = segue.destination as? UINavigationController else { return }
+        NavigationVC.transitioningDelegate = self
+        NavigationVC.modalPresentationStyle = .custom
+    }
 }
 
 // MARK: -  Extension
@@ -206,9 +201,9 @@ extension AuthorizationViewController: UITextFieldDelegate {
     }
     
     // MARK: - UIAlert
-    private func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: "🍒", style: .destructive)
         alert.addAction(okAction)
         present(alert, animated: true)
     }

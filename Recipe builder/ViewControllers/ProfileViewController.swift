@@ -38,6 +38,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     var nameAndSurname: String?
     var profileImage: UIImage!
     
+    deinit {
+        print("Hello")
+    }
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,11 +106,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @IBAction func updateUserPassword(_ sender: Any) {
-        editProfilePassword(title: "Update password", message: "Write new password") {
-            
-        }
+        editProfilePassword(title: "Update password", message: "Write new password")
+        
     }
-    
     func checkUserNameAndPhoto() {
         
         if nameAndSurname != nil {
@@ -153,22 +155,37 @@ extension ProfileViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func editProfilePassword(title: String, message: String, completion: @escaping () -> ()) {
+    private func editProfilePassword(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
             textField.placeholder = "New password"
         }
         
-        let save = UIAlertAction(title: "Save", style: .default) { (_) in
+        let save = UIAlertAction(title: "Save", style: .default) { [weak self] (_) in
             guard let textFieldOne = alertController.textFields?.first, textFieldOne.text != ""  else { return }
-            Auth.auth().currentUser?.updatePassword(to: textFieldOne.text!)
+            Auth.auth().currentUser?.updatePassword(to: textFieldOne.text!, completion: { (_) in
+                
+                guard textFieldOne.text!.count >= 6 else {
+                    self?.showSuccessfully(title: "Minimum 6 characters in password", message: nil)
+                    return
+                }
+                
+                self?.showSuccessfully(title: "Successfully", message: nil)
+            })
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         
         alertController.addAction(cancel)
         alertController.addAction(save)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func showSuccessfully(title: String, message: String?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "🍒", style: .destructive)
+        alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
     

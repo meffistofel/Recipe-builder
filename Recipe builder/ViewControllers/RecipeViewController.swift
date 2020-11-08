@@ -132,13 +132,13 @@ extension RecipeViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(
             forName: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil, queue: .main) { (notification) in
-            self.handleKeyboard(notification: notification)
+            object: nil, queue: .main) { [weak self] (notification) in
+            self?.handleKeyboard(notification: notification)
         }
         notificationCenter.addObserver(
             forName: UIResponder.keyboardWillHideNotification,
-            object: nil, queue: .main) { (notification) in
-            self.handleKeyboard(notification: notification)
+            object: nil, queue: .main) { [weak self] (notification) in
+            self?.handleKeyboard(notification: notification)
         }
     }
     
@@ -157,9 +157,9 @@ extension RecipeViewController {
         }
         
         let keyboardHeight = keyboardFrame.size.height - (tabBarController?.tabBar.frame.height)!
-        UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.bottomSearchFooterConstraint.constant = keyboardHeight
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.1, animations: { [weak self] () -> Void  in
+            self?.bottomSearchFooterConstraint.constant = keyboardHeight
+            self?.view.layoutIfNeeded()
         })
     }
 }
