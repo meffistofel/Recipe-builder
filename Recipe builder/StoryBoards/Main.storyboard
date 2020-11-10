@@ -1033,7 +1033,6 @@
         <!--Navigation Controller-->
         <scene sceneID="50o-aq-T9B">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ubH-Wo-ui4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController navigationBarHidden="YES" id="iwS-Vo-8vW" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Cf5-f0-nCe">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1042,13 +1041,13 @@
                         <segue destination="s5X-3k-qap" kind="relationship" relationship="rootViewController" id="kLs-ml-YtS"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ubH-Wo-ui4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1860" y="95"/>
         </scene>
         <!--Recipes-->
         <scene sceneID="8HX-oD-Nf3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Xa5-Xo-fab" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNh-XI-ua8" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recipes" image="34909-200" selectedImage="34909-200" id="xQI-BU-pfJ"/>
                     <toolbarItems/>
@@ -1065,13 +1064,13 @@
                         <segue destination="Hdy-NA-MpZ" kind="relationship" relationship="rootViewController" id="IvZ-2Y-QSK"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xa5-Xo-fab" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2512.8000000000002" y="-602.24887556221893"/>
         </scene>
         <!--Profile-->
         <scene sceneID="T1v-wi-rxM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vTZ-er-zuF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EjJ-tH-eBG" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="Таб бар" selectedImage="Таб бар" id="axr-t4-zmh"/>
                     <toolbarItems/>
@@ -1088,6 +1087,7 @@
                         <segue destination="yGi-l0-e1G" kind="relationship" relationship="rootViewController" id="BFj-qQ-7sk"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vTZ-er-zuF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3472.8000000000002" y="333.28335832083962"/>
         </scene>
@@ -1217,7 +1217,6 @@
         <!--Favourite-->
         <scene sceneID="wYl-i0-5WP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kpa-RO-lqz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U32-ux-qHf" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favourite" image="heart" catalog="system" id="U4c-kT-PbT"/>
                     <toolbarItems/>
@@ -1234,6 +1233,7 @@
                         <segue destination="SZQ-ai-RzK" kind="relationship" relationship="rootViewController" id="LSK-MR-NdW"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kpa-RO-lqz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4248.8000000000002" y="-1332.6836581709147"/>
         </scene>

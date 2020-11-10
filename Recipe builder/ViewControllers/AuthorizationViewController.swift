@@ -128,12 +128,14 @@ class AuthorizationViewController: UIViewController, UIViewControllerTransitioni
     @IBAction func registerInLoginWindow(_ sender: UIButton) {
         
         loginStackView.isHidden = true
+        logoAppImageView.isHidden = true
         registerStackView.isHidden = false
     }
     
     @IBAction func loginInRegisterWindow(_ sender: UIButton) {
         
         loginStackView.isHidden = false
+        logoAppImageView.isHidden = false
         registerStackView.isHidden = true
     }
     
